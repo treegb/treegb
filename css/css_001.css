@@ -1,0 +1,41 @@
+body {margin: auto 4em 6em ;}
+
+h1 {margin-bottom: 0 ;}
+
+.subtitle {margin-top : 0.3em ; margin-left: 1em ; color: #777 ;}
+
+h2, h3, h4, h5, h6 {margin-top: 2em ;}
+
+
+.eye, .eyeIndex {margin-right: 0.4em ; vertical-align: middle ;}
+
+.bold {font-weight: 900 ;}
+
+.udr {text-decoration: underline ;}
+
+.ital {font-style: italic ;}
+
+.code1 {display: inline-block ; font-size: 1.1em ; padding-left: 0.2em ; padding-right: 0.2em ; border-radius: 5px ; background-color: #F0F0F0 ; border: 1px solid #BBB ;} 
+
+.bquote {margin-left: 2em ; padding-left: 1em ;  border-left: 3px solid #BBB ;}
+
+p, li {line-height: 150% ;}
+li {margin-top : 0.5em ;}
+
+.extMdaTnail img {height: 60px ; margin: 4px 8px ; padding: 3px ; border-color: #2b73b7 ; border-style: solid ; border-width: 1px 2px ;  border-radius: 15px 0 ; vertical-align: middle ;}
+
+.mdaTnail img {height: 60px ; margin: 4px 8px ; padding: 3px ; border-color: #008800 ; border-style: solid ; border-width: 1px 2px ; border-radius: 15px 0 ; vertical-align: middle ;}
+
+.anchorScreen {position: relative ; top: -1em ;}
+
+.footer {margin-top: 6em ; margin-bottom: 1em ; border-top: 1px solid #999 ; color: #888 ;}
+
+.footer li {line-height: 110% ; margin-top : 0.4em ;}
+
+.sideButton {position: fixed ; top: 50% ; right: 0 ;}
+.sideButton * {margin: 0 ;}
+.sideButton > .container2 {position: relative ; transform: translate(0%, -50%) ; opacity: 0.15 ;  transition: all 1.4s ; transition-delay: 0.4s ;}
+.sideButton > .container2:hover {opacity: 1 ; transition: all 0.6s ;}
+.sideButton ul {list-style-type: none ; padding-left: 0 ;}
+.sideButton li {display: block ; line-height: 0 ; text-align: center; margin-bottom: 0.5em ;}
+.sideButton img {width: 4em ;}
