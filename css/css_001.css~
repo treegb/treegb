@@ -32,10 +32,10 @@ li {margin-top : 0.5em ;}
 
 .footer li {line-height: 110% ; margin-top : 0.4em ;}
 
-.sideButton {position: fixed ; top: 50% ; right: 0 ;}
-.sideButton * {margin: 0 ;}
-.sideButton > .container2 {position: relative ; transform: translate(0%, -50%) ; opacity: 0.15 ;  transition: all 1.4s ; transition-delay: 0.4s ;}
+.sideButton {position: fixed ; top: 50% ; right: 0 ; border: 1px solid grey}
+.sideButton * {border: 2px solid blue}
+.sideButton > .container2 {position: relative ; transform: translate(0%, -50%) ; opacity: 0.75 ;  transition: all 1.4s ; transition-delay: 0.4s ; border: 2px solid purple ;}
 .sideButton > .container2:hover {opacity: 1 ; transition: all 0.6s ;}
-.sideButton ul {list-style-type: none ; padding-left: 0 ;}
-.sideButton li {display: block ; line-height: 0 ; text-align: center; margin-bottom: 0.5em ;}
-.sideButton img {width: 3em ;}
+.sideButton ul {list-style-type: none ; margin: 0 ; padding-left: 0 ; border: 2px solid green}
+.sideButton li {display: block ; line-height: 0 ; text-align: center; margin-bottom: 0.5em ; border: 5px solid yellow ; }
+.sideButton img {width: 4em ; border: 5px solid brown}
