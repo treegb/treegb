@@ -7,7 +7,7 @@ h1 {margin-bottom: 0 ;}
 h2, h3, h4, h5, h6 {margin-top: 2em ;}
 
 
-.eye, .eyeIndex {margin-right: 0.4em ; vertical-align: middle ;}
+.eye, .eyeIndex {margin-right: 0.5em ; vertical-align: middle ;}
 
 .bold {font-weight: 900 ;}
 
@@ -17,7 +17,7 @@ h2, h3, h4, h5, h6 {margin-top: 2em ;}
 
 .code1 {display: inline-block ; font-size: 1.1em ; padding-left: 0.2em ; padding-right: 0.2em ; border-radius: 5px ; background-color: #F0F0F0 ; border: 1px solid #BBB ;} 
 
-.bquote {margin-left: 2em ; padding-left: 1em ;  border-left: 3px solid #BBB ;}
+.bquote {margin: 1em 3em 1em 2em ; padding-left: 1em ;  border-left: 5px solid #E5E5E5 ; line-height: 170% ; color: #666;}
 
 p, li {line-height: 150% ;}
 li {margin-top : 0.5em ;}
