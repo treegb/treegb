@@ -28,9 +28,9 @@ li {margin-top : 0.5em ;}
 
 .anchorScreen {position: relative ; top: -1em ;}
 
-.footer {margin-top: 6em ; margin-bottom: 1em ; border-top: 1px solid #999 ; color: #888 ;}
+.footer {margin-top: 6em ; margin-bottom: 1em ; border-top: 1px solid #999 ; color: #777 ; font-size: 0.9em ;}
 
-.footer li {line-height: 110% ; margin-top : 0.4em ;}
+.footer li {line-height: 130% ; margin-top : 0.4em ;}
 
 .sideButton {position: fixed ; top: 50% ; right: 0 ;}
 .sideButton * {margin: 0 ;}
