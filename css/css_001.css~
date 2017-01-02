@@ -24,11 +24,17 @@ li {margin-top : 0.5em ;}
 
 .extMdaTnail img {height: 60px ; margin: 4px 8px ; padding: 3px ; border-color: #2b73b7 ; border-style: solid ; border-width: 1px 2px ;  border-radius: 15px 0 ; vertical-align: middle ;}
 
+/* Medium external media image. */
+.extMdaMediumCtn { display: block ; text-align: center ;}
+
+/* Medium external media image. */
+.extMdaMedium img {height: 200px ; margin: 4px 8px ; padding: 3px ; border-color: #2b73b7 ; border-style: solid ; border-width: 1px 2px ;  border-radius: 15px 0 ;}
+
 .mdaTnail img {height: 60px ; margin: 4px 8px ; padding: 3px ; border-color: #008800 ; border-style: solid ; border-width: 1px 2px ; border-radius: 15px 0 ; vertical-align: middle ;}
 
 .anchorScreen {position: relative ; top: -1em ;}
 
-.footer {margin-top: 6em ; margin-bottom: 1em ; border-top: 1px solid #999 ; color: #777 ; font-size: 0.49em ;}
+.footer {margin-top: 6em ; margin-bottom: 1em ; border-top: 1px solid #999 ; color: #777 ; font-size: 0.9em ;}
 
 .footer li {line-height: 130% ; margin-top : 0.4em ;}
 
