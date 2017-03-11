@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="../css/css_001.css">
-<link rel="stylesheet" type="text/css" href="./css/css_foo.css">
+<link rel="stylesheet" type="text/css" href="./css_foo.css">
 <link rel="shortcut icon" href="../img/treegb_icon.ico">
 <title>30x30 table.</title>
 </head>
@@ -385,7 +385,14 @@
         }
 
         // Insert new style rules to CSS (non exist before).
-        document.styleSheets[0].insertRule("h1:after {\
+        var newSheet = (function() {
+            var style = document.createElement("style");
+            style.appendChild(document.createTextNode(""));
+            document.head.appendChild(style);
+            return style.sheet;
+        })();
+        
+        newSheet.insertRule("h1:after {\
             content: \"\";\
             position: absolute;\
             height: 0px;\
@@ -393,9 +400,21 @@
             background-image: url(\"../img/170310_165046.svg\");\
             background-size: 100% 100%;\
             }", 0);
+        
+        /* This cause some browser to complain. Don't use it. */
+        /*document.styleSheets[0].insertRule("h1:after {\
+            content: \"\";\
+            position: absolute;\
+            height: 0px;\
+            width: 30px;\
+            background-image: url(\"../img/170310_165046.svg\");\
+            background-size: 100% 100%;\
+            }", 0);*/
 
-        var h1IconHeight = Math.round(document.querySelector(".h1Div h1").naturalHeight);
-        document.styleSheets[0].cssRules[0].style.height = h1IconHeight * 2 + "px";
+        var h1IconHeight = Math.round(document.querySelector(".h1Div h1").clientHeight);
+        newSheet.cssRules[0].style.height = h1IconHeight * 2 + "px";
+        /* This cause some browser to complain. Don't use it. */
+        /*document.styleSheets[0].cssRules[0].style.height = h1IconHeight * 2 + "px";*/
 
 
         // Relative to [ lineBurningImg ] background image. Adjust the margin and "relative move left" position.
