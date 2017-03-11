@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="../css/css_001.css">
+<link rel="shortcut icon" href="../img/treegb_icon.ico">
+<title>30x30 table.</title>
+</head>
+
+<style type="text/css">
+    #tableTreegbDiv {
+        width: 98%;
+        margin: 1em auto;
+        border: 1px solid #11605e;
+        /* Because [ nineHundreds ] position is absolute. */
+        position: relative;
+    }
+
+    #tableTreegbDiv:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("../img/170310_165046.svg");
+        background-position: 90% 50%;
+        background-repeat: no-repeat;
+        background-size: auto 100%;
+        opacity: 0.15;
+    }
+
+    #scrollingDiv {
+        /* Because I want scrollbar to be at top instead of bottom, so I flip this scrollingDiv first then compansate it back later (inside div). */
+        transform:rotateX(180deg);
+        overflow: scroll;
+        /*overflow-x: scroll;
+        width: 70em;*/
+    }
+
+    /* Notice, "margin-right" (table's right margin) will not work inside [overflow: scroll], so this div and it's fixed width is necessary.*/
+    #useMarginInOverflow {
+        width: 83em;
+        transform:rotateX(180deg);
+    }
+
+    table {
+        width: 80em;
+        /*width: 100%;*/
+        margin: 1.5em;
+        table-layout:fixed;
+        /*overflow: scroll;*/
+        border-spacing: 4px;
+        /*margin: 1.5em;*/
+        /*border: 1px red solid;*/
+    }
+
+    td {
+        height: 1em;
+        /*width: 3.333em;*/
+        text-align: center;
+        border-radius: 4px;
+        /*border: 1px solid #333;*/
+    }
+
+    .tCellYear {
+        letter-spacing: 0px;
+        font-size: 0.8em;
+    }
+
+    .tCellMonth {
+        font-size: 1em;
+    }
+
+    /* [tCellPastTime]. */
+    .tCellPastTime {
+        background-color: #222;
+        transition: all 0.6s ease-in;
+    }
+
+    .tCellPastTime.tCellYear {
+        color: #999;
+    }
+
+    .tCellPastTime.tCellMonth {
+        color: #666;
+    }
+
+    .tCellPastTime:hover, .tCellPastTime:active {
+        color: #EEE;
+        background-color: #404040;
+        transform: scale(1.25, 1.25);
+        z-index: 10;
+        transition: all 0.1s ease;
+    }
+
+    /* [tCellPresentTime]. */
+    .tCellPresentTime {
+        background-color: #00b5af;
+        box-shadow: 0 0 20px #6eefeb;
+        font-style: italic;
+        /*border: 2px solid #777;*/
+        transition: all 0.6s ease-in 0.3s;
+    }
+
+    .tCellPresentTime.tCellYear {
+        color: white;
+    }
+
+    .tCellPresentTime.tCellMonth {
+        color: white;
+    }
+
+    .tCellPresentTime:hover, .tCellPresentTime:active {
+        color: white;
+        text-shadow: 0 0 3px black;
+        background-color: #19d1ca;
+        transform: scale(1.25, 1.25);
+        z-index: 10;
+        transition: all 0.2s ease;
+    }
+
+    /* [tCellFutureTime]. */
+    .tCellFutureTime {
+        background-color: #11605e;
+        transition: all 0.6s ease-in;
+    }
+
+    .tCellFutureTime.tCellYear {
+        color: #CCC;
+    }
+
+    .tCellFutureTime.tCellMonth {
+        color: #888;
+    }
+
+    .tCellFutureTime:hover, .tCellFutureTime:active {
+        color: white;
+        background-color: #208783;
+        transform: scale(1.25, 1.25);
+        z-index: 10;
+        transition: all 0.1s ease;
+    }
+
+    td.tCellPastTime.tCellBorn {
+        background-color: #FFF;
+        color: black;
+        font-style: italic;
+        box-shadow: 0 0 4px #999;
+    }
+
+    td.tCellFutureTime.tCellDeath {
+        background-color: #222;
+        /*color: #222;*/
+        color: #AAA;
+        font-style: italic;
+        /* This opacity setting will not work, because javascript have more priority in styling effect.*/
+        /*opacity: 1;*/
+    }
+
+    /* Below 2 selector have higher priority, thus suppress other lower priority selector, when dealing [transition] problem. */
+    td.tCellPastTime.tCellBorn, td.tCellFutureTime.tCellDeath {
+        /*transform: scale(1.4, 1.4);*/
+        transition: all 0.6s ease-in 0.3s;
+    }
+
+    td.tCellPastTime.tCellBorn:hover, td.tCellFutureTime.tCellDeath:hover, td.tCellPastTime.tCellBorn:active, td.tCellFutureTime.tCellDeath:active {
+        transition: all 0.2s ease;
+    }
+
+
+    /* [tCellStatus1] and [tCellStatus2]. */
+    .tCellStatus1 {
+        /* This opacity setting will not work and should not put in here, because javascript have more priority in styling effect.*/
+        /*opacity: 0;*/
+        transform: translate(-3em, -8em);
+    }
+
+    /* My trick here, is using as many as possible selector to push the css priority to max, so when the "beginning animation" will submissive to this [transition]!
+    But after "beginning animation" ended, javascript remove [.tCellStatus1], this selector combination will not work again (this is a smart trick), thus "disable" the [transition] which this duration time is not I want. */
+    td.tCellStatus2.tCellStatus1 {
+        /* This opacity setting will not work and should not put in here, because javascript have more priority in styling effect.*/
+        /*opacity: 1;*/
+        transform: translate(0, 0);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    #inputBox {
+        margin-top: 2em;
+        padding-left: 2em;
+        padding-right: 2em;
+        /*border-bottom: 1px solid #11605e;*/
+        text-align: center ;
+    }
+
+    input, #customInputBtn {
+        margin: 0.2em 0 0.2em 1em;
+    }
+
+    #customInputBtn {
+        background-color: #11605e;
+        color: #CCC;
+        padding: 0.2em 0.4em;
+        border-radius: 0.5em;
+        transition: background-color 1.5s, color 1.5s;
+        border-left: 2px #EEE solid;
+        border-top: 2px #EEE solid;
+        border-right: 2px #888 solid;
+        border-bottom: 2px #888 solid;
+    }
+
+    #customInputBtn:hover {
+        background-color: white;
+        color: #11605e;
+        transition: background-color 1.5s, color 1.5s;
+    }
+
+    #customInputBtn:active {
+        transition: color 0s;
+        background-color: #F7F7F7;
+        border-left: 2px #CCC solid;
+        border-top: 2px #CCC solid;
+        border-right: 2px #555 solid;
+        border-bottom: 2px #555  solid;
+        color: #4c5b5b;
+        transform: translate(0px, 3px);
+    }
+
+    /* Useless. */
+    #decoratedLine {
+        margin: 1.0em auto 2em;
+        /*width: 60%;*/
+        border-bottom: 1px solid #11605e;
+        position: relative;
+        width: 60%;
+    }
+
+    #lineBurningImg {
+        display: block;
+        width: 100%;
+        z-index: -1;
+        /* The actual code to adjust "relative move left position" is in javascript.*/
+        position: relative;
+        opacity: 0.3;
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none; /* Non-prefixed version, currently
+                              supported by Chrome and Opera */  transform: rotateY(180deg);
+    }
+
+    #nineHundreds {
+        /*transform: rotateX(180deg);*/
+        position : absolute;
+        bottom: 50%;
+        left: 50%;
+        z-index: -1;
+        opacity: 0.15;
+        text-shadow: 0 0 0.45em #11605e;
+    }
+
+    #nineHundreds #niTexts {
+        position: relative;
+        right: 50%;
+        top: 0.5em;
+        font-size: 17em;
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+        /*color: #11605e;*/
+        color: rgba(17,96,94,0.7);
+    }
+
+    #nineHundreds #niTexts #nine {
+        line-height: 75%;
+    }
+
+    #nineHundreds #niTexts #months {
+        font-size: 3rem;
+    }
+
+    .h1Div {
+        width: 80%;
+        margin: auto;
+        text-align: center;
+        color: #777;
+    }
+
+    /*h1:after {
+        content: "";
+        position: absolute;
+        height: 30px;
+        width: 30px;
+        background-image: url("../img/170310_165046.svg");
+        background-size: 100% 100%;
+    }*/
+
+    h2, h3, h4, h5, h6 {
+        color: #777;
+    }
+
+    .h1Div p:nth-of-type(1) {
+        margin-top: 1em;
+    }
+
+    .h1Div p {
+        font-style: italic;
+        margin: 0.1em;
+    }
+
+    p, ul {
+        color: #777;
+    }
+</style>
+
+<body>
+
+    <div class="h1Div">
+    <h1>30x30 Lifetime Table</h1>
+    <p class="subtitle">How much time you still left in your life?</p>
+    <p class="subtitle">Have a whole picture view of your 900 months lifetime with you still hold and passed away.</p>
+    <p class="subtitle">170306_180946</p>
+    </div>
+
+    <div id="inputBox"><em>My birthday (Year/Month) :</em><input id="inputBornYear" type="text" placeholder="1991" size="10"></input><input id="inputBornMonth" type="text" placeholder="4" size="5" style="margin-left: 0.3em ;"></input><button id="customInputBtn" onclick="customInput();">See my life time</button></div>
+
+    <!-- <div id="decoratedLine"></div> -->
+
+    <img id="lineBurningImg" src="../img/170310_165051.svg"></img>
+
+    <!-- tableTreegb. -->
+    <div id="tableTreegbDiv">
+        <div id="scrollingDiv">
+            <div id="useMarginInOverflow">
+                <table id="tableTreegb"></table>
+            </div>
+        </div>
+        <div id="nineHundreds">
+            <div id="niTexts">
+                <div id="nine">900</div>
+                <div id="months">Months</div>
+            </div>
+        </div>
+    </div>
+
+    <h2>What is this?</h2>
+
+    <ul>
+        <li>Average human lifetime is about 75 years, roughly equal 900 months. It's shorter than we expect! It can even be presented on a simple 30x30 table and put onto a piece of paper.</li>
+        <li>Above table use <span style="display: inline-block ; border-radius: 0.2em ; padding: 0.05em 0.3em ; color: white ; background-color: #222 ;">black</span> block to represent lifetime you had passed, <span style="display: inline-block ; border-radius: 0.2em ; padding: 0.05em 0.3em ; color: white ; background-color: #11605e ;">teal</span> block represent future time your still left in your life.</li>
+        <li>Fill your birthday into the input box and press <span class="code1">My life time</span> to generate your own 30x30 lifetime table.</li>
+        <li>I hope I dont waste my time after seeing this ...</li>
+        <li>Comming back and check this table again someday, you will be surprised how the time passed away much faster than you thought.</li>
+    </ul>
+
+    <div class="sideButton">
+        <div class="container2">
+            <ul>
+                <li>Top</li>
+                <li><a href="#"><img src="../img/back-to-top.png"></a></li> 
+            </ul>
+        </div>
+    </div>
+
+
+    <script type="text/javascript" src="../js/js_001.js"></script>
+
+    <script type="text/javascript">
+        // This function offer you can call [ window.onload() ] several times and don't overwrite older revoke.
+        function addLoadEvent(func) {
+          var oldonload = window.onload;
+          if (typeof window.onload != 'function') {
+            window.onload = func;
+          } else {
+            window.onload = function() {
+              if (oldonload) {
+                oldonload();
+              }
+              func();
+            }
+          }
+        }
+
+        // Insert new style rules to CSS (non exist before).
+        document.styleSheets[0].insertRule("h1:after {\
+            content: \"\";\
+            position: absolute;\
+            height: 0px;\
+            width: 30px;\
+            background-image: url(\"../img/170310_165046.svg\");\
+            background-size: 100% 100%;\
+            }", 0);
+
+        var h1IconHeight = Math.round(document.querySelector(".h1Div h1").clientHeight);
+        document.styleSheets[0].cssRules[0].style.height = h1IconHeight * 2 + "px";
+
+
+        // Relative to [ lineBurningImg ] background image. Adjust the margin and "relative move left" position.
+        function lineBurningImgRecalc () {
+            var lineBurningImg = document.getElementById("lineBurningImg");
+            var lineBurningImgWidth = lineBurningImg.clientWidth;
+            var lineBurningImgHeight = lineBurningImg.clientHeight;
+            var lineBurningImgMarginTop = 0.45;
+            var lineBurningImgMarginBottom = 0.4;
+            var lineBurningImgRelativeLeft = 0.03;
+            lineBurningImg.style.marginTop = "-" + lineBurningImgHeight *  lineBurningImgMarginTop + "px";
+            lineBurningImg.style.marginBottom = "-" + lineBurningImgHeight *  lineBurningImgMarginBottom + "px";
+            lineBurningImg.style.left = lineBurningImgWidth *  lineBurningImgRelativeLeft + "px";
+        }
+
+        addLoadEvent(lineBurningImgRecalc);
+        window.addEventListener("resize", lineBurningImgRecalc);
+
+
+        // These 2 value is default born year born month value, will works at first beginning animation, but if you input new born year and month, these 2 value will be overwrite.
+        var inputBornYear = 1991;
+        var inputBornMonth = 4;
+        var presentDate = new Date;
+        var inputPresentYear = presentDate.getFullYear();
+        // [ getMonth() ] format is very wierd, range from 0~11 instead of 1~12.
+        var inputPresentMonth = presentDate.getMonth() + 1;
+        // Don't change this value casually! Or you might get unexpect behavior! ("30 x 30" need to be fixed if you change this.)
+            var lifetime = 900;
+
+
+
+        function generateNewTable() {
+            targetTable = document.getElementById("tableTreegb")
+
+
+            // Remove all timeout last time generated first to prevent unexpected result.
+            // (I don't know why [timeoutLeft] always have 2 amount in minimum). One is this line itself I know but where is the other one?
+            var timeoutLeft = window.setTimeout(null, 0);
+            while (timeoutLeft--) {
+                window.clearTimeout(timeoutLeft);
+            }
+
+            // Remove all child nodes inside table last time generated first to prevent unexpected result.
+            while (targetTable.hasChildNodes()) {
+                targetTable.removeChild(targetTable.lastChild);
+            }
+
+            // Create basic table DOM element. The size is 30 x 30, don't change this 2 value casually or your will get unexpect behavior! ("900" need to be fixed if you change this.)
+            for (var tr=0 ; tr<30 ; tr++) {
+                crrTr = document.createElement("tr");
+
+                for (var td=0 ; td<30 ; td++) {
+                    crrTd = document.createElement("td");
+                    crrTr.appendChild(crrTd);
+                }
+
+            targetTable.appendChild(crrTr);
+            }
+
+
+
+            // Generate date (year and month) number list.
+            var bornYear = inputBornYear;
+            var bornMonth = inputBornMonth;
+            var presentYear = inputPresentYear;
+            var presentMonth = inputPresentMonth;
+            var crrYear = bornYear;
+            var crrMonth = bornMonth;
+            // Declare a 2 dimensional array, and assign index 0 to [bornYear, bornMonth] (sub-array).
+            var wholeLifeDate = [[bornYear, bornMonth]];
+            //window.alert(bornYear);
+            //window.alert(bornMonth);
+
+            for (var i = 1 ; i <= lifetime ; i++) {
+                if (crrMonth == 12) {
+                    crrYear += 1;
+                    crrMonth = 1;
+                } else {
+                    crrMonth += 1;
+                }
+                wholeLifeDate[i] = [crrYear, crrMonth];
+            }
+
+            // For debug purpose only, if I need to check the exect fresh [wholeLifeDate] array.
+            //for (var i = 0 ; i < wholeLifeDate.length ; i++) {
+            //    window.alert(wholeLifeDate[i][0] + "-" + wholeLifeDate[i][1]);
+            //}
+
+
+
+            // Start to insert date (year and month) number text.
+            var a = document.querySelectorAll("#tableTreegb tr td");
+
+            for (var i = 0 ; i < lifetime ; i++) {
+                //a[i].style.backgroundColor = "green";
+                //aTextNode = document.createTextNode(a[i].getAttribute("data-date"));
+                var crrInsertYear = wholeLifeDate[i][0];
+                var crrInsertMonth = wholeLifeDate[i][1];
+
+                if (crrInsertMonth == 1) {
+                    a[i].classList.add("tCellYear");
+                    aTextNode = document.createTextNode(crrInsertYear);
+                } else {
+                    a[i].classList.add("tCellMonth");
+                    aTextNode = document.createTextNode(crrInsertMonth);
+                }
+
+                // Apply 3 different class name by compare each cell date with present date : [tCellPastTime], [tCellPresentTime], [tCellFutureTime].
+                if (crrInsertYear < presentYear) {
+                    a[i].classList.add("tCellPastTime");
+                } else if (crrInsertYear == presentYear) {
+                    if (crrInsertMonth < presentMonth) {
+                        a[i].classList.add("tCellPastTime");
+                    } else if (crrInsertMonth == presentMonth) {
+                        a[i].classList.add("tCellPresentTime");
+                    } else {
+                        a[i].classList.add("tCellFutureTime");
+                    }
+                } else {
+                    a[i].classList.add("tCellFutureTime");
+                }
+
+                a[i].appendChild(aTextNode);
+                //window.alert(a[i].getAttribute("data-date"));
+                a[i].style.opacity = "0";
+                a[i].classList.add("tCellStatus1");
+            }
+
+            // The death date text should always show Year (and apply [tCellYear] class if possible), not Month (and remove [tCellMonth] class if possible).
+            var deathText = document.createTextNode(wholeLifeDate[lifetime - 1][0]);
+            a[lifetime - 1].removeChild(a[lifetime - 1].childNodes[0]);
+            a[lifetime - 1].appendChild(deathText);
+            a[lifetime - 1].classList.remove("tCellMonth");
+            a[lifetime - 1].classList.add("tCellYear");
+
+            // Born data and death date have different styling than normal table cell.
+            a[0].classList.add("tCellBorn");
+            a[lifetime - 1].classList.add("tCellDeath");
+
+
+
+            // Beginning animation. Including [transform: translateY], [opacity], [transition] effects and config.
+            // This will effect the animation time in the beginning, which the table cell "fly in" from top, and appear to normal position and opacity.
+            var onloadAnimatDuration = 20;
+            // A little safe time delay after "beginning animation" finished.
+            var safeTimeGap = 300;
+            // fadeOutAmount = <years-to-fade> * 12 (month).
+            var fadeOutAmount = 20 * 12;
+            var fadeOutStartIndx = lifetime - fadeOutAmount;
+            // Opacity fading frrom [opacityMax] to [opacityMin].
+            var opacityMax = 1;
+            var opacityMin = 0.05;
+            var opacityStepDrop = (opacityMax - opacityMin) / fadeOutAmount;
+
+            // Timeout delay with closure, when before fadeOutStartIndx.
+            for (var i=0 ; i< fadeOutStartIndx ; i++) {
+                setTimeout(function(j) {
+                    return function() {
+                        a[j].style.opacity = "1";
+                        //a[j].classList.remove("tCellStatus1");
+                        a[j].classList.add("tCellStatus2");
+                    };
+                }(i), onloadAnimatDuration * i);
+            }
+
+            // Timeout delay with closure, when after fadeOutStartIndx.
+            for (var i = fadeOutStartIndx ; i < lifetime ; i++) {
+                setTimeout(function(j) {
+                    if (j != lifetime - 1) {
+                        return function() {
+                            a[j].style.opacity = opacityMax - (opacityStepDrop * (j - fadeOutStartIndx + 1));
+                            //a[j].classList.remove("tCellStatus1");
+                            a[j].classList.add("tCellStatus2");
+                        };
+                    } else {
+                        return function() {
+                            a[lifetime - 1].style.opacity = "1";
+                            //a[lifetime - 1].classList.remove("tCellStatus1");
+                            a[lifetime - 1].classList.add("tCellStatus2");
+                        };
+                    }
+                }(i), onloadAnimatDuration * i);
+            }
+
+            // Remove [tCellStatus1], so css selector [.tCellStatus1.tCellStatus2] transition will no longer work again.
+            setTimeout(function() {
+                for (var i = 0 ; i < lifetime ; i++) {
+                    a[i].classList.remove("tCellStatus1");
+                }
+            }, onloadAnimatDuration * lifetime + safeTimeGap);
+
+
+
+            // Useless.
+            //for (var i=0 ; i< fadeOutStartIndx ; i++) {
+            //}
+            //var runThisShit = setInterval(function() {a[i].style.opacity = "1";}, 100);
+            //var runThisShit = setInterval(function() {a[1].style.opacity = "0";}, 100);
+
+            /*var runThisShit = setInterval(function() {
+                var b = document.getElementById("foo4");
+                b.innerHTML = b.innerHTML + "123";
+            }, 100);*/
+
+
+            //runThisShit;
+
+            // foo
+        }
+        // End of [generateNewTable()].
+
+
+
+        function checkIfOverflowTable(bYear, bMonth, pYear, pMonth) {
+            var yearDiff = pYear - bYear;
+            var monthDiff = pMonth - bMonth;
+            var totalMonthDiff;
+
+            if (monthDiff < 0) {
+                totalMonthDiff = ((yearDiff -1) * 12) + (12 - Math.abs(monthDiff));
+            } else {
+                totalMonthDiff = yearDiff * 12 + monthDiff;
+            }
+
+            // Equal [ if (totalMonthDiff > 898) { ...} ].
+            if (totalMonthDiff > lifetime - 2) {
+                return 0;
+            } else {
+                return 1;
+            }
+        }
+
+
+
+        function customInput() {
+            var inputBornYearRaw = document.getElementById("inputBornYear").value;
+            inputBornYear = parseInt(inputBornYearRaw, 10);
+            var inputBornMonthRaw = document.getElementById("inputBornMonth").value;
+            inputBornMonth = parseInt(inputBornMonthRaw, 10);
+
+            // Test if all input data valid and have no any logic flaw.
+            // Test year.
+            if (!(inputBornYearRaw == inputBornYear)) {
+                window.alert("Your Date or Month format is incorrect. Try again.");
+            } else if (!(inputBornYear > 0)) {
+                window.alert("Your Date or Month format is incorrect. Try again.");
+            } else if (!(inputBornYearRaw.length == 4)) {
+                window.alert("Your Date or Month format is incorrect. Try again.");
+            // Test month.
+            } else if (!(inputBornMonthRaw == inputBornMonth)) {
+                window.alert("Your Date or Month format is incorrect. Try again.");
+            } else if (!(inputBornMonth > 0 && inputBornMonth <= 12)) {
+                window.alert("Your Date or Month format is incorrect. Try again.");
+            } else if (!(inputBornMonthRaw.length == 1 || inputBornMonthRaw.length == 2)) {
+                window.alert("Your Date or Month format is incorrect. Try again.");
+            // Above this line test about format problem (is kind of messy and hacky, but at least it works).
+            // Below this line test about time logic problem (it is illegal to have born time earlier than or equal present time.)
+            } else {
+                if (inputBornYear < inputPresentYear) {
+                    if (checkIfOverflowTable(inputBornYear, inputBornMonth, inputPresentYear, inputPresentMonth) == 1) {
+                        // One of the successful condition ending.
+                        generateNewTable();
+                    } else {
+                        window.alert("Your Date or Month format is incorrect. Try again.");
+                    }
+                } else if (inputBornYear == inputPresentYear) {
+                    if (inputBornMonth < inputPresentMonth) {
+                        if (checkIfOverflowTable(inputBornYear, inputBornMonth, inputPresentYear, inputPresentMonth) == 1) {
+                            // One of the successful condition ending.
+                            generateNewTable();
+                        } else {
+                            window.alert("Your Date or Month format is incorrect. Try again.");
+                        }
+                    } else {
+                        window.alert("Your Date or Month format is incorrect. Try again.");
+                    }
+                } else {
+                    window.alert("Your Date or Month format is incorrect. Try again.");
+                }
+            }
+        }
+
+
+        // Load beginning animation with default year and month.
+        addLoadEvent(generateNewTable);
+        //window.onload = generateNewTable;
+
+
+        // (Useless now.)
+        // [inputBox] width and padding.
+        //var inputBox = document.getElementById("inputBox");
+        //var inputBoxWidthBfr = inputBox.clientWidth;
+        //var inputBoxPaddRatio = "0.2";
+        //inputBox.style.width = inputBoxWidthBfr - (inputBoxWidthBfr * inputBoxPaddRatio * 2) + "px";
+        //inputBox.style.paddingLeft = inputBoxWidthBfr * inputBoxPaddRatio + "px";
+        //inputBox.style.paddingRight = inputBoxWidthBfr * inputBoxPaddRatio + "px";
+    </script>
+
+</body>
+</html>
