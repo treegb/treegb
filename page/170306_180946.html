@@ -229,13 +229,10 @@
         transform: translate(0px, 3px);
     }
 
-    /* Useless. */
     #decoratedLine {
-        margin: 1.0em auto 2em;
+        margin: 6em 1em -4em;
         /*width: 60%;*/
         border-bottom: 1px solid #11605e;
-        position: relative;
-        width: 60%;
     }
 
     #lineBurningImg {
@@ -498,10 +495,7 @@
     <p class="subtitle">170306_180946</p>
     </div>
 
-
     <div id="inputBox"><em>My birthday (Year/Month) :</em><input id="inputBornYear" type="text" placeholder="1991" size="10"></input><input id="inputBornMonth" type="text" placeholder="4" size="5" style="margin-left: 0.3em ;"></input><button id="customInputBtn" onclick="customInput();">See my life time</button></div>
-
-    <!-- <div id="decoratedLine"></div> -->
 
     <img id="lineBurningImg" src="../img/170310_165051.svg"></img>
 
@@ -543,6 +537,8 @@
         <li>I hope I dont waste my time after seeing this ... I will serious consider more from this.</li>
         <li>Try comming back and check this table again someday, you will be surprised how the time passed away much faster than you thought.</li>
     </ul>
+
+    <div id="decoratedLine"></div>
 
     <div class="sideButton">
         <div class="container2">
@@ -643,7 +639,7 @@
             // This value correspond to css transition.
             var clickResponseDuration = 2000;
             // This delay time is important, because if I add [arrowBtnDisposable1] and [arrowBtnDisposable2] with javascript at the "same time", opacity transition will not works because the speed is too fast, those 2 class just added in the same time. About this value 5~50 is enough.
-            var clickResponseClassDelay = 50;
+            var clickResponseClassDelay = 30;
             // [ .scrollBy() ] amount.
             var scrollDistance = 160;
 
