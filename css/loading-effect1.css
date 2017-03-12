@@ -75,8 +75,7 @@
     border-radius: 100%;
 }
 
-
-.loading-container { margin: 40px auto }
+.loading-container { /*margin: 40px auto*/ }
 
 .loading {
     border: 4px solid transparent;
@@ -116,7 +115,7 @@
     opacity: 0;
     position: absolute;
     text-align: center;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     top: 0;
     width: 100px;
 }

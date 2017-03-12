@@ -171,6 +171,7 @@
 
 
     /* [tCellStatus1] and [tCellStatus2]. */
+    /* The reson I use [tCellStatus1] and [tCellStatus2] is I want to custom different transition time when hover table cell later, if I don't do like this, I have  problem to use different transition time than below 0.6s setting. (Actually I want to have very fine control over there). But removing [tCellStatus2] cause a lot of lag in a short period of time, that's why I using [loading animation effect]. */
     .tCellStatus1 {
         /* This opacity setting will not work and should not put in here, because javascript have more priority in styling effect.*/
         /*opacity: 0;*/
@@ -315,11 +316,35 @@
     }
 
     /* Loading effect animation. */
-    #loading-container-fix {
+    #loadingContainerFix {
         position: fixed;
-        bottom: 10%;
+        top: 50%;
         left: 50%;
         z-index: 20;
+    }
+
+    /* Below 4 selector is for loading animation effect only, and is disposable, that is to say, added and removed very quick just to achieve [loading animaiton] transition effect.*/
+    /* 3 second fade out effect when loading. Notice! This "3s" time is syncronized with javascript setting. */
+    .loadingContainerFixFadeoutDisposable1 {
+        opacity: 1;
+    }
+
+    .loadingContainerFixFadeoutDisposable2 {
+        transition: opacity 3s;
+        opacity: 0;
+    }
+
+    .bodyDisposable1 {
+        background-color: #DDD;
+    }
+
+    .bodyDisposable2 {
+        transition: background-color 3s;
+        background-color: transparent;
+    }
+
+    .loading-container {
+        transform: translate(-50%, -50%);
     }
 
     #popoutBoxCtn {
@@ -419,6 +444,11 @@
         80% {transform: translateX(-7px);}
         90% {transform: translateX(5px);}
     }
+
+    #bottomBg {
+        width: 100%;
+        display: block;
+    }
 </style>
 
 <body>
@@ -426,7 +456,7 @@
     <div class="h1Div">
     <h1>30x30 Lifetime Table</h1>
     <p class="subtitle">How much time you still left in your life?</p>
-    <p class="subtitle">Have a whole picture view of your 900 months lifetime with you still hold and passed away.</p>
+    <p class="subtitle">Have a whole picture view to your <span style="text-decoration: underline;">900 months</span> lifetime you still hold and passed away.</p>
     <p class="subtitle">170306_180946</p>
     </div>
 
@@ -455,11 +485,11 @@
     <h2>What is this?</h2>
 
     <ul>
-        <li>Average human lifetime is about 75 years, roughly equal 900 months. It's shorter than we expect! It can even be presented on a simple 30x30 table and put onto a piece of paper.</li>
+        <li>Average human lifetime is about 75 years, roughly equal 900 months. It's shorter than we expect! It can even be presented on a simple 30x30 table and put onto a piece of paper!</li>
         <li>Above table use <span style="display: inline-block ; border-radius: 0.2em ; padding: 0.05em 0.3em ; color: white ; background-color: #222 ;">black</span> block to represent lifetime you had passed, <span style="display: inline-block ; border-radius: 0.2em ; padding: 0.05em 0.3em ; color: white ; background-color: #11605e ;">teal</span> block represent future time your still left in your life.</li>
-        <li>Fill your birthday into the input box and press <span class="code1">My life time</span> to generate your own 30x30 lifetime table.</li>
-        <li>I hope I dont waste my time after seeing this ...</li>
-        <li>Comming back and check this table again someday, you will be surprised how the time passed away much faster than you thought.</li>
+        <li>Fill your birthday into the input box and press <span class="code1">See my life time</span> button to generate your own 30x30 lifetime table.</li>
+        <li>I hope I dont waste my time after seeing this ... I will serious consider more from this.</li>
+        <li>Try comming back and check this table again someday, you will be surprised how the time passed away much faster than you thought.</li>
     </ul>
 
     <div class="sideButton">
@@ -474,12 +504,13 @@
     <div id="popoutBoxCtn">
         <div id="popoutBox">
             <div id="popoutBoxInnCtn">
-                <p>Your Date or Month format is incorrect. Try again. ... yyyy ... mm...</p>
+                <p>(Popout message will be in here and replace this one.)</p>
                 <button onclick="popoutBoxBtn();">Ok</button>
             </div>
         </div>
     </div>
 
+    <img id="bottomBg" src="../img/170310_165046.svg">
 
     <script type="text/javascript" src="../js/js_001.js"></script>
 
@@ -527,7 +558,11 @@
             }", 0);*/
 
         var h1IconHeight = Math.round(document.querySelector(".h1Div h1").clientHeight);
-        newSheet.cssRules[0].style.height = h1IconHeight * 2 + "px";
+        /*newSheet.cssRules[0].style.height = h1IconHeight * 2 + "px";*/
+        newSheet.cssRules[0].style.height = "1.4em";
+        newSheet.cssRules[0].style.width = "1em";
+        newSheet.cssRules[0].style.marginLeft = "0.2em";
+
         /* This cause some browser to complain. Don't use it. */
         /*document.styleSheets[0].cssRules[0].style.height = h1IconHeight * 2 + "px";*/
 
@@ -765,12 +800,15 @@
 
             // Remove [tCellStatus1], so css selector [.tCellStatus1.tCellStatus2] transition will no longer work again.
             window.setTimeout(function() {
+                // Loading animation effect start.
                 loadingEffectStart();
 
+                // This cause a lot of lag, so I better use loading animation effect.
                 for (var i = 0 ; i < lifetime ; i++) {
                     a[i].classList.remove("tCellStatus1");
                 }
 
+                // Loading animation effect stop.
                 loadingEffectStop();
             }, onloadAnimatDuration * lifetime + safeTimeGap);
 
@@ -873,10 +911,9 @@
 
         // Loading effect animation, start.
         function loadingEffectStart() {
-            document.getElementsByTagName("body")[0].style.backgroundColor = "#888";
-            document.getElementsByTagName("body")[0].style.border = "3px red solid";
+            var body1 = document.getElementsByTagName("body")[0];
             var loadingElement1 = document.createElement("div");
-            loadingElement1.setAttribute("id", "loading-container-fix");
+            loadingElement1.setAttribute("id", "loadingContainerFix");
             var loadingElement2 = document.createElement("div");
             loadingElement2.classList.add("loading-container");
             var loadingElement3 = document.createElement("div");
@@ -884,22 +921,41 @@
             var loadingElement4 = document.createElement("div");
             loadingElement4.setAttribute("id", "loading-text");
 
-            document.getElementsByTagName("body")[0].appendChild(loadingElement1);
+            body1.appendChild(loadingElement1);
             loadingElement1.appendChild(loadingElement2);
             loadingElement2.appendChild(loadingElement3);
             /* Careful! [loading-text] (loadingElement4) is not inside [loading] (loadingElement3) but as same  [loading-container] (loadingElement2)*/
             loadingElement2.appendChild(loadingElement4);
-            loadingElement4.appendChild(document.createTextNode("loading"));
+            loadingElement4.appendChild(document.createTextNode("Please Wait"));
+
+            body1.classList.add("bodyDisposable1");
+            loadingElement1.classList.add("loadingContainerFixFadeoutDisposable1");
         }
 
         // Loading effect animation, stop.
         function loadingEffectStop() {
-            document.getElementsByTagName("body")[0].style.backgroundColor = "transparent";
-            document.getElementsByTagName("body")[0].style.border = "0";
+            // This [setTimeout] will starting the fade out process.
+            // The duration time of this [setTimeout] is for setting minimum of loading animation showing time, to prevent "blink" kind of display if processing time is to fast (so animation will be too short that's kind of wierd). But anyway I set the time value to 0.001 second currently, because I want to  keep this "function" but just disable it.
+            // If you want to change time duration to whatever value, set css transition time as same as second [setTimeout] duration, not this one.
             window.setTimeout(function() {
-                var loadingElement1 = document.getElementById("loading-container-fix");
-                loadingElement1.parentNode.removeChild(loadingElement1);
-            }, 700)
+                var body1 = document.getElementsByTagName("body")[0];
+                var loadingElement1 = document.getElementById("loadingContainerFix");
+
+                // Apply [Disposable2] class to both [body] and [loadingElement1], so the fade out effect will start to work immediately once those classes appended.
+                body1.classList.add("bodyDisposable2");
+                loadingElement1.classList.add("loadingContainerFixFadeoutDisposable2");
+
+                // This [setTimeout] is final job after finish full fade out process. The fading code IS NOT INSIDE this [setTimeout], these code is some final clean up job after fade out process fully ended, so be careful don't let these code execute too early.
+                //From starting to fade out to fully faded out.
+                window.setTimeout(function() {
+                    body1.classList.remove("bodyDisposable1");
+                    body1.classList.remove("bodyDisposable2");
+                    loadingElement1.parentNode.removeChild(loadingElement1);
+                    loadingElement1.classList.remove("loadingContainerFixFadeoutDisposable1");
+                    loadingElement1.classList.remove("loadingContainerFixFadeoutDisposable2");
+                    /*loadingElement1.style.display = "none";*/
+                }, 3000)
+            }, 1)
         }
     </script>
 
