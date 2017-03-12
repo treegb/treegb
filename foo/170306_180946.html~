@@ -495,7 +495,7 @@
     <p class="subtitle">170306_180946</p>
     </div>
 
-    <div id="inputBox"><em>My birthday (Year/Month) :</em><input id="inputBornYear" type="text" placeholder="2010" size="10"></input><input id="inputBornMonth" type="text" placeholder="7" size="5" style="margin-left: 0.3em ;"></input><button id="customInputBtn" onclick="customInput();">See my life time</button></div>
+    <div id="inputBox"><em>My birthday (Year/Month) :</em><input id="inputBornYear" type="text" placeholder="1991" size="10"></input><input id="inputBornMonth" type="text" placeholder="4" size="5" style="margin-left: 0.3em ;"></input><button id="customInputBtn" onclick="customInput();">See my life time</button></div>
 
     <img id="lineBurningImg" src="../img/170310_165051.svg"></img>
 
@@ -740,8 +740,8 @@
 
 
         // These 2 value is default born year born month value, will works at first beginning animation, but if you input new born year and month, these 2 value will be overwrite.
-        var inputBornYear = 2010;
-        var inputBornMonth = 7;
+        var inputBornYear = 1991;
+        var inputBornMonth = 4;
         var presentDate = new Date;
         var inputPresentYear = presentDate.getFullYear();
         // [ getMonth() ] format is very wierd, range from 0~11 instead of 1~12.

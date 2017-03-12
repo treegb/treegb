@@ -489,13 +489,13 @@
 <body>
 
     <div class="h1Div">
-    <h1>"15x15" Lifetime Table - (225 month) (testing only)</h1>
+    <h1>30x30 Lifetime Table - 1964-10</h1>
     <p class="subtitle">How much time you still left in your life?</p>
     <p class="subtitle">Have a whole picture view to your <span style="text-decoration: underline;">900 months</span> lifetime you still hold and passed away.</p>
     <p class="subtitle">170306_180946</p>
     </div>
 
-    <div id="inputBox"><em>My birthday (Year/Month) :</em><input id="inputBornYear" type="text" placeholder="2010" size="10"></input><input id="inputBornMonth" type="text" placeholder="7" size="5" style="margin-left: 0.3em ;"></input><button id="customInputBtn" onclick="customInput();">See my life time</button></div>
+    <div id="inputBox"><em>My birthday (Year/Month) :</em><input id="inputBornYear" type="text" placeholder="1964" size="10"></input><input id="inputBornMonth" type="text" placeholder="10" size="5" style="margin-left: 0.3em ;"></input><button id="customInputBtn" onclick="customInput();">See my life time</button></div>
 
     <img id="lineBurningImg" src="../img/170310_165051.svg"></img>
 
@@ -723,7 +723,7 @@
             popoutBoxSize();
             popoutBoxShake();
             var popoutBoxText = document.querySelector("#popoutBoxInnCtn p");
-            popoutBoxText.innerHTML = "Something wrong with your input Year (" + bYear + ") or Month (" + bMonth + ") , try again?<br>For example : \"1991\" \"04\" is a valid born date.";
+            popoutBoxText.innerHTML = "Something wrong with your input Year (" + bYear + ") or Month (" + bMonth + ") , try again?<br>For example : \"1964\" \"10\" is a valid born date.";
         }
 
 
@@ -740,14 +740,14 @@
 
 
         // These 2 value is default born year born month value, will works at first beginning animation, but if you input new born year and month, these 2 value will be overwrite.
-        var inputBornYear = 2010;
-        var inputBornMonth = 7;
+        var inputBornYear = 1964;
+        var inputBornMonth = 10;
         var presentDate = new Date;
         var inputPresentYear = presentDate.getFullYear();
         // [ getMonth() ] format is very wierd, range from 0~11 instead of 1~12.
         var inputPresentMonth = presentDate.getMonth() + 1;
         // Don't change this value casually! Or you might get unexpect behavior! ("30 x 30" need to be fixed if you change this.)
-            var lifetime = 225;
+            var lifetime = 900;
 
 
 
@@ -768,10 +768,10 @@
             }
 
             // Create basic table DOM element. The size is 30 x 30, don't change this 2 value casually or your will get unexpect behavior! ("900" need to be fixed if you change this.)
-            for (var tr=0 ; tr<15 ; tr++) {
+            for (var tr=0 ; tr<30 ; tr++) {
                 crrTr = document.createElement("tr");
 
-                for (var td=0 ; td<15 ; td++) {
+                for (var td=0 ; td<30 ; td++) {
                     crrTd = document.createElement("td");
                     crrTr.appendChild(crrTd);
                 }
