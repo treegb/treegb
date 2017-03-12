@@ -47,3 +47,9 @@ li {margin-top : 0.5em ;}
 .sideButton ul {list-style-type: none ; padding-left: 0 ;}
 .sideButton li {display: block ; line-height: 0 ; text-align: center; margin-bottom: 0.5em ;}
 .sideButton img {width: 4em ;}
+
+@media screen and (max-width: 1000px) {
+    body {
+        margin: auto 1em 6em 1em;
+    }
+}

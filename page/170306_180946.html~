@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="../css/css_001.css">
+<link rel="stylesheet" type="text/css" href="../css/loading-effect1.css">
 <link rel="shortcut icon" href="../img/treegb_icon.ico">
 <title>30x30 table.</title>
 </head>
@@ -312,6 +313,112 @@
     p, ul {
         color: #777;
     }
+
+    /* Loading effect animation. */
+    #loading-container-fix {
+        position: fixed;
+        bottom: 10%;
+        left: 50%;
+        z-index: 20;
+    }
+
+    #popoutBoxCtn {
+        /*visibility: visible;*/
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 70%;
+        height: 70%;
+    }
+
+    /* [popOutBox] 1 second fade out effect when button click. Notice! This "1s" time is syncronized with javascript setting. */
+    .popoutBoxCtnFadeout {
+        /*visibility: hidden;*/
+        /*transition: visibility 1s;*/
+        transition: opacity 1s;
+        opacity: 0;
+    }
+
+    #popoutBox {
+        position: relative;
+        bottom: 50%;
+        right: 50%;
+        width: calc(100% - 2*0em);
+        height: calc(100% - 2*0em);
+        border: 1px solid #11605e;
+        border-radius: 1em;
+        padding: 0em;
+        text-align: center;
+    }
+
+    /* Only for dispaly translucent background color. */
+    #popoutBox:before {
+        z-index: -1;
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 1em;
+        background-color: #11605e;
+        opacity: 0.8;
+    }
+
+    #popoutBoxInnCtn {
+        margin-left:  10%;
+        margin-right:  10%;
+        overflow: auto;
+    }
+
+    #popoutBoxInnCtn p {
+        color: white;
+        font-size: 1.3em;
+    }
+
+    #popoutBoxInnCtn button  {
+        background-color: white;
+        color: #11605e;
+        font-size: 2em;
+    }
+
+    /* [ popoutBoxInnCtn ] shake animation effect. */
+    .shake1_1s {
+        animation-name: shake1_1s;
+        animation-duration: 1s;
+        animation-iteration-count: 1;
+        /* [ease-in-out] is important to make the shake smooth. */
+        animation-timing-function: ease-in-out;
+    }
+
+    @keyframes shake1_1s {
+        0%, 100% {transform: translateX(0px);}
+        10% {transform: translateX(5px);}
+
+        20% {transform: translateX(-7px);}
+        30%, 50% {transform: translateX(8px);}
+        40% {transform: translateX(-10px);}
+
+        60% {transform: translateX(-6px);}
+        70% {transform: translateX(4px);}
+        80% {transform: translateX(-3px);}
+        90% {transform: translateX(2px);}
+    }
+
+    @keyframes shake2_1s {
+        0%, 100% {transform: translateX(0px);}
+        10% {transform: translateX(13px);}
+
+        20% {transform: translateX(-25px);}
+        30%, 50% {transform: translateX(28px);}
+        40% {transform: translateX(-30px);}
+
+        60% {transform: translateX(-22px);}
+        70% {transform: translateX(10px);}
+        80% {transform: translateX(-7px);}
+        90% {transform: translateX(5px);}
+    }
 </style>
 
 <body>
@@ -322,6 +429,7 @@
     <p class="subtitle">Have a whole picture view of your 900 months lifetime with you still hold and passed away.</p>
     <p class="subtitle">170306_180946</p>
     </div>
+
 
     <div id="inputBox"><em>My birthday (Year/Month) :</em><input id="inputBornYear" type="text" placeholder="1991" size="10"></input><input id="inputBornMonth" type="text" placeholder="4" size="5" style="margin-left: 0.3em ;"></input><button id="customInputBtn" onclick="customInput();">See my life time</button></div>
 
@@ -363,6 +471,15 @@
         </div>
     </div>
 
+    <div id="popoutBoxCtn">
+        <div id="popoutBox">
+            <div id="popoutBoxInnCtn">
+                <p>Your Date or Month format is incorrect. Try again. ... yyyy ... mm...</p>
+                <button onclick="popoutBoxBtn();">Ok</button>
+            </div>
+        </div>
+    </div>
+
 
     <script type="text/javascript" src="../js/js_001.js"></script>
 
@@ -383,7 +500,14 @@
         }
 
         // Insert new style rules to CSS (non exist before).
-        document.styleSheets[0].insertRule("h1:after {\
+        var newSheet = (function() {
+            var style = document.createElement("style");
+            style.appendChild(document.createTextNode(""));
+            document.head.appendChild(style);
+            return style.sheet;
+        })();
+        
+        newSheet.insertRule("h1:after {\
             content: \"\";\
             position: absolute;\
             height: 0px;\
@@ -391,9 +515,21 @@
             background-image: url(\"../img/170310_165046.svg\");\
             background-size: 100% 100%;\
             }", 0);
+        
+        /* This cause some browser to complain. Don't use it. */
+        /*document.styleSheets[0].insertRule("h1:after {\
+            content: \"\";\
+            position: absolute;\
+            height: 0px;\
+            width: 30px;\
+            background-image: url(\"../img/170310_165046.svg\");\
+            background-size: 100% 100%;\
+            }", 0);*/
 
         var h1IconHeight = Math.round(document.querySelector(".h1Div h1").clientHeight);
-        document.styleSheets[0].cssRules[0].style.height = h1IconHeight * 2 + "px";
+        newSheet.cssRules[0].style.height = h1IconHeight * 2 + "px";
+        /* This cause some browser to complain. Don't use it. */
+        /*document.styleSheets[0].cssRules[0].style.height = h1IconHeight * 2 + "px";*/
 
 
         // Relative to [ lineBurningImg ] background image. Adjust the margin and "relative move left" position.
@@ -411,6 +547,55 @@
 
         addLoadEvent(lineBurningImgRecalc);
         window.addEventListener("resize", lineBurningImgRecalc);
+
+
+        // [ popoutBox ] ("alert box") inside text dimension adjust.
+        function popoutBoxSize() {
+            //var vpWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+            //var vpHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+            //document.getElementById("popoutBox").style.borderRadius = Math.min(vpWidth, vpHeight) + "px";
+            var popoutBoxHeight = document.getElementById("popoutBox").clientHeight;
+            var popoutBoxInnCtn = document.getElementById("popoutBoxInnCtn");
+            popoutBoxInnCtn.style.margin = popoutBoxHeight * 0.1 + "px 10%";
+            popoutBoxInnCtn.style.height = popoutBoxHeight * 0.8 + "px";
+        }
+
+        addLoadEvent(popoutBoxSize);
+        window.addEventListener("resize", popoutBoxSize);
+
+
+        // [ popoutBox ] ("alert box") shake animation.
+        function popoutBoxShake() {
+            var popoutBoxClas = document.getElementById("popoutBox").classList;
+
+            if (!(popoutBoxClas.contains("shake1_1s"))) {
+                popoutBoxClas.add("shake1_1s");
+                window.setTimeout(function() {popoutBoxClas.remove("shake1_1s"); }, 1000);
+            }
+        }
+
+
+        // [ popoutBox ] ("alert box") text messages.
+        function popoutBoxMsg(bYear, bMonth) {
+            var popoutBoxCtn = document.getElementById("popoutBoxCtn");
+            popoutBoxCtn.style.display = "block";
+            popoutBoxSize();
+            popoutBoxShake();
+            var popoutBoxText = document.querySelector("#popoutBoxInnCtn p");
+            popoutBoxText.innerHTML = "Something wrong with your input Year (" + bYear + ") or Month (" + bMonth + ") , try again?<br>For example : \"1991\" \"04\" is a valid born date.";
+        }
+
+
+        // [ popoutBox ] ("alert box") button. Hide [ popoutBox ] itself after click this button.
+        function popoutBoxBtn() {
+            var popoutBoxCtn = document.getElementById("popoutBoxCtn");
+            popoutBoxCtn.classList.add("popoutBoxCtnFadeout");
+            window.setTimeout(function() {
+                popoutBoxCtn.style.display = "none";
+                popoutBoxCtn.classList.remove("popoutBoxCtnFadeout");
+            }, 1000);
+        }
+
 
 
         // These 2 value is default born year born month value, will works at first beginning animation, but if you input new born year and month, these 2 value will be overwrite.
@@ -550,7 +735,7 @@
 
             // Timeout delay with closure, when before fadeOutStartIndx.
             for (var i=0 ; i< fadeOutStartIndx ; i++) {
-                setTimeout(function(j) {
+                window.setTimeout(function(j) {
                     return function() {
                         a[j].style.opacity = "1";
                         //a[j].classList.remove("tCellStatus1");
@@ -561,7 +746,7 @@
 
             // Timeout delay with closure, when after fadeOutStartIndx.
             for (var i = fadeOutStartIndx ; i < lifetime ; i++) {
-                setTimeout(function(j) {
+                window.setTimeout(function(j) {
                     if (j != lifetime - 1) {
                         return function() {
                             a[j].style.opacity = opacityMax - (opacityStepDrop * (j - fadeOutStartIndx + 1));
@@ -579,10 +764,14 @@
             }
 
             // Remove [tCellStatus1], so css selector [.tCellStatus1.tCellStatus2] transition will no longer work again.
-            setTimeout(function() {
+            window.setTimeout(function() {
+                loadingEffectStart();
+
                 for (var i = 0 ; i < lifetime ; i++) {
                     a[i].classList.remove("tCellStatus1");
                 }
+
+                loadingEffectStop();
             }, onloadAnimatDuration * lifetime + safeTimeGap);
 
 
@@ -637,18 +826,18 @@
             // Test if all input data valid and have no any logic flaw.
             // Test year.
             if (!(inputBornYearRaw == inputBornYear)) {
-                window.alert("Your Date or Month format is incorrect. Try again.");
+                popoutBoxMsg(inputBornYearRaw, inputBornMonthRaw);
             } else if (!(inputBornYear > 0)) {
-                window.alert("Your Date or Month format is incorrect. Try again.");
+                popoutBoxMsg(inputBornYearRaw, inputBornMonthRaw);
             } else if (!(inputBornYearRaw.length == 4)) {
-                window.alert("Your Date or Month format is incorrect. Try again.");
+                popoutBoxMsg(inputBornYearRaw, inputBornMonthRaw);
             // Test month.
             } else if (!(inputBornMonthRaw == inputBornMonth)) {
-                window.alert("Your Date or Month format is incorrect. Try again.");
+                popoutBoxMsg(inputBornYearRaw, inputBornMonthRaw);
             } else if (!(inputBornMonth > 0 && inputBornMonth <= 12)) {
-                window.alert("Your Date or Month format is incorrect. Try again.");
+                popoutBoxMsg(inputBornYearRaw, inputBornMonthRaw);
             } else if (!(inputBornMonthRaw.length == 1 || inputBornMonthRaw.length == 2)) {
-                window.alert("Your Date or Month format is incorrect. Try again.");
+                popoutBoxMsg(inputBornYearRaw, inputBornMonthRaw);
             // Above this line test about format problem (is kind of messy and hacky, but at least it works).
             // Below this line test about time logic problem (it is illegal to have born time earlier than or equal present time.)
             } else {
@@ -657,7 +846,7 @@
                         // One of the successful condition ending.
                         generateNewTable();
                     } else {
-                        window.alert("Your Date or Month format is incorrect. Try again.");
+                        popoutBoxMsg(inputBornYearRaw, inputBornMonthRaw);
                     }
                 } else if (inputBornYear == inputPresentYear) {
                     if (inputBornMonth < inputPresentMonth) {
@@ -665,31 +854,53 @@
                             // One of the successful condition ending.
                             generateNewTable();
                         } else {
-                            window.alert("Your Date or Month format is incorrect. Try again.");
+                            popoutBoxMsg(inputBornYearRaw, inputBornMonthRaw);
                         }
                     } else {
-                        window.alert("Your Date or Month format is incorrect. Try again.");
+                        popoutBoxMsg(inputBornYearRaw, inputBornMonthRaw);
                     }
                 } else {
-                    window.alert("Your Date or Month format is incorrect. Try again.");
+                    popoutBoxMsg(inputBornYearRaw, inputBornMonthRaw);
                 }
             }
         }
+
 
 
         // Load beginning animation with default year and month.
         addLoadEvent(generateNewTable);
         //window.onload = generateNewTable;
 
+        // Loading effect animation, start.
+        function loadingEffectStart() {
+            document.getElementsByTagName("body")[0].style.backgroundColor = "#888";
+            document.getElementsByTagName("body")[0].style.border = "3px red solid";
+            var loadingElement1 = document.createElement("div");
+            loadingElement1.setAttribute("id", "loading-container-fix");
+            var loadingElement2 = document.createElement("div");
+            loadingElement2.classList.add("loading-container");
+            var loadingElement3 = document.createElement("div");
+            loadingElement3.classList.add("loading");
+            var loadingElement4 = document.createElement("div");
+            loadingElement4.setAttribute("id", "loading-text");
 
-        // (Useless now.)
-        // [inputBox] width and padding.
-        //var inputBox = document.getElementById("inputBox");
-        //var inputBoxWidthBfr = inputBox.clientWidth;
-        //var inputBoxPaddRatio = "0.2";
-        //inputBox.style.width = inputBoxWidthBfr - (inputBoxWidthBfr * inputBoxPaddRatio * 2) + "px";
-        //inputBox.style.paddingLeft = inputBoxWidthBfr * inputBoxPaddRatio + "px";
-        //inputBox.style.paddingRight = inputBoxWidthBfr * inputBoxPaddRatio + "px";
+            document.getElementsByTagName("body")[0].appendChild(loadingElement1);
+            loadingElement1.appendChild(loadingElement2);
+            loadingElement2.appendChild(loadingElement3);
+            /* Careful! [loading-text] (loadingElement4) is not inside [loading] (loadingElement3) but as same  [loading-container] (loadingElement2)*/
+            loadingElement2.appendChild(loadingElement4);
+            loadingElement4.appendChild(document.createTextNode("loading"));
+        }
+
+        // Loading effect animation, stop.
+        function loadingEffectStop() {
+            document.getElementsByTagName("body")[0].style.backgroundColor = "transparent";
+            document.getElementsByTagName("body")[0].style.border = "0";
+            window.setTimeout(function() {
+                var loadingElement1 = document.getElementById("loading-container-fix");
+                loadingElement1.parentNode.removeChild(loadingElement1);
+            }, 700)
+        }
     </script>
 
 </body>
