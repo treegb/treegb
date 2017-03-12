@@ -189,7 +189,7 @@
     }
 
     #inputBox {
-        margin-top: 2em;
+        margin-top: 3em;
         padding-left: 2em;
         padding-right: 2em;
         /*border-bottom: 1px solid #11605e;*/
@@ -252,6 +252,48 @@
         -ms-user-select: none; /* Internet Explorer/Edge */
         user-select: none; /* Non-prefixed version, currently
                               supported by Chrome and Opera */  transform: rotateY(180deg);
+    }
+
+    .arrowBtn {
+        width: 98%;
+        margin: 1em auto;
+        text-align: center;
+        color: #11605e;
+    }
+
+    /* Useless. */
+    /*.arrowBtn + * {
+        clear: both
+    }*/
+
+    .arrowBtn:after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+
+    .arrowBtn .arrowBtnLeft {
+        width: 1em;
+        float: left;
+        transform: rotateY(180deg);
+        margin-left: 1em;
+    }
+
+    .arrowBtn .arrowBtnRight {
+        width: 1em;
+        float: right;
+        margin-right: 1em;
+    }
+
+    /* "Dim effect" last for a short time after button clicked. */
+    .arrowBtnDisposable1 {
+        opacity: 0.2;
+    }
+
+    /* This transition value is correspond to javascript. */
+    .arrowBtnDisposable2 {
+        opacity: 1;
+        transition: opacity 2s;
     }
 
     #nineHundreds {
@@ -410,15 +452,15 @@
     }
 
     /* [ popoutBoxInnCtn ] shake animation effect. */
-    .shake1_1s {
-        animation-name: shake1_1s;
-        animation-duration: 1s;
+    .shake1 {
+        animation-name: shake1;
+        animation-duration: 0.8s;
         animation-iteration-count: 1;
         /* [ease-in-out] is important to make the shake smooth. */
         animation-timing-function: ease-in-out;
     }
 
-    @keyframes shake1_1s {
+    @keyframes shake1 {
         0%, 100% {transform: translateX(0px);}
         10% {transform: translateX(5px);}
 
@@ -432,7 +474,7 @@
         90% {transform: translateX(2px);}
     }
 
-    @keyframes shake2_1s {
+    @keyframes shake2 {
         0%, 100% {transform: translateX(0px);}
         10% {transform: translateX(13px);}
 
@@ -463,6 +505,13 @@
 
     <img id="lineBurningImg" src="../img/170310_165051.svg"></img>
 
+    <!-- A pair of arrow buttons. -->
+    <div class= "arrowBtn">
+        <img class="arrowBtnLeft" src="../img/170313_022621.svg"></img>
+        <img class="arrowBtnRight" src="../img/170313_022621.svg"></img>
+        (pan)
+    </div>
+
     <!-- tableTreegb. -->
     <div id="tableTreegbDiv">
         <div id="scrollingDiv">
@@ -476,6 +525,13 @@
                 <div id="months">Months</div>
             </div>
         </div>
+    </div>
+
+    <!-- A pair of arrow buttons. -->
+    <div class= "arrowBtn">
+        <img class="arrowBtnLeft" src="../img/170313_022621.svg"></img>
+        <img class="arrowBtnRight" src="../img/170313_022621.svg"></img>
+        (pan)
     </div>
 
     <h2>What is this?</h2>
@@ -554,6 +610,7 @@
 
         var h1IconHeight = Math.round(document.querySelector(".h1Div h1").clientHeight);
         /*newSheet.cssRules[0].style.height = h1IconHeight * 2 + "px";*/
+        /* I not yet know how to figure out get [svg] aspect ratio, so I temporary set this fix value here. */
         newSheet.cssRules[0].style.height = "1.4em";
         newSheet.cssRules[0].style.width = "1em";
         newSheet.cssRules[0].style.marginLeft = "0.2em";
@@ -579,6 +636,64 @@
         window.addEventListener("resize", lineBurningImgRecalc);
 
 
+        // [arrowBtn]. When those arrow button clicked, scroll (pan) the table horizontally.
+        function arrowBtn() {
+            var arrowBtnLeft = document.getElementsByClassName("arrowBtnLeft");
+            var arrowBtnRight = document.getElementsByClassName("arrowBtnRight");
+            // This value correspond to css transition.
+            var clickResponseDuration = 2000;
+            // This delay time is important, because if I add [arrowBtnDisposable1] and [arrowBtnDisposable2] with javascript at the "same time", opacity transition will not works because the speed is too fast, those 2 class just added in the same time. About this value 5~50 is enough.
+            var clickResponseClassDelay = 50;
+            // [ .scrollBy() ] amount.
+            var scrollDistance = 160;
+
+            function arrowBtnScrollLeft() {
+                document.getElementById("scrollingDiv").scrollBy(-scrollDistance,0);
+                this.classList.remove("arrowBtnDisposable1");
+                this.classList.remove("arrowBtnDisposable2");
+
+                this.classList.add("arrowBtnDisposable1");
+                /*this.classList.add("arrowBtnDisposable2");*/
+
+               setTimeout(function(a) {
+                   a.classList.add("arrowBtnDisposable2");
+                }, clickResponseClassDelay , this);
+
+               setTimeout(function(a) {
+                    a.classList.remove("arrowBtnDisposable1");
+                    a.classList.remove("arrowBtnDisposable2");
+                }, clickResponseDuration + clickResponseClassDelay, this);
+            }
+
+            function arrowBtnScrollRight() {
+                document.getElementById("scrollingDiv").scrollBy(scrollDistance,0);
+                this.classList.remove("arrowBtnDisposable1");
+                this.classList.remove("arrowBtnDisposable2");
+
+                this.classList.add("arrowBtnDisposable1");
+                /*this.classList.add("arrowBtnDisposable2");*/
+
+               setTimeout(function(a) {
+                   a.classList.add("arrowBtnDisposable2");
+                }, clickResponseClassDelay , this);
+
+               setTimeout(function(a) {
+                    a.classList.remove("arrowBtnDisposable1");
+                    a.classList.remove("arrowBtnDisposable2");
+                }, clickResponseDuration + clickResponseClassDelay, this);
+            }
+
+            // 4 buttons : upper left, upper right, lower left, lower right.
+            arrowBtnLeft[0].addEventListener("click", arrowBtnScrollLeft);
+            arrowBtnLeft[1].addEventListener("click", arrowBtnScrollLeft);
+            arrowBtnRight[0].addEventListener("click", arrowBtnScrollRight);
+            arrowBtnRight[1].addEventListener("click", arrowBtnScrollRight);
+        }
+
+        addLoadEvent(arrowBtn);
+
+
+
         // [ popoutBox ] ("alert box") inside text dimension adjust.
         function popoutBoxSize() {
             //var vpWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
@@ -598,9 +713,9 @@
         function popoutBoxShake() {
             var popoutBoxClas = document.getElementById("popoutBox").classList;
 
-            if (!(popoutBoxClas.contains("shake1_1s"))) {
-                popoutBoxClas.add("shake1_1s");
-                window.setTimeout(function() {popoutBoxClas.remove("shake1_1s"); }, 1000);
+            if (!(popoutBoxClas.contains("shake1"))) {
+                popoutBoxClas.add("shake1");
+                window.setTimeout(function() {popoutBoxClas.remove("shake1"); }, 800);
             }
         }
 
