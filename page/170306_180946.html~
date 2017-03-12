@@ -444,11 +444,6 @@
         80% {transform: translateX(-7px);}
         90% {transform: translateX(5px);}
     }
-
-    #bottomBg {
-        width: 100%;
-        display: block;
-    }
 </style>
 
 <body>
@@ -510,7 +505,6 @@
         </div>
     </div>
 
-    <img id="bottomBg" src="../img/170310_165046.svg">
 
     <script type="text/javascript" src="../js/js_001.js"></script>
 
