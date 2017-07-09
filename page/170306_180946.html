@@ -562,6 +562,7 @@
     <script type="text/javascript" src="../js/js_001.js"></script>
 
     <script type="text/javascript">
+        'use strict';
         // This function offer you can call [ window.onload() ] several times and don't overwrite older revoke.
         function addLoadEvent(func) {
           var oldonload = window.onload;
@@ -752,9 +753,6 @@
 
 
         function generateNewTable() {
-            targetTable = document.getElementById("tableTreegb")
-
-
             // Remove all timeout last time generated first to prevent unexpected result.
             // (I don't know why [timeoutLeft] always have 2 amount in minimum). One is this line itself I know but where is the other one?
             var timeoutLeft = window.setTimeout(null, 0);
@@ -763,16 +761,18 @@
             }
 
             // Remove all child nodes inside table last time generated first to prevent unexpected result.
+            var targetTable = document.getElementById("tableTreegb");
+
             while (targetTable.hasChildNodes()) {
                 targetTable.removeChild(targetTable.lastChild);
             }
 
             // Create basic table DOM element. The size is 30 x 30, don't change this 2 value casually or your will get unexpect behavior! ("900" need to be fixed if you change this.)
             for (var tr=0 ; tr<30 ; tr++) {
-                crrTr = document.createElement("tr");
+                var crrTr = document.createElement("tr");
 
                 for (var td=0 ; td<30 ; td++) {
-                    crrTd = document.createElement("td");
+                    var crrTd = document.createElement("td");
                     crrTr.appendChild(crrTd);
                 }
 
@@ -815,16 +815,16 @@
 
             for (var i = 0 ; i < lifetime ; i++) {
                 //a[i].style.backgroundColor = "green";
-                //aTextNode = document.createTextNode(a[i].getAttribute("data-date"));
+                //var aTextNode = document.createTextNode(a[i].getAttribute("data-date"));
                 var crrInsertYear = wholeLifeDate[i][0];
                 var crrInsertMonth = wholeLifeDate[i][1];
 
                 if (crrInsertMonth == 1) {
                     a[i].classList.add("tCellYear");
-                    aTextNode = document.createTextNode(crrInsertYear);
+                    var aTextNode = document.createTextNode(crrInsertYear);
                 } else {
                     a[i].classList.add("tCellMonth");
-                    aTextNode = document.createTextNode(crrInsertMonth);
+                    var aTextNode = document.createTextNode(crrInsertMonth);
                 }
 
                 // Apply 3 different class name by compare each cell date with present date : [tCellPastTime], [tCellPresentTime], [tCellFutureTime].
@@ -1032,7 +1032,7 @@
             loadingElement2.appendChild(loadingElement3);
             /* Careful! [loading-text] (loadingElement4) is not inside [loading] (loadingElement3) but as same  [loading-container] (loadingElement2)*/
             loadingElement2.appendChild(loadingElement4);
-            loadingElement4.appendChild(document.createTextNode("Please Wait"));
+            loadingElement4.appendChild(document.createTextNode("Loading"));
 
             body1.classList.add("bodyDisposable1");
             loadingElement1.classList.add("loadingContainerFixFadeoutDisposable1");
