@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="../css/css_coreNote_001.css">
+<link rel="shortcut icon" href="../img/treegb_icon.ico">
+<title>asKansweR info and script</title>
+</head>
+
+<style type="text/css">
+</style>
+
+<body>
+
+<header>
+    <h1>asKansweR info and script</h1>
+    <div class="subtitle">
+        <p>170721_170001</p>
+        <p><iframe src="./170721_194059.html" class="ifrmRefDest"></iframe></p>
+        <p>.</p>
+    </div>
+</header>
+
+<section class="section1" id="toc">
+    <h2><iframe class="ifrmRefDest" src="170723_110344.html"></iframe></h2>
+
+    <div class="foldableContent">
+        <ul>
+            <li><strong class="lihed"><a href="#d170722_225458">Nav.</a></strong></li>
+            <li><strong class="lihed"><a href="#d170721_170653">asKansweR info</a></strong> : This is exactly copy of that dokuwiki page.</li>
+            <li><strong class="lihed"><a href="#d170721_170924">asKansweR script</a></strong> : Include bash and python3 script.</li>
+        </ul>
+    </div>
+</section>
+
+<section class="section1">
+    <h2>asKansweR info<a class="ancrDest" id="d170721_170653"></a></h2>
+
+    <div class="foldableContent">
+        <p class="code4">====== password ======
+
+&lt;div tags_p&gt;asKansweR, asKansweRm, 密碼雜湊函式, sha512, hash, Cryptographic hash function, base64, encrypt, security, passwd,&lt;/div&gt;
+
+===== List =====
+
+  * __**此 wiki page**__ : 此 wiki page 主要是用來紀錄我使用的所有密碼的相關資訊用的.
+  * __**Don't security by obscurity**__ : ''security by obscurity'' 不是安全的方法. **好的演算法，應該攤在陽光下**. 見 [[https://zh.wikipedia.org/wiki/%E6%9F%AF%E5%85%8B%E9%9C%8D%E5%A4%AB%E5%8E%9F%E5%89%87|Kerckhoffs's principle]]. %//% 應該讓系統進可能簡單, 好記憶, 然後把安全強度依賴在公開的演算法上.
+  * __**asKansweR**__.
+    * __**[[#message_的格式|Message 的格式]]**__.
+    * __**[[#目前的實際_message_提示_流水號代碼_帳號代碼|目前的實際 [Message 提示 / 流水號代碼 / 帳號代碼] ]]**__ : 注意, __實際 / 流水號代碼 / 帳號代碼__ 的所有資訊都會完全列出來 (沒有跟實際不同處), 而完整的 message 不會也不可能寫在這個 page 上.
+    * __**[[#askanswer_function|asKansweR function]]**__.
+    * __**[[#handwriting|Handwriting]]**__.
+  * __**垃圾註冊的 asKansweR**__.
+    * __**coursera.org**__ : asK : foobar123, mail : yahoo 的, answeR : Foobar123.
+  * __**[[https://zh.wikipedia.org/zh-tw/%E5%AF%86%E7%A2%BC%E9%9B%9C%E6%B9%8A%E5%87%BD%E6%95%B8|密碼雜湊函式]]**__.
+  * __**[[https://nakedsecurity.sophos.com/2013/11/20/serious-security-how-to-store-your-users-passwords-safely/|Serious Security - How to store your users’ passwords safely]] : 看似專業的一篇密碼文**__.
+  * __**[[https://askleo.com/how-safe-is-it-to-let-my-browser-save-my-passwords/|How safe is it to let my browser save my passwords?]]**__
+  * __**pbkdf2**__ : 用先用 pip 安裝 pbkdf2 module (線上安裝, 不須另外下載 tarball), 然後 :&lt;code&gt;from pbkdf2 import crypt
+crypt("Original-secret-message.", salt="Thisissalt", iterations=50000)
+'$p5k2$c350$Thisissalt$q/aHgdrdTFofdPwICI/sT02mwi0gDRxE'&lt;/code&gt;, 這樣就會 iteration 5 萬次, 每個密碼被破解時都會延遲大大增加整體破解的時間. _ [[https://pypi.python.org/pypi/pbkdf2|官網]].
+
+===== Message 的格式 =====
+
+  * __**一條完整的 token**__.
+    * 格式像這樣 : ''%%&lt;A-creative-long-sentence&gt; &lt;流水號代號&gt; &lt;帳號代號&gt; %%''.
+    * 要過濾到**只剩下英文小寫字母, 數字, 不連續空格, 沒有任何其他字元**. ''message'', ''流水號代號'', ''帳號代號'' 之間用__不連續空格__ 隔開 (就是不要連續打好幾次空格不然很容易 / 打錯 / 看錯).
+    * 一個實際範例, 比如 : ''everything should be made as simple as possible but not simpler rusia root''.
+  * __**message**__.
+    * 就是 ''A-creative-long-sentence'', 可以是一條很長的句子, 比如像 ''Everything Should Be Made as Simple as Possible, But Not Simpler.'' (但是要照上面方法過濾).
+    * __**消歧義**__ : 在設計目前新的 ''message'' 時很重要的一點是, 不要讓以後有機會產生 __歧義__ 的機會, 因為這樣很可能會讓自己解不出來, 納悶自己明明記得 message 是這樣但為什麼不行, 但實際上有可能是因為差了一個 character 或其他可能. %//% 為了避免這種可能性, 盡量使用單數而非複數, 至於其他細節就是盡量設計到沒有歧異, 比如 __現在式__ 和 __過去式__ 就有可能產生之後的歧異.
+    * __**永遠不要寫下來**__ : 注意, ''message'' 應該永遠保密不留任何紀錄在任何地方, 只能用腦袋記住. %//% 另外一點, ''message'' 最多只應該提示開頭 **2 character** 不要再多, 因為如果提示再多, 字母組合的可能性就會急遽降低, 會大大增加被猜出來的機會.
+  * __**流水號代號**__ : 完全依照 [[https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_area|List of countries and dependencies by area]] 的 country 名稱. 是 / 可公開 / 可寫下 的資訊.
+  * __**帳號代號**__ : 比如 ''treegb'', ''mozilla'' 等. 是 / 可公開 / 可寫下 的資訊.
+  * __**token 最後的 /. 長度 /. 位數**__ : 目前是 15 位數. %//% 關於應該要有的長度, 2012 時, 12 是最底限, 但最好是 16 以上. 不過以現在的年代, 我覺得比較安心的是至少要 20 位數, 不要用記的, 用 asKansweR 生成然後用複製的. 這是比較實際的作法.
+  * __**實際例子舉例**__ :
+
+&gt;* 完整 ''token'' : ''everything should be made as simple as possible but not simpler rusia root''.
+&gt;* 經過 [[#askanswer_function|asKansweR function]] SHA256 和 BASE64 轉換後得到 : ''Bveu25NyQ1XDjOnSLj/CJvoREN4gvXLg0S0o7e42Ry+1RHi5jX9EEJ8+IxorsQxZD9AwljYt9mtboazlrLBYNg==''.
+&gt;* 取前面 n 個位數, 比如以這個例子用前面 ''15'' 位數不包含符號, 得到 ''Bveu25NyQ1XDjOn''. 當遇到符號 (+, =, /) 就跳過用下一個字母繼續 (反正最後總共要湊到 n 個位數的大小寫英文字母).
+&gt;* 以這個例子, 最後的密碼就是 : ''Bveu25NyQ1XDjOn''.
+
+  * 這樣的架構下, 當 ''A-creative-long-sentence'' 或 ''流水號'' 一但改變, 會影響到所有算出來的 answeR 都會跟著改.
+  * 通常流水號會比 ''A-creative-long-sentence'' 更換還頻繁.
+  * 建議換了 ''A-creative-long-sentence'' 後, 流水號不要歸零到最前面 (變成 ''rassia''), 比較好記. 這點以後在想看看.
+
+===== 目前的實際 [Message 提示 / 流水號代碼 / 帳號代碼] =====
+
+  * __**關於此 section**__ : 會把每條 token 照用途分類, 列出 **message** (2 character 開頭提示), **流水號代碼**, 並進一步一一列出個別服務的 **帳號代碼**. 這三個資訊會組成每條完整的 token, 方法見上面不再重複.
+  * __**主機**__ : (**''th'' ''russia''**).
+    * __**test**__ : [測試 / 核對] 用的帳號代碼 = ''test''. answeR = ''lIN3Gx8UitkBOee ...''.
+    * __**主機**__ : root, treegb ...
+      * __**root**__ : ''root''.
+      * __**treegb**__ : ''treegb''.
+    * __**主機 / 對內 / 對外 服務**__ : 跟 /var/www 服務有關的, 例 mysql, wiki, 還有以後可能會對外開啟的網路服務.
+      * __**??**__ : ??
+  * __**主要網路服務**__ : (**''in'' ''russia''**).
+    * __**test**__ : [測試 / 核對] 用的帳號代碼 = ''test''. answeR = ''9sDduSdR6RxV73s ...''.
+    * __**Google, mail 相關**__ : 主信箱還有主要重要服務相關, 通常就是 google.
+      * __**Google**__ : ''google''.
+      * __**Other mail?**__ : ??.
+    * __**金錢相關**__ : 跟金錢有關的, 例 paypal 等等.
+      * __**paypal??**__ : ??
+  * __**自由社群**__ : (**''tr'' ''russia''**).
+    * __**test**__ : [測試 / 核對] 用的帳號代碼 = ''test''. answeR = ''BtQguENRhNi+Ol4 ...''.
+    * __**Mozilla**__ :  ''mozilla''. 這是 firefox addons 留言用的帳號, 但 MDN 我就不曉得了, MDN 可能也是用同一個帳號.
+    * __**Stackoverflow**__ : (我應該還沒加吧? 不太確定). answeR 還沒改, token 用 ''Th 5 3'' 試試看.
+    * __**Github**__ : ''github''. _ 以後用 terminal push 不能再輸入密碼了, 要輸入 &lt;Personal access tokens&gt;, 見 [[git]].
+    * __**Sourceforge**__ : (我應該還沒加吧? 不太確定). answeR 還沒改, token 用 ''Th 5 3'' 試試看.
+    * __**dokuwiki forum**__ : 不確定是否是 ''dokuwiki''. answeR 還沒改, token 用 ''Th 5 3'' 試試看.
+    * __**Internet Archive**__ : 不確定是否是 ''archive''. answeR 還沒改, token 用 ''Th 5 3'' 試試看.
+    * __**Wikipedia**__ : ''wikipedia''.
+    * __**lightwitch.org,**__ : ''lightwitch''.
+    * __**Tribler**__ : 不確定是否是 ''tribler''. answeR 還沒改, token 用 ''Th 5 3'' 試試看.
+    * __**0AD**__ : ''0ad''.
+  * __**Dirty 類**__ : (**''ra'' ''russia''**). %//% Yahoo, Facebook 還有其他一堆垃圾, 骯髒服務, 對自己資安要求不高的服務 ...
+    * __**test**__ : [測試 / 核對] 用的帳號代碼 = ''test''. answeR = ''RokLQf/ybJrR7mU ...''.
+    * __**Yahoo**__ : ''yahoo''.
+    * __**Facebook**__ : ''facebook''.
+    * __**simplenote.com**__ : ''simplenote''. _ user email : ''bambooindark@gmail.com''.
+    * __**Logitech**__ : ''logitech''. (用來註冊 G102 滑鼠保固用的).
+    * __**[[http://www.opensubtitles.org|opensubtitles.org]]**__ : ''opensubtitles''. _ { Username : treegb ; Email : bambooindark@gm ... }.
+    * __**[[https://www.volunteermatch.org|volunteermatch]]**__ : ''volunteermatch''. _ { firstname : tree ; lastname : gb ; Email : bambooindark@gm ... }.
+    * __**[[https://www.dosomething.org|dosomething.org]]**__ : ''dosomething''.
+    * __**??**__ : PC 上面除了 root 和 treegb 以外的其他 user, 沒有 sudo 權限, 應該還用不到只是先保留.
+  * __**死水**__ : (**''??'' ''??''**).
+    * __**??**__ : 沒辦法在網路上直接改變的 answeR, 要實際出門辦理手續的, 就會放這裡. 先保留.
+
+===== asKansweR function =====
+
+關於 asKansweR 的計算的,
+
+@@ Shell script 如下 :
+
+&lt;code&gt;asKansweR () {
+read  answeR
+echo -n "$answeR" | sha512sum | sed -n 's/^\(.*\)  -$/\1/p' | tr -d '\n' | xxd -r -p | base64 | tr -d '\n' | sed -n 's/^\(.*\)/\1\n/p'
+}&lt;/code&gt;
+
+@@ Python 如下 :
+&lt;code&gt;#asKansweR.py
+import base64
+import hashlib
+
+#m = hashlib.md5()
+#m.update(b"Nobody inspects")
+#m.update(b" the spammish repetition")
+#m.digest()
+#print(m)
+
+#x = hashlib.sha512(b"apple").hexdigest()
+#print(x)
+
+#x = hashlib.sha512(b"Input-message-here.").digest()
+#x = hashlib.sha512(str.encode(input(""))).digest()  
+w = None
+
+while w != "exit":
+    w = input("")
+    if w == "exit":
+        break
+    ## Generate sha512 hash (message digest) (in binary format?) from original message.
+    x = hashlib.sha512(str.encode(w)).digest()
+    #print(x)
+    y = base64.b64encode(x)
+    print(y)&lt;/code&gt;
+
+===== Handwriting =====
+
+&lt;div tags_d&gt;x hand writing,&lt;/div&gt;
+
+  * [[https://en.wikipedia.org/wiki/Regional_handwriting_variation|Regional handwriting variation]] : 為了區別手寫字元 0, 1, 7, 9, q, g, o, i, l 的問題, 找到這篇文章研究字元標準的手寫方法.</p>
+    </div>
+</section>
+
+<section class="section1">
+    <h2>asKansweR script<a class="ancrDest" id="d170721_170924"></a></h2>
+
+    <div class="foldableContent">
+        <ul>
+            <li><strong class="lihed">Bash</strong>
+                <ul>
+                    <li>See <a href="./170721_170003.html">bash_aliases_main</a>.</li>
+                    <li><strong class="lihed">(quick use).</strong></li>
+                    <p class="code4">read -p "Your message :" asKansweR ; echo -n "$asKansweR" | sha512sum | sed -n 's/^\(.*\)  -$/\1/p' | tr -d '\n' | xxd -r -p | base64 | tr -d '\n' | sed -n 's/^\(.*\)/\1\n/p'</p>
+                </ul>
+            </li>
+            <li><strong class="lihed">Python.</strong>
+                <p class="code4">#asKansweR.py
+import base64
+import hashlib
+
+#m = hashlib.md5()
+#m.update(b"Nobody inspects")
+#m.update(b" the spammish repetition")
+#m.digest()
+#print(m)
+
+#x = hashlib.sha512(b"apple").hexdigest()
+#print(x)
+
+#x = hashlib.sha512(b"Input-message-here.").digest()
+#x = hashlib.sha512(str.encode(input(""))).digest()  
+w = None
+
+while w != "exit":
+    w = input("")
+    if w == "exit" or w == "quit":
+        break
+    ## Generate sha512 hash (message digest) (in binary format?) from original message.
+    x = hashlib.sha512(str.encode(w)).digest()
+    #print(x)
+    y = base64.b64encode(x)
+    print(y.decode("utf-8"))</p>
+        </li>
+    </div>
+</section>
+
+<section class="section1">
+    <h2>Nav<a class="ancrDest" id="d170722_225458"></a></h2>
+
+    <div class="foldableContent">
+        <iframe class="ifrmRefDest" src="170721_194101.html"></iframe>
+    </div>
+</section>
+
+
+
+<script type="text/javascript" src="../js/js_coreNote_001.js"></script>
+
+</body>
+</html>

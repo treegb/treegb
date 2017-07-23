@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="../css/css_coreNote_001.css">
+<link rel="shortcut icon" href="../img/treegb_icon.ico">
+<title>bash_aliases_main</title>
+</head>
+
+<style type="text/css">
+</style>
+
+<body>
+
+<header>
+    <h1>bash_aliases_main</h1>
+    <div class="subtitle">
+        <p>170721_170003</p>
+        <p><iframe src="./170721_194059.html" class="ifrmRefDest"></iframe></p>
+        <p>.</p>
+    </div>
+</header>
+
+<section class="section1">
+    <h2>.</h2>
+
+    <div class="foldableContent">
+        <ul>
+            <li><strong class="lihed"><a href="#d170722_225923">Nav.</a></strong></li>
+            <li><strong class="lihed">bash_aliases_main</strong>.
+                <p class="code4">## --  4 source file :
+## The 4 files will [source] this file respectively, it's :
+## [/home/treegb/.bash_profile]
+## [/home/treegb/.bashrc]
+## [/root/.bash_profile]
+## [/root/.bashrc]
+
+## -- These 4 file will [source] this file ( [${bash_aliases_path}] ), so I can only need put any function I desire in this file
+## , and effect both login and non-login shell, with treegb or root acccount ^^ .
+
+## Global variables.
+bash_aliases_path="/etc/profile.d/bash_aliases_main"
+
+vimalias ()
+{
+    if [[ -f "${bash_aliases_path}" ]] ; then
+        sudo vim "${bash_aliases_path}"
+    else
+        echo "-- [${bash_aliases_path}] does not exit! Maybe been renamed?"
+    fi
+}
+
+## -- [source] this file (${bash_aliases_path}) :
+## remember, this action will not clean those alias which already been set, unless another alias with same name been set (overwrite) again.
+
+eval alias sourcealias=\"source "${bash_aliases_path}"\"
+
+alias lessalias="less -CRiM -j3 ${bash_aliases_path}"
+
+
+## environment setting
+
+export MANPAGER='less -MiR -j 3'
+export EDITOR='vim'
+export PATH="${PATH}:/mnt/rt/1_script_command_config/myscript"
+
+eval $(dircolors -b /etc/profile.d/LS_COLORS.profile)
+
+
+## Basic {directories,, files} function.
+
+alias ls='ls --color=always'
+alias ll='ls -Al --time-style=long-iso --color=always'
+
+l ()
+{
+    IFS=$'\n\t'
+    ls -A1F --color=always $@ | sed '$a \ '
+    IFS=$' \n\t'
+}
+
+cdl ()
+{
+    IFS=$'\n\t'
+    cd $@
+    ls -A1F --color=always | sed '$a \ '
+    IFS=$' \n\t'
+}
+
+cd..l ()
+{
+    cd ..
+    ls -A1F --color=always | sed '$a \ '
+}
+
+cdrt ()
+{
+    if [[ -d /mnt/rt ]] ; then
+        cd /mnt/rt/
+    else
+        echo '-- Could not found [/mnt/rt/], maybe not mounted?'
+    fi
+}
+
+alias rtn='nautilus /mnt/core/core.1/rt/'
+
+cdta ()
+{
+    if [[ -d '/mnt/rt/1_Ta/' ]] ; then
+        cd '/mnt/rt/1_Ta/'
+    else
+        echo '-- Could not found [/mnt/rt/1_ta/], maybe not mounted?'
+    fi
+}
+
+cdwa ()
+{
+    if [[ -d '/mnt/rt/2_Wa/' ]] ; then
+        cd '/mnt/rt/2_Wa/'
+    else
+        echo 'Could not found [/mnt/rt/2_Wa/], maybe not mounted?'
+    fi
+}
+
+
+mkdircd ()
+{
+    IFS=$'\t\n'
+    mkdir $@
+    cd $@
+    IFS=$' \n\t'
+}
+
+function tmptmp () {
+    if [[  "$(test -d '/tmp/tmp' ; echo $?)" == "0" ]] ; then {
+        cd '/tmp/tmp'
+    }
+    else {
+        mkdir -p /tmp/tmp
+        cd '/tmp/tmp'
+    }
+    fi
+}
+
+## As same as [tmptmp].
+function tptp () {
+    if [[  "$(test -d '/tmp/tmp' ; echo $?)" == "0" ]] ; then {
+        cd '/tmp/tmp'
+    }
+    else {
+        mkdir -p '/tmp/tmp'
+        cd '/tmp/tmp'
+    }
+    fi
+}
+
+##
+
+alias c='clear'
+alias cd..='cd ..'
+alias less='less -MiR -j 3'
+alias les='less -MiR -j 3'
+alias le='less -MiR -j 3'
+alias lss='less -MiR -j 3'
+alias grep='grep -i --color=always'
+alias screen='screen -h 1000'
+#alias pstree='pstree -Glanp | less' # [-g] don't work on tty, without [screen].
+alias his='history $1'
+
+## tty color setting. (usless now).
+
+alias wt='echo -e "\033[1;37m"' 
+#alias wt2='echo -e "\033[1m"' 
+#alias wt3='echo -en "\033[1;37m"' 
+#alias cgreen='echo -en "\\033[32m\\033[8]"' 
+#alias cred='echo -e "\033[0;31m"'
+#alias clightred='echo -e "\033[1;31m"'
+#alias cyan='echo -e "\033[0;36m"'
+#alias clightcyan='echo -e "\033[1;36m"'
+#alias cpurple='echo -e "\033[0;35m"'
+#alias clightpurple='echo -e "\033[1;35m"'
+#alias cyellow='echo -e "\033[1;33m"'
+
+##
+
+## monitor.
+
+alias xcac='xcalib -c'
+
+xca ()
+{
+    if [[ -z "$2" ]] ; then
+        var_2=0
+        else
+        var_2=$2
+    fi
+    xcalib -c ; xcalib -co $1 -b $var_2 -a
+}
+
+## Effect as same as [xcalib]. But can show very bright white color, it's very useful for tty :
+
+xra ()
+{
+    xrandr --output LVDS --brightness $1
+}
+
+##
+
+## Cryptsetup.
+
+## core.
+
+c1opn ()
+{
+    if [[ $(sudo losetup -a | grep loop0) ]] ; then
+        echo '-- [/dev/loop0] is using, maybe [core.1] is mounted already. Please mount manually.'
+    else
+        { sudo losetup /dev/loop0 /mnt/sda/5/core.1 && sudo cryptsetup luksOpen /dev/loop0 core.1 || { sudo losetup -d /dev/loop0 ; return 1; } ; } && { sudo mount /dev/mapper/core.1 /mnt/core/core.1/ && echo '-- [core.1] mount seccessfully.'; }
+    fi
+}
+
+
+c1cls ()
+{
+    read -p '-- Are you sure umount [core.1]? y/n: ' yesorno
+
+    if [[ -b /dev/mapper/core.2 ]]; then
+    {
+        echo '-- [core.2] (/dev/mapper/core.2) have not been umount yet, please umount it first!'
+    }
+    else
+    {
+
+        if [[ "$yesorno" =~ ^([yY]|yes)$ ]] ; then
+        {
+
+            if [[ -b /dev/mapper/core.1 ]] ; then
+            sudo umount /dev/mapper/core.1 && sudo cryptsetup luksClose core.1 && sudo losetup -d /dev/loop0 && echo '-- [core.1] umount seccessfully.' || echo -e '\n-- [core.1] umount useccessfully.'
+            else
+            echo '-- [/dev/mapper/core.1] (/mnt/core/core.1) was not been mounted.'
+            fi
+
+        }
+        else
+        {
+            echo '-- Action abort.'
+        }
+        fi
+
+    }
+    fi
+
+}
+
+
+c2opn ()
+{
+    if [[ $(sudo losetup -a | grep loop1) ]] ; then
+    {
+        echo '-- [/dev/loop1] is using, maybe [core.2] is mounted already. Please mount manually.'
+    }
+    else
+    {
+
+        if [[ -b /dev/mapper/core.1 ]]; then
+        {
+            { sudo losetup /dev/loop1 /mnt/core/core.1/core.2 && sudo cryptsetup luksOpen /dev/loop1 core.2 || { sudo losetup -d /dev/loop1 ; return 1; } ; } && { sudo mount /dev/mapper/core.2 /mnt/core/core.2 && echo '-- [core.2] mount seccessfully.' ; }
+        }
+        else
+        {
+            echo '-- [/dev/mapper/core.1] (/mnt/core/core.1) was not been mounted. Please mount it first.'
+        }
+        fi
+
+    }
+    fi
+}
+
+
+c2cls ()
+{
+    read -p '-- Are you sure umount [core.2]? y/n: ' yesorno
+
+    if [[ "$yesorno" =~ ^([yY]|yes)$ ]] ; then
+    {
+
+        if [[ -b /dev/mapper/core.2 ]] ; then
+        sudo umount /dev/mapper/core.2 && sudo cryptsetup luksClose core.2 && sudo losetup -d /dev/loop1 && echo '-- [core.2] umount seccessfully.' || echo -e '\n-- [core.2] umount useccessfully.'
+        else
+        echo '-- [/dev/mapper/core.2] (/mnt/core/core.2) was not been mounted.'
+        fi
+
+    }
+    else
+    {
+        echo '-- Action abort.'
+    }
+    fi
+
+}
+
+## core.ext.
+
+alias mntpurple='sudo mount UUID=''01af59d9-8c22-4471-b04d-685a8e4732c2'''
+
+
+ce1opn ()
+{
+    if [ "$(mount | grep 01af59d9-8c22-4471-b04d-685a8e4732c2 && echo 0 || echo 1)" == "1" ] ; then
+    echo '-- [01af59d9-8c22-4471-b04d-685a8e4732c2] (purple-disk) not mounted yet. Try [mntpurple] command first.'
+    return 1
+    fi
+
+    if [[ $(sudo losetup -a | grep loop2) ]] ; then
+        echo '-- [/dev/loop2] is using, maybe [core.ext.1] is mounted already. Please mount manually.'
+    return 1
+    fi
+
+    { sudo losetup /dev/loop2 /mnt/purple-disk/01af59d9-8c22-4471-b04d-685a8e4732c2/core.1 && sudo cryptsetup luksOpen /dev/loop2 core.ext.1 || { sudo losetup -d /dev/loop2 ; return 1 ; } ; } && { sudo mount /dev/mapper/core.ext.1 /mnt/core.ext/core.1/ && echo '-- [core.ext.1] mount seccessfully.' ; }
+}
+
+
+ce1cls ()
+{
+    read -p '-- Are you sure umount [core.ext.1]? y/n: ' yesorno
+
+    if [[ -b /dev/mapper/core.ext.2 ]]; then
+    {
+        echo '-- [core.ext.2] (/dev/mapper/core.ext.2) have not been umount yet, please umount it first!'
+    }
+    else
+    {
+
+        if [[ "$yesorno" =~ ^([yY]|yes)$ ]] ; then
+        {
+
+            if [[ -b /dev/mapper/core.ext.1 ]] ; then
+            sudo umount /dev/mapper/core.ext.1 && sudo cryptsetup luksClose core.ext.1 && sudo losetup -d /dev/loop2 && echo '-- [core.ext.1] umount seccessfully.' || echo -e '\n-- [core.ext.1] umount useccessfully.'
+            else
+            echo '-- [/dev/mapper/core.ext.1] (/mnt/core.ext/core.1) was not been mounted.'
+            fi
+
+        }
+        else
+        {
+            echo '-- Action abort.'
+        }
+        fi
+
+    }
+    fi
+
+}
+
+
+ce2opn ()
+{
+    if [[ $(sudo losetup -a | grep loop3) ]] ; then
+    {
+        echo '-- [/dev/loop3] is using, maybe [core.ext.2] is mounted already. Please mount manually.'
+    }
+    else
+    {
+
+        if [[ -b /dev/mapper/core.ext.1 ]]; then
+        {
+            { sudo losetup /dev/loop3 /mnt/core.ext/core.1/core.2 && sudo cryptsetup luksOpen /dev/loop3 core.ext.2 || { sudo losetup -d /dev/loop3 ; return 1; } ; } && { sudo mount /dev/mapper/core.ext.2 /mnt/core.ext/core.2 && echo '-- [core.ext.2] mount seccessfully.' ; }
+        }
+        else
+        {
+            echo '-- [/dev/mapper/core.ext.1] (/mnt/core.ext/core.1) was not been mounted. Please mount it first.'
+        }
+        fi
+
+    }
+    fi
+}
+
+
+ce2cls ()
+{
+    read -p '-- Are you sure umount [core.ext.2]? y/n: ' yesorno
+
+    if [[ "$yesorno" =~ ^([yY]|yes)$ ]] ; then
+    {
+
+        if [[ -b /dev/mapper/core.ext.2 ]] ; then
+        sudo umount /dev/mapper/core.ext.2 && sudo cryptsetup luksClose core.ext.2 && sudo losetup -d /dev/loop3 && echo '-- [core.ext.2] umount seccessfully.' || echo -e '\n-- [core.ext.2] umount useccessfully.'
+        else
+        echo '-- [/dev/mapper/core.ext.2] (/mnt/core.ext/core.2) was not been mounted.'
+        fi
+
+    }
+    else
+    {
+        echo '-- Action abort.'
+    }
+    fi
+
+}
+
+## check if [core] is totally plugout.
+
+loops ()
+{
+    if  [[ $(sudo losetup -a) ]] ; then
+    {
+        echo -e "-- Aware. You have loop device still using :\n$(sudo losetup -a)\n"
+    }
+    else
+    {
+        echo '-- All loops are removed.'
+    }
+    fi
+}
+
+## cryptsetup
+
+
+## ** For [ranger] to preserve presant working directory when quit .
+
+function rangercd ()
+{
+    tempfile='/run/shm/ranger-pwd.tmp.txt'
+    /usr/bin/ranger --choosedir="$tempfile" "${@:-$(pwd)}"
+    test -f "$tempfile" &&
+    if [ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]; then
+    {
+        cd -- "$(cat "$tempfile")"
+    }
+    fi
+    rm -f -- "$tempfile"
+}
+
+## ** For [ranger] environment.
+## (This line already put at preceding part.)
+#export EDITOR='vim'
+export TERMCMD="gnome-terminal"
+
+## swap {left,right,extra} mouse button :
+
+function modmap
+{
+    Current=$(xmodmap -pp | sed -n '5 p' | awk '{print $2}')
+
+    if [ "$Current" -eq "1" ] ; then 
+        xmodmap -e "pointer = 3 2 1 4 5 6 7 9 8"
+    else
+        xmodmap -e "pointer = 1 2 3 4 5 6 7 9 8"
+    fi
+}
+
+alias modmap1='xmodmap -e "pointer = 1 8 3 4 5 6 7 2 9"'
+alias modmap2='xmodmap -e "pointer = 3 8 1 4 5 6 7 2 9"'
+alias modmap3='xmodmap -e "pointer = 1 9 3 4 5 6 7 8 2"'
+alias modmap4='xmodmap -e "pointer = 3 9 1 4 5 6 7 8 2"'
+alias modmap5='xmodmap -e "pointer = 1 9 3 4 5 6 7 8 2"'
+alias modmap6='xmodmap -e "pointer = 3 9 1 4 5 6 7 8 2"'
+
+## Change mouse speed and acceleration.
+
+mice () {
+Razer=$(xinput --list | sed -n '/DeathAdder Chroma/p' | sed -n '1p' | sed -n 's/^.*id=\([[:digit:]][[:digit:]]*\).*$/\1/p')
+ComfortMouse=$(xinput --list | sed -n '/Comfort Mouse/p' | sed -n '1p' | sed -n 's/^.*id=\([[:digit:]][[:digit:]]*\).*$/\1/p')
+xinput set-prop $ComfortMouse 'Device Accel Constant Deceleration' 1.2
+xinput set-prop $ComfortMouse 'Device Accel Adaptive Deceleration' 1.03 
+xinput set-prop $ComfortMouse 'Device Accel Velocity Scaling' 1
+xinput set-prop $Razer 'Device Accel Constant Deceleration' 4.0
+#4.4, 1.3 
+xinput set-prop $Razer 'Device Accel Adaptive Deceleration' 1
+xinput set-prop $Razer 'Device Accel Velocity Scaling' 2
+}
+
+## asKansweR.
+
+asKansweR () {
+read  answeR
+echo -n "$answeR" | sha512sum | sed -n 's/^\(.*\)  -$/\1/p' | tr -d '\n' | xxd -r -p | base64 | tr -d '\n' | sed -n 's/^\(.*\)/\1\n/p'
+}
+
+
+## idnow.
+idnow () {
+date +'%F'
+date +'%y%m%d_%H%M%S'
+date +'E%y%m%d_%H%M%S'
+date +'T%y%m%d_%H%M%S'
+}
+
+
+
+## xsetwacom
+
+wacom () {
+#xinput --set-prop 'Wacom Intuos PT M 2 Pen stylus' 'Wacom Hover Click' 0
+xinput --set-prop 'Wacom Intuos PT M 2 Pen stylus' 'Wacom Hover Click' 1
+xsetwacom --set 'Wacom Intuos PT M 2 Pen stylus' button 1 'button +1'
+xsetwacom --set 'Wacom Intuos PT M 2 Pen stylus' button 2 'button +2'
+## Right mouse button have to set like this, or it get unexpect behavior when right click on hyper links in firefox.
+xsetwacom --set 'Wacom Intuos PT M 2 Pen stylus' button 3 'button +3 -3'
+xsetwacom set 'Wacom Intuos PT M 2 Finger pad' button 3 'Key +ctrl -'
+xsetwacom set 'Wacom Intuos PT M 2 Finger pad' button 1 'Key +ctrl +'
+}
+
+alias wabt='xsetwacom set "Wacom Intuos PT M 2 Pen stylus" mode absolute'
+alias wrlt='xsetwacom set "Wacom Intuos PT M 2 Pen stylus" mode relative'
+
+alias xbkon='pkill -15 xbindkeys ; sleep 1 ; xbindkeys'
+alias xbkoff='pkill -15 xbindkeys'
+
+
+## xbk.spring. Using wacom tablet playing zero-k or 0ad games, so some key need to re-bind.
+
+xbk.spring() {
+    if [[ $# == 0 ]] ; then
+        echo '-- Use [xbk.spring 1] to set to spring bind, or [xbk.spring 0] to set to normal.'
+    fi
+
+    if [[ "$1" == "1" ]] ; then
+        pkill -15 xbindkeys
+        cp "/home/treegb/1_treegb/1_Gnl/spring/xbindkeys_spring/.xbindkeysrc" ~/
+        xbindkeys
+        xsetwacom --set 'Wacom Intuos PT M 2 Pen stylus' button 1 'key button +2'
+        xsetwacom --set 'Wacom Intuos PT M 2 Pen stylus' button 2 'key button +1'
+        xsetwacom --set 'Wacom Intuos PT M 2 Pen stylus' button 3 'key button +3'
+        gnome-control-center keyboard &
+    fi
+
+    if [[ "$1" == "0" ]] ; then
+        pkill -15 xbindkeys
+        cp "/home/treegb/1_treegb/1_Gnl/spring/xbindkeys_ogn/.xbindkeysrc" ~/
+        xbindkeys
+        xsetwacom --set 'Wacom Intuos PT M 2 Pen stylus' button 1
+        xsetwacom --set 'Wacom Intuos PT M 2 Pen stylus' button 2
+        xsetwacom --set 'Wacom Intuos PT M 2 Pen stylus' button 3 'button +3 -3'
+        gnome-control-center keyboard &
+    fi
+}
+
+
+#alias hiber-='sudo echo ''-- hibernating'' && gnome-screensaver-command -l && sudo pm-hibernate'</p>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<section class="section1">
+    <h2>Nav<a class="ancrDest" id="d170722_225923"></a></h2>
+
+    <div class="foldableContent">
+        <iframe class="ifrmRefDest" src="170721_194101.html"></iframe>
+    </div>
+</section>
+
+
+
+<script type="text/javascript" src="../js/js_coreNote_001.js"></script>
+
+</body>
+</html>

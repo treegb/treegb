@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="../css/css_coreNote_001.css">
+<link rel="shortcut icon" href="../img/treegb_icon.ico">
+<title>Often used command</title>
+</head>
+
+<style type="text/css">
+</style>
+
+<body>
+
+<header>
+    <h1>Often used command</h1>
+    <div class="subtitle">
+        <p>170722_223101</p>
+        <p><iframe src="./170721_194059.html" class="ifrmRefDest"></iframe></p>
+        <p>.</p>
+    </div>
+</header>
+
+<section class="section1" id="toc">
+    <h2><iframe class="ifrmRefDest" src="170723_110344.html"></iframe><a class="ancrDest" id="d170722_024023"></a></h2>
+
+    <div class="foldableContent">
+        <ul>
+            <li><strong class="lihed"><a href="#d170722_224937">Nav.</a></strong></li>
+            <li><strong class="lihed">date</strong> : <b class="code1">date +"d%y%m%d_%H%M%S"</b>.</li>
+            <li><strong class="lihed">df.</strong>
+                <ul>
+                    <li><strong class="lihed">df show nothing?</strong> : Use <b class="code1">lsblk</b> or <b class="code1">dmesg</b> to see your target [disk / partition] first, then mount it, then finally use <b class="code1">df</b> to see disk size usage.
+                    <p>df will not showing partition without mounted, <s>so for example when you are using live usb, you only see other usb stick (/dev/sdn) showing up, but don't see yor main disk showing up, because when you plug in any usb stick, Gnome normally AUTOMATIC mount it for you under /media.</s></p>
+                    </li>
+                </ul>
+            </li>
+            <li><strong class="lihed">dmesg</strong> : This is very usful because some time error occurs you can find the log here.</li>
+            <li><strong class="lihed">lspci -nn</strong> : Check device basic info (name) like (VGA) graphic card name, product code, vendor name ... If you want to install [firmware / driver] you have to at least to know it's product code first.</li>
+            <li><strong class="lihed">parted</strong>.
+                <ul>
+                    <li><strong class="lihed">End point</strong> : Use <b class="code1">-1s</b> or <b class="code1">100%</b> to set end point to max size of rest space of disk. ("s" stand for sector, you can use <b class="code1">unit</b> to change unit too.)</li>
+                    <li><strong class="lihed"><a href="https://blog.gtwang.org/linux/parted-command-to-create-resize-rescue-linux-disk-partitions/2/">Basic usage.</a></strong></li>
+                    <li><strong class="lihed">label</strong>
+                        <ul>
+                            <li>Notice, most common used <b class="code1">[disk label / label type]</b> on PC are <b class="code1">msdos</b>, you are mostly going to set to this. <b class="code1">gpt</b> is for purpose when are used if disk size is larger than 2TB.</li>
+                            <li><a href="https://www.gnu.org/software/parted/manual/html_node/mklabel.html"><b class="code1">mklabel</b> - gnu.org.</a></li>
+                        </ul>
+                    </li>
+                    <li><strong class="lihed"><b class="code1">mkpart</b></strong> : Creates a new partition, WITHOUT creating a new file system on that partition. _ You need to use other tools like <b class="code1">mkfs.[ext4 // ntfs // fat (= msdos, vfat)]</b> to do it.</li>
+                    <li><strong class="lihed"><a href="https://www.gnu.org/software/parted/manual/html_node/mkpart.html#FOOT2">4MB begining of USB, don't use it</a></strong> : If USF drive, leave 4MB at the begining and don't use it?</li>
+                    <li><strong class="lihed">Following command had been removed</strong> : Note that after version 2.4, the following commands were removed: check, cp, "mkfs", "mkpartfs", move, resize.</li>
+                    <li><strong class="lihed"></strong> : <b class="code1"></b></li>
+
+                </ul>
+            </li>
+            <li><strong class="lihed">w3m</strong> : Use <b class="code1">SHift + h</b> for shortcut keys.</li>
+        </ul>
+    </div>
+</section>
+
+<section class="section1">
+    <h2></h2>
+
+    <div class="foldableContent">
+        <ul>
+            <li><strong class="lihed"><a href=""></a></strong> : .</li>
+        </ul>
+    </div>
+</section>
+
+<section class="section1">
+    <h2>Nav<a class="ancrDest" id="d170722_224937"></a></h2>
+
+    <div class="foldableContent">
+        <iframe class="ifrmRefDest" src="170721_194101.html"></iframe>
+    </div>
+</section>
+
+
+
+<script type="text/javascript" src="../js/js_coreNote_001.js"></script>
+
+</body>
+</html>

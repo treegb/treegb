@@ -1,0 +1,493 @@
+/* ** Global default block start. */
+    body {
+        margin: 0 1.5em 6em;
+        padding-top: 4em;
+        overflow: auto;
+        font-size: 1em;
+        /*border: 1px green dashed;*/
+    }
+
+    header {
+        margin-top: 0;
+        margin-bottom: 2em;
+        /*border: 1px red solid;*/
+    }
+    
+    h1 {
+        padding: 0 1em;
+        margin: 0;
+        box-sizing: border-box;
+        float: left;
+        max-width: calc(70% - 0.5em);
+        text-align: center;
+        /*border: 1px red solid;*/
+    }
+
+    .subtitle {
+        float: right ;
+        max-width: calc(30% - 0.5em);
+        padding-top: 1em;
+        /*border: 1px red solid;*/
+    }
+    
+    .subtitle p {
+        color: #777;
+        margin: 0 1em 0.7em 0;
+        /*border: 1px red solid;*/
+    }
+    
+    header:after{
+        content: "";
+        display: block;
+        clear: both;
+    }
+    
+    .section1 {
+        margin-bottom: 1em;
+        padding: 1em 1em 1em 2em;
+        background-color: #FAFAFA;
+        border-radius: 0.3em;
+        position: relative;
+        /*border: 1px blue solid;*/
+        transition: all 1.4s;
+    }
+    
+    .section1.hide {
+        padding: 0.2em 1em 0.2em 2em;
+        background-color: #FFFFFF;
+    }
+    
+    h2, h3, h4, h5, h6 {
+        margin-top: 0 ;
+        margin-bottom: 0.6em;
+    }
+
+    .section1 h2 {
+        /* ** This value does not use <0.3s> and adjust to somewhat more intuitive. */
+        transition: all 0.8s;
+        /* border: 1px solid red;*/
+    }
+    
+    .section1.hide h2 {
+        color: #CCC;
+    }
+    
+    /* ** Deal with TOC icon and opacity. */
+    .section1#toc h2 {
+        /* ** These 2 not the best effect. */
+        /*text-decoration: underline;*/
+        /*border-bottom: 3px solid #EEE;*/
+        
+        position: relative;
+        /* ** <height: 1.22em;> is the closest value to "mimic" h2 text height when h2 title don't have text in it. */
+        /*height: 1.22em;*/
+        /* ** Alter this height value in order to adjust TOC logo background size. */
+        height: 1.1em;
+        margin-top: 0.3em;
+        /*border: 1px solid red;*/
+    }
+    
+    /* ** Use <:after> pseudo element to apply background, the reason I use this is I want to adjust background opacity. */
+    .section1#toc h2:after {
+        position: absolute;
+        content: "";
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        /* ** Not best. */
+        /*background-image: url("../img/TOC-icon1.svg");*/
+        /* ** Very great! Simple, intuitive, blend with context. */
+        /*background-image: url("../img/TOC-icon3.svg");*/
+        /* ** Very great! Simple, strong, intuitive, blend with context. Even better than <TOC-icon3.svg>. */
+        background-image: url("../img/TOC-icon5.svg");
+        /* ** Playing around balance between <blending with context> and <attraction>, but found <TOC-icon5.svg> works better. */
+        /*background-image: url("../img/TOC-icon6.svg");*/
+        /* ** Good. */
+        /*background-image: url("https://image.flaticon.com/icons/png/512/56/56763.png");*/
+        /* ** Distracted. */
+        /*background-image: url("http://www.tanksintown.be/titmob/symb-menu.png");*/
+        /* ** Great! BUt this making distracted too. */
+        /*background-image: url("../img/TOC-icon4.png");*/
+        /* ** rounded feeling is not intuitive when combine with <ul>, <li> list native feeling. */
+        /*background-image: url("https://cdn4.iconfinder.com/data/icons/basic-ui-elements/700/06_menu_grid-512.png");*/
+        /* ** Very bad, not intuitive. */
+        /*background-image: url("https://cdn2.iconfinder.com/data/icons/ui-icon-part-2/128/menu-512.png");*/
+        background-size: auto 100%;
+        background-position: 0% 50%;
+        background-repeat: no-repeat;
+        /* ** This value does not use <0.3s> and adjust to somewhat more intuitive. */
+        transition: all 0.8s;
+        /*border: 1px solid blue;*/
+    }
+    
+    .section1#toc.hide h2:after {
+        opacity: 0.25;
+    }
+    
+    .section1 .btnToggleHide {
+        position: absolute;
+        /* ** <top> value should update with <.section1> margin-top and margin-bottom. */
+        top: 1em;
+        bottom: 1em;
+        left: calc(-1.45em - 0.3em - 0.3em);
+        width: 0.3em;
+        content: "";
+        background-color: #E3E3E3;
+        background-clip:content-box;
+        /*box-sizing: border-box;*/
+        padding: 0 1.45em;
+        /* ** When transition from "fold" to "unflod", there is no <transition-property: width>. */
+        transition-property: top, bottom;
+        transition-duration: 0.3s;
+        /*border: 1px rgba(0, 0, 255, 0.9) solid;*/
+    }
+    
+    .section1.hide .btnToggleHide {
+        background-color: transparent;
+        border: 0.1875em solid #CCC;
+        /* ** <top> value should update with <.section1> margin-top and margin-bottom. */
+        top: 0em;
+        bottom: 0em;
+        left: 0em;
+        padding: 0em;
+        width: 0.8em;
+        transition-property: width, top, bottom;
+    }
+    
+    .section1 .foldableContent {
+        /*border: 1px red solid;*/
+        transition: all 2.3s;
+    }
+    
+    .section1.hide .foldableContent {
+        transition: all 0s;
+        opacity: 0;
+        /* ** Don't use <display: none> because transition will not work on this, use <visibility> instead. */
+        /*display: none;*/
+        visibility: hidden;
+        position: absolute;
+    }
+    
+    .section1 .ul {
+        /* Overwrite browser default value and reset to 0. */
+        margin: 0;
+        margin-bottom: 0.3em;
+        /*border: 1px red solid;*/
+    }
+    
+   .section1 p, li {
+        line-height: 150% ;
+        /* Overwrite browser default value and reset to 0. */
+        margin: 0em;
+    }
+    
+    .section1 li {
+        /*list-style-type: disc;*/
+        list-style-type: square;
+        margin-bottom: 0.1em;
+    }
+    
+    .section1 p {
+        margin-bottom: 0.8em;
+    }
+
+    /* ** Probably will not have much use anymore. */
+    .section1 .eye, .eyeIndex {margin-right: 0.5em ; vertical-align: middle ;}
+
+
+
+    /* Put these code first, to unset <strong> and <b> style. */
+    strong, b {
+        font-weight: normal;
+    }
+
+
+    /* lihed stand for "li header". */
+    .section1 .lihed {
+        /* ** Useless. */
+        /*text-decoration: underline;
+        text-decoration-color: rgba(0, 0, 0, 0.4);*/
+        
+        /* ** Theme - thick underline. */
+        /*display: inline-block;
+        border-bottom: 0.1875em solid rgba(0, 0, 0, 0.10);
+        margin-bottom: 0.1875em;
+        font-weight: bold;*/
+        
+        /* ** Theme - dark background. */
+        display: inline-block;
+        border-radius: 0.1875em;
+        background-color: #E9E9E9;
+        margin: 0.125em 0;
+        /*margin-bottom: 0.1875em;*/
+        /* ** = padding: 1px 5px;*/
+        padding: 0.0625em 0.3125em;
+        font-weight: bold;
+        /*border: 0.0625em solid #CCC;*/
+    }
+    
+    .section1 .lihed * {
+        /*font-weight: bold;*/
+    }
+
+    .section1 .strong1 {
+        font-weight: bold;
+        font-size: 1.14em;
+        color: rgba(0, 0, 0, 0.8);
+    }
+
+    .section1 .udr {
+        display: inline-block;
+        border-bottom: 0.0625em solid #666;
+        padding-left: 0.2em;
+        padding-right: 0.2em;
+    }
+
+    .section1 .ital {font-style: italic ;}
+    
+    /* ** <code> class.
+       ** Aware below have selector overwrite <.code1> property! */
+    .section1 .code1 {
+        display: inline-block ;
+        font-size: 1em ;
+        margin: 0.125em 0;
+        padding: 0.0625em 0.3125em;
+        border-radius: 0.1875em;
+        background-color: #F9F9F9;
+        border: 0.0625em solid #CCC;
+    }
+    
+    /* ** Aware this will overwrite <.code1> property! */
+    .section1 .code1 {
+        background-color: #FFF;
+    }
+    
+    .section1 .code4, .section1 .code5 {
+        display: block;
+        /*border-left: 0.55em solid #EEE;*/
+        margin: 0;
+        /* ** If <.code4>, <.code5> don't have javascript generate <codeBlockCtn>, then use this. */
+            /* ** Aware here use 2 direction margin! This cause margin collapse when javascript add <codeBlockCtn>. But it is fixed now by setting <overflow: auto>. */
+        /*margin: 1em 0 1em calc(1.7em + 0.55em);
+        padding-left: 1.1em;*/
+        
+        /* ** If <.code4>, <.code5> have javascript generate <codeBlockCtn>, then use this. */
+            /* ** Aware here use 2 direction margin! This cause margin collapse when javascript add <codeBlockCtn>. But it is fixed now by setting <overflow: auto>. */
+        margin: 1em 0 1em calc(1.7em + 0.55em + 1.1em);
+        padding-left: calc(1.1em - 1.1em);
+        /*border: 1px solid red;*/
+    }
+    
+    /* ** Aware, even using <code4>, you need to substitute < to &lt; and > to %gt; , browser will rander tag name and you can use style in <code4> too! */
+    .section1 .code4 {
+        white-space: pre-wrap;
+    }
+    
+    .section1 .code5 {
+    }
+
+    /* Toggle [fold // unfold] code block (<code4>, <code5>). those DOM and class property is generate by javascript. */
+    .section1 .codeBlockCtn {
+        position: relative;
+        margin: 0;    
+        /* This transition have no effect now because I have no useful property to make transition effect in <.section1 .codeBlockCtn.hide>. I keep it here for placeholder. */
+        transition: all 1.4s;
+        /* ** This fix <.code4> <.code5> margin collapse problem, because they use 2 direction margin. */
+        overflow: hidden;
+        /*border: 1px coral solid;*/
+    }
+    
+    .section1 .codeBlockCtn.hide {
+        /* This value should update with [<.code4> // <code5>]. */
+        margin-bottom: 1em;
+        min-height: 1.4em;
+        /* Aware this little adjustment setting is bit of hacky and hard to debug! */
+        transform: translateY(0.2em);
+    }
+    
+    .section1 .codeBlockCtn .btnToggleHideCodeBlock {
+        position: absolute;
+        /* ** <top> and <bottom> value should update with <.code4>, <.code5> margin-top and margin-bottom. */
+        top: 1em;
+        bottom: 1em;
+        left: calc(-1.45em + 1.7em);
+        width: 0.55em;
+        content: "";
+        /*background-color: #E3E3E3;*/
+        background-color: #000;
+        opacity: 0.05;
+        background-clip: content-box;
+        padding: 0 0.6em 0 1.45em;
+        /* ** When transition from "fold" to "unflod", there is no <transition-property: width>. */
+        transition-property: top, bottom;
+        transition-duration: 0.3s;
+        /*border: 1px rgba(0, 0, 255, 0.9) solid;*/
+    }
+    
+    .section1 .codeBlockCtn.hide .btnToggleHideCodeBlock {
+        background-color: transparent;
+        opacity: 0.3;
+        background-image: url("../img/coreNote_codeBlock-arrow.svg");
+        background-size: 100% 100%;
+        /* ** <top> value should update with <.section1> margin-top and margin-bottom. */
+        top: 0;
+        bottom: 0;
+        left: 0;
+        padding: 0;
+        padding-left: 1.2em;
+        /*padding-left: 1.8em;*/
+        padding-right: 0.6em;
+        background-origin: content-box;
+        width: 1.0em;
+        /*width: 6.0em;*/
+        margin-left: 0.2em;
+        transition-property: width, top, bottom;
+    }
+    
+    .section1 .codeBlockCtn .code4, .section1 .codeBlockCtn .code5 {
+        overflow: auto;
+        transition: all 2.3s;
+        /*border: 1px red solid;*/
+    }
+    
+    .section1 .codeBlockCtn.hide .code4, .section1 .codeBlockCtn.hide .code5 {
+        transition: all 0s;
+        opacity: 0;
+        /* ** Don't use <display: none> because transition will not work on this, use <visibility> instead. */
+        /*display: none;*/
+        visibility: hidden;
+        position: absolute;
+        /* ** These 2 style must update related with <.code4> <.code5> style.
+           ** These 2 style is crucial to make hight transition when toggle, because there is no other [property / value] to make transition work beside padding in <.code4> <.code5>. */
+        margin-top: 0;
+        margin-button: 0;
+    }
+    
+    
+    /* Change anchor color according different situation. */
+    .section1 a, .section1 a:link, .section1 a:visited {
+        text-decoration: none;
+    }
+    
+    .section1 a:link {
+        /* ** Browser default color. */
+        /*color: #0000EE;*/
+        color: #0000d3;
+        /*color: #5300d1;*/
+    }
+    
+    .section1 a:visited {
+        /* ** Browser default color. */
+        /*color: #551A8B;*/
+        color: #0000d3;
+    }
+    
+    .section1 a:hover, .section1 a:focus {
+        color: #5300d1;
+        text-decoration: underline;
+    }
+
+
+    /* I can wrap <q> in <code5> now so this is useless now?*/
+    .section1 .bquote {margin: 1em 3em 1em 2em ; padding-left: 1em ;  border-left: 5px solid #E5E5E5 ; line-height: 170% ; color: #666;}
+    
+    
+    /* Block quote. */
+    blockquote {
+        margin: 0;
+        padding-left: 3em;
+        position: relative;
+    }
+    
+    /* ** set different opacity. */
+    blockquote:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-image: url("../img/utf8_201C.svg");
+        background-repeat: no-repeat;
+        background-position: 0% 0%;
+        /* ** 1.5em = 24 px; */
+        background-size: 1.5em auto;
+        opacity: 0.07;
+        z-index: 0;
+    }
+    
+    /* ** If don't set all direct child except <blockquote:after> to higher z-index, <blockquote:after> will overlap all content. */
+    blockquote > * {
+        position: relative;
+        z-index: 1;
+    }
+    
+    /* ** Inline quote. */
+    q:before {
+        content: "\201C";
+        font-size: 2em;
+        /*display: inline-block;
+        transform: translateY(0.2em);*/
+        position: relative;
+        top: 0.3em;
+        margin-left: 0.2em;
+        margin-right: 0.07em;
+        color: #000;
+    }
+
+    q:after {
+        content: "\201D";
+        font-size: 2em;
+        /*display: inline-block;
+        transform: translateY(0.2em);*/
+        position: relative;
+        top: 0.3em;
+        margin-right: 0.2em;
+        margin-left: 0.07em;
+        color: #000;
+    }
+
+    cite {
+        font-style: italic;
+        font-size: 0.9em;
+        opacity: 0.4;
+    }
+    
+    cite:before {
+        content: "\2014";
+        margin-left: 0.4em;
+        margin-right: 0.2em;
+    }
+
+    .extMdaTnail img {max-height: 60px ; margin: 4px 8px ; padding: 3px ; border-color: #2b73b7 ; border-style: solid ; border-width: 1px 2px ;  border-radius: 15px 0 ; vertical-align: middle ;}
+
+    /* Medium external media image. */
+    .extMdaMediumCtn {display: block ; text-align: center ;}
+
+    /* Medium external media image. */
+    .extMdaMedium img {max-height: 200px ; margin: 4px 8px ; padding: 3px ; border-color: #2b73b7 ; border-style: solid ; border-width: 1px 2px ;  border-radius: 15px 0 ;}
+
+    .mdaTnail img {max-height: 60px ; margin: 4px 8px ; padding: 3px ; border-color: #008800 ; border-style: solid ; border-width: 1px 2px ; border-radius: 15px 0 ; vertical-align: middle ;}
+
+    a.ancrDest {position: relative ; top: -1em ;}
+
+    /* ** SideButton. */
+    .sideButton {position: fixed ; top: calc(0% + 3.0em) ; right: 0 ;}
+    .sideButton * {margin: 0 ;  outline: none;}
+    .sideButton > .ctn {position: relative ; transform: translate(0%, -50%) ; opacity: 0.1 ;  transition: all 1.4s ; transition-delay: 0.4s ;}
+    .sideButton > .ctn:hover {opacity: 1 ; transition: all 0.6s ;}
+    .sideButton ul {list-style-type: none ; padding-left: 0 ;}
+    .sideButton li {display: block ; line-height: 0 ; text-align: center; margin-bottom: 0.5em ;}
+    .sideButton img {width: 3em ;}
+    /* iframe will never need to be randered, it will be deleted by javascript later anyway. I just need it's inside <.ifrmRefSrc> data and insert it like native in current DOM. Maybe this will save some rander time? */
+    .ifrmRefDest {
+        display: none;
+    }
+/* ** Global default block end. */
+
+@media screen and (max-width: 600px) {
+    body {
+        margin: 0 1em 6em;
+    }
+}
