@@ -169,26 +169,231 @@
         position: absolute;
     }
     
-    .section1 .ul {
-        /* Overwrite browser default value and reset to 0. */
+    .section1 ul {
+        /* ** Overwrite browser default value and reset to 0. */
         margin: 0;
-        margin-bottom: 0.3em;
+        margin-top: 0.8em;
+        margin-bottom: 0.8em;
         /*border: 1px red solid;*/
     }
     
    .section1 p, li {
         line-height: 150% ;
-        /* Overwrite browser default value and reset to 0. */
+        /* ** Overwrite browser default value and reset to 0. */
         margin: 0em;
     }
     
     .section1 li {
         /*list-style-type: disc;*/
         list-style-type: square;
+        margin-top: 0.1em;
         margin-bottom: 0.1em;
+        padding-right: 1.6em;
+        border: 1px rgba(255, 0, 0, 0) solid;
+        background-image: url("../img/scrolling-process-indicator.svg");
+        background-size: 0.8em 100%;
+        background-position: 100% 50%;
+        background-repeat: no-repeat;
+        /* ** Because of <.liScrollJumpBtn>. */
+        position: relative;        
     }
     
+    .section1 li .liScrollJumpBtn {
+        /* ** Testing "scrollTO". */
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        width: 1em;
+        /*border: 1px solid red;*/
+    }
+    
+    
+    /* ** <jumpOptMain> and corresponding DOM structure in tail of body, with <position: fixed;>. */
+        .jumpOptMain {
+            position: fixed;
+            margin: 0;
+            padding: 0;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap-reverse;
+            justify-content: flex-start;
+            align-content: flex-start;
+            align-items: stretch;
+            /* ** This is needed because "blockquote > * {z-index: 1 ;}". */
+            z-index: 1;
+        }
+        
+        .jumpOptMain.hide {display: none;}
+        
+        .jumpOptMain * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .jumpOptMain > * {
+            background-image: linear-gradient(170deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.25) 4%, rgba(0, 0, 0, 0.25) 8%, rgba(0, 0, 0, 0.27) 12%, rgba(0, 0, 0, 0.34) 57%, rgba(0, 0, 0, 0.38) 84%, rgba(0, 0, 0, 0.36) 90%, rgba(0, 0, 0, 0.34) 100%);
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-content: flex-start;
+            align-items: center;
+            border: 0.0625em solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .jumpOptMain .jumpOptBmk {
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-content: stretch;
+            align-items: center;
+        }
+        
+        .jumpOptMain .jumpOptUpDown, .jumpOptMain .jumpOptBackAbrt {
+            flex-basis: 48%;
+            flex-grow: 1;
+        }
+        
+        .jumpOptMain .jumpOptUpDown {
+            width: 15em;
+        }
+        
+        .jumpOptMain .jumpOptBackAbrt {
+            width: 3.5em;
+        }
+        
+        .jumpOptMain .jumpOptUp {
+            order: 3;
+        }
+        
+        .jumpOptMain .jumpOptDown {
+            order: 4;
+        }
+        
+        .jumpOptMain .jumpOptBack {
+            order: 2;
+        }
+        
+        .jumpOptMain .jumpOptAbrt {
+            order: 1;
+        }
+        
+        .jumpOptMain .jumpOptBmk {
+            width: calc((100% - 15em - 3.5em) * 1);
+            flex-basis: 14%;
+            flex-grow: 1;
+        }
+        
+        .jumpOptMain .jumpOptBmk1Jump {order: 6;}
+        .jumpOptMain .jumpOptBmk1Save {order: 5;}
+        .jumpOptMain .jumpOptBmk2Jump {order: 8;}
+        .jumpOptMain .jumpOptBmk2Save {order: 7;}
+        .jumpOptMain .jumpOptBmk3Jump {order: 10;}
+        .jumpOptMain .jumpOptBmk3Save {order: 9;}
+
+        .jumpOptMain .jumpOptBmkJump .textPcent, .jumpOptMain .jumpOptBmkSave .iconCtn {
+            display: flex;
+            justify-content: flex-end;
+            /* ** Setting font-size here instead of <.textPcent> exclusively because width calculate need using em as base unit too. */
+            font-size: 2.0em;
+            width: calc(50% + 0em);
+            /*border: 2px purple solid;*/
+        }
+        
+        .jumpOptMain .textPcent {
+            font-size: 2.0em;
+            color: white;
+            opacity: 0.7;
+        }
+        
+        .jumpOptMain .textPcentPcentSign {
+            font-size: 0.7em ;
+            font-weight: normal;
+            transform: translate(0.1em, 0.2em);
+            opacity: 0.7;
+        }
+        
+        .jumpOptMain .textDscrpt {
+            font-size: 1em;
+            margin-left: 1.7em;
+            color: white;
+            font-weight: bold;
+            opacity: 0.15;
+            /*border: 2px teal solid;*/
+        }
+        
+        .jumpOptMain .icon {
+            display: block;
+            width: 2.2rem;
+            opacity: 0.7;
+        }
+        
+        .jumpOptMain .jumpOptDown .icon {
+         transform: rotate(180deg);
+        }
+        
+        .jumpOptMain .jumpOptUpDown .icon {
+            width: 2.3rem;
+        }
+        
+        /* ** Hover. */
+        .jumpOptMain .icon.glow {
+            display: none;
+        }
+        
+        .jumpOptMain .jumpOptUp:hover .icon.dim, .jumpOptMain .jumpOptBack:hover .icon.dim, .jumpOptMain .jumpOptAbrt:hover .icon.dim {
+            display: none;
+        }
+        
+        .jumpOptMain .jumpOptUp:hover .icon.glow, .jumpOptMain .jumpOptBack:hover .icon.glow, .jumpOptMain .jumpOptAbrt:hover .icon.glow {
+            display: block;
+            opacity: 0.72;
+            transform: scale(1.2);
+        }
+        
+        .jumpOptMain .jumpOptDown:hover .icon.dim {
+            display: none;
+        }
+        
+        .jumpOptMain .jumpOptDown:hover .icon.glow {
+            display: block;
+            opacity: 0.72;
+            transform: rotate(180deg) scale(1.2);
+        }
+        
+        .jumpOptMain .jumpOptBmkJump:hover .textPcent {
+            transform: scale(1.1);
+            transform-origin: calc(100% - 1.2em) 50%;
+            opacity: 0.72;
+            text-shadow: 0 0 0.375em white;
+        }
+        
+        .jumpOptMain .jumpOptBmkJump:hover .textDscrpt {
+            opacity: 0.4;
+        }
+        
+        .jumpOptMain .jumpOptBmkSave:hover .icon.dim {
+            display: none;
+        }
+        
+        .jumpOptMain .jumpOptBmkSave:hover .icon.glow {
+            display: block;
+            transform: scale(1.1);
+            opacity: 0.72;
+        }
+        
+        .jumpOptMain .jumpOptBmkSave:hover .textDscrpt {
+            opacity: 0.4;
+        }
+    /* ** End of <jumpOptMain> and corresponding DOM structure. */
+    
+    
     .section1 p {
+        margin-top: 0.8em;
         margin-bottom: 0.8em;
     }
 
@@ -197,13 +402,13 @@
 
 
 
-    /* Put these code first, to unset <strong> and <b> style. */
+    /* ** Put these code first, to unset <strong> and <b> style. */
     strong, b {
         font-weight: normal;
     }
 
 
-    /* lihed stand for "li header". */
+    /* ** lihed stand for "li header". */
     .section1 .lihed {
         /* ** Useless. */
         /*text-decoration: underline;
@@ -228,7 +433,7 @@
     }
     
     .section1 .lihed * {
-        /*font-weight: bold;*/
+        font-weight: bold;
     }
 
     .section1 .strong1 {
@@ -287,11 +492,11 @@
     .section1 .code5 {
     }
 
-    /* Toggle [fold // unfold] code block (<code4>, <code5>). those DOM and class property is generate by javascript. */
+    /* ** Toggle [fold // unfold] code block (<code4>, <code5>). those DOM and class property is generate by javascript. */
     .section1 .codeBlockCtn {
         position: relative;
         margin: 0;    
-        /* This transition have no effect now because I have no useful property to make transition effect in <.section1 .codeBlockCtn.hide>. I keep it here for placeholder. */
+        /* ** This transition have no effect now because I have no useful property to make transition effect in <.section1 .codeBlockCtn.hide>. I keep it here for placeholder. */
         transition: all 1.4s;
         /* ** This fix <.code4> <.code5> margin collapse problem, because they use 2 direction margin. */
         overflow: hidden;
@@ -358,14 +563,16 @@
         /*display: none;*/
         visibility: hidden;
         position: absolute;
-        /* ** These 2 style must update related with <.code4> <.code5> style.
-           ** These 2 style is crucial to make hight transition when toggle, because there is no other [property / value] to make transition work beside padding in <.code4> <.code5>. */
+        /* ** Useless comment? */
+            /* ** These 2 style must update related with <.code4> <.code5> style.
+               ** These 2 style is crucial to make hight transition when toggle, because there is no other [property / value] to make transition work beside padding in <.code4> <.code5>. */
+        /* ** Why set this? */
         margin-top: 0;
-        margin-button: 0;
+        margin-bottom: 0;
     }
     
     
-    /* Change anchor color according different situation. */
+    /* ** Change anchor color according different situation. */
     .section1 a, .section1 a:link, .section1 a:visited {
         text-decoration: none;
     }
@@ -389,11 +596,11 @@
     }
 
 
-    /* I can wrap <q> in <code5> now so this is useless now?*/
+    /* ** I can wrap <q> in <code5> now so this is useless now?*/
     .section1 .bquote {margin: 1em 3em 1em 2em ; padding-left: 1em ;  border-left: 5px solid #E5E5E5 ; line-height: 170% ; color: #666;}
     
     
-    /* Block quote. */
+    /* ** Block quote. */
     blockquote {
         margin: 0;
         padding-left: 3em;
@@ -480,7 +687,7 @@
     .sideButton ul {list-style-type: none ; padding-left: 0 ;}
     .sideButton li {display: block ; line-height: 0 ; text-align: center; margin-bottom: 0.5em ;}
     .sideButton img {width: 3em ;}
-    /* iframe will never need to be randered, it will be deleted by javascript later anyway. I just need it's inside <.ifrmRefSrc> data and insert it like native in current DOM. Maybe this will save some rander time? */
+    /* ** iframe will never need to be randered, it will be deleted by javascript later anyway. I just need it's inside <.ifrmRefSrc> data and insert it like native in current DOM. Maybe this will save some rander time? */
     .ifrmRefDest {
         display: none;
     }

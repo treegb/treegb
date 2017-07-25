@@ -28,17 +28,17 @@
     <div class="foldableContent">
         <ul>
             <li><strong class="lihed"><a href="#d170722_224937">Nav.</a></strong></li>
-            <li><strong class="lihed">date</strong> : <b class="code1">date +"d%y%m%d_%H%M%S"</b>.</li>
-            <li><strong class="lihed">df.</strong>
+            <li><strong class="lihed"><b class="code1">date</b></strong> : <b class="code1">date +"d%y%m%d_%H%M%S"</b>.</li>
+            <li><strong class="lihed"><b class="code1">df</b>.</strong>
                 <ul>
                     <li><strong class="lihed">df show nothing?</strong> : Use <b class="code1">lsblk</b> or <b class="code1">dmesg</b> to see your target [disk / partition] first, then mount it, then finally use <b class="code1">df</b> to see disk size usage.
                     <p>df will not showing partition without mounted, <s>so for example when you are using live usb, you only see other usb stick (/dev/sdn) showing up, but don't see yor main disk showing up, because when you plug in any usb stick, Gnome normally AUTOMATIC mount it for you under /media.</s></p>
                     </li>
                 </ul>
             </li>
-            <li><strong class="lihed">dmesg</strong> : This is very usful because some time error occurs you can find the log here.</li>
-            <li><strong class="lihed">lspci -nn</strong> : Check device basic info (name) like (VGA) graphic card name, product code, vendor name ... If you want to install [firmware / driver] you have to at least to know it's product code first.</li>
-            <li><strong class="lihed">parted</strong>.
+            <li><strong class="lihed"><b class="code1">dmesg</b></strong> : This is very usful because some time error occurs you can find the log here.</li>
+            <li><strong class="lihed"><b class="code1">lspci -nn</b></strong> : Check device basic info (name) like (VGA) graphic card name, product code, vendor name ... If you want to install [firmware / driver] you have to at least to know it's product code first.</li>
+            <li><strong class="lihed"><b class="code1">parted</b></strong>.
                 <ul>
                     <li><strong class="lihed">End point</strong> : Use <b class="code1">-1s</b> or <b class="code1">100%</b> to set end point to max size of rest space of disk. ("s" stand for sector, you can use <b class="code1">unit</b> to change unit too.)</li>
                     <li><strong class="lihed"><a href="https://blog.gtwang.org/linux/parted-command-to-create-resize-rescue-linux-disk-partitions/2/">Basic usage.</a></strong></li>
@@ -51,11 +51,76 @@
                     <li><strong class="lihed"><b class="code1">mkpart</b></strong> : Creates a new partition, WITHOUT creating a new file system on that partition. _ You need to use other tools like <b class="code1">mkfs.[ext4 // ntfs // fat (= msdos, vfat)]</b> to do it.</li>
                     <li><strong class="lihed"><a href="https://www.gnu.org/software/parted/manual/html_node/mkpart.html#FOOT2">4MB begining of USB, don't use it</a></strong> : If USF drive, leave 4MB at the begining and don't use it?</li>
                     <li><strong class="lihed">Following command had been removed</strong> : Note that after version 2.4, the following commands were removed: check, cp, "mkfs", "mkpartfs", move, resize.</li>
-                    <li><strong class="lihed"></strong> : <b class="code1"></b></li>
-
                 </ul>
             </li>
-            <li><strong class="lihed">w3m</strong> : Use <b class="code1">SHift + h</b> for shortcut keys.</li>
+            <li><strong class="lihed"><b class="code1"><a href="#d170723_173307">rsync</a></b>.</strong></li>
+            <li><strong class="lihed"><b class="code1">w3m</b></strong> : Use <b class="code1">SHift + h</b> for shortcut keys.</li>
+        </ul>
+    </div>
+</section>
+
+<section class="section1">
+    <h2>rsync<a class="ancrDest" id="d170723_173307"></a></h2>
+
+    <div class="foldableContent">
+        <ul>
+            <li><strong class="lihed"><a href="https://www.howtogeek.com/175008/the-non-beginners-guide-to-syncing-data-with-rsync/">Incremental backup</a></strong>.</li>
+            <li><strong class="lihed">My Important Final Conclusion.</strong>
+                <div class="code5">
+                    <ul>
+                        <li>Don't use <b class="code1">-f '+sr_'</b>, <b class="code1">-f '-rs'</b> any more, it is over complicate and not much benifit to general usage tough it can works.</li>
+                        <li>Use <b class="code1">--include</b> and <b class="code1">--exclude</b>. This works similar to <b class="code1">-f '+sr_'</b> and <b class="code1">-f '-rs'</b>, it will always represent both <b class="code1">s</b> (send) and <b class="code1">r</b> (receive) sides on current "filter pattern". You don't need to specify [s // r] one side only in most of case.</li>
+                        <li>Use <b class="code1">--include-from</b> and <b class="code1">--exclude-from</b> when you have too much "filter pattern" and you don't want to put them in command line casing too hard to [usr // read]. See <a href="http://www.thegeekstuff.com/2011/01/rsync-exclude-files-and-folders/">here</a> for simple example.</li>
+                        <li>Use <b class="code1">***</b> instead of <b class="code1">**</b>, because 3 asterisk will not only "cross slashs" include content (file), but also DIRECTORY, while 2 asterisk will "cross slashs" include only content (file). So using <b class="code1">***</b> in <b class="code1">--include</b> "filter", you don't need to have <b class="code1">--include="**/"</b> before it anymore. This also make command more simple to use.</li>
+                        <li>After using <b class="code1">***</b>, you don't need to use <b class="code1">-m</b> (prune).</li>
+                        <li>Use <b class="code1">--include</b> and <b class="code1">--exclude</b> when you only care about to sync specific [directories // files] and ignore others, in <b class="strong1">BOTH (SRC) SEND AND (DEST) RECEIVE side</b>, this is say, consider this <b class="code1">src</b> and <b class="code1">dest</b> structure :
+                            <ul>
+                                <li><b class="code1">src</b> contain : <b class="code1">1.dir 2.txt 3.dir 4.txt 5.dir 6.txt</b>.</li>
+                                <li><b class="code1">dest</b> contain : <b class="code1">3.dir 4.txt 7.dir 8.txt</b></li>
+                            </ul>
+                            <p>And using : <b class="code1">-a --include="1.dir/***" --include="2.txt" --include="3.dir/***" --include="4.txt" --exclude="***" --delete</b>, the result of <b class="code1">dest</b> will look like this :</p>
+                            <ul>
+                                <li><b class="code1">dest</b> contain : <b class="code1">1.dir (New) 2.txt (New) 3.dir (Update) 4.txt (Update) 5.dir (ignore) 6.txt (ignore) 7.dir (ignore) 8.txt (ignore)</b>.</li>
+                            </ul>
+                            <p>Use these 2 options when you only want to sync target [directories // files] and ignore others, in <b class="strong1">BOTH SIDES</b>.</p>
+                        </li>
+                        <li><strong class="lihed">Filter Priority and how [directory // file] works.</strong>
+                            <ul>
+                                <li>Preceding filter will have higher priority (if following filter have same content conflict to preceding filter, conflicted content in following filter will ignore (and non conflicted will still affect. This rule apply ot both file and directory (I'm not sure about directory, but I guess I'm right).</li>
+                                <li>When you only need to include some [file / director], <b class="code1">target-dir/**</b> patterns need <b class="code1">**/</b> patterns to be set fist to able to work or it will not work (see here for why but you can ignore this : https://unix.stackexchange.com/questions/2161/rsync-filter-copying-one-pattern-only/2503#2503 ).
+                                    <p>But you don't need to care about this anymore because you can now use <b class="code1">--include="target-dir/***" --exclude="***"</b>, instead of <b class="code1">--include="**/" --include="target-dir/**" --exclude="**"</b>.</p>
+                                </li>
+                                <li>Directory and file is speerate thing for rsync, that is why you need to put <b class="code1">--include="**/"</b> first when you want to inclde some filter.</li>
+                            </ul>
+                        </li>
+                        <li><strong class="lihed">Best [practice / example].</strong>
+                            <div class="code5">
+                                <ul>
+                                    <li>this example is most common used case for these 2 usage :
+                                        <ul>
+                                            <li><b class="udr">Include several targets but include (ignore) all other contents</b>, and</li>
+                                            <li><b class="udr">Include all contents but exclude (ignore) several targets</b>.</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong class="lihed">Include several targets but exclude (ignore) all other contents</strong> : <b class="code1">rsync -a -zhv --delete --dry-run --include "target1/***" --include "target2/***" --exclude "***" src/ dest/ 1&gt; &gt;(tee /tmp/tmp/rsync-stdout.txt) 2&gt; &gt;(tee /tmp/tmp/rsync-stderr.txt)</b>.</li>
+                                    <li><strong class="lihed">Include all contents but exclude (ignore) several targets</strong> : <b class="code1">rsync -a -zhv --delete --dry-run --exclude "target1/***" --exclude "target2/***" src/ dest/ 1&gt; &gt;(tee /tmp/tmp/rsync-stdout.txt) 2&gt; &gt;(tee /tmp/tmp/rsync-stderr.txt)</b>.</li>
+                                    <li>Always aware about "ignore" is not only mean at <b class="code1">src</b>, but ignore at <b class="code1">dest</b> too!</li>
+                                    <li>Second method is useful for dealing with <b class="code1">lost+found</b> and <b class="code1">.Trash-1000</b> directory, these 2 are either useless or possible permission denied.</li>
+                                    <li>If excluding <b class="code1">lost+found</b>, use <b class="code1">--exclude="lost+found"</b>, don't use <b class="code1">--exclude="lost+found/***"</b>, becasue when rsync try to get inside the directory, it will get <b class="udr">"Permission denied"</b>. Actually, <b class="code1">--exclude</b> directory don't need to have trailing <b class="code1">***</b> and it will still work fine.</li>
+                                </ul>
+                            </div> 
+                        </li>       
+                        <li><strong class="lihed"><b class="code1">stdout</b>.</strong>
+                            <ul>
+                                <li>Even without <b class="code1">-P</b> you still can see the result statistic (total size, sent, received) and also "deleting" keyword in stdout too. Just using <b class="code1">-v</b> is fine.</li>
+                                <li><b class="code1">deleting</b>, not "delete", "remove" or "removing" string, will showing up in stdout when deleted a file (and directory too?).</li>
+                                <li>All the path in stdout, if path end with <b class="code1">/</b>, it do nothing (or maybe add a directory?), but if end with other character like <b class="code1">.jpg</b>, <b class="code1">.txt</b>, it means that file are new copy from <b class="code1">src</b> to <b class="code1">dest</b>.
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <!-- ** End of My <Important Final Conclusion>. -->
         </ul>
     </div>
 </section>
