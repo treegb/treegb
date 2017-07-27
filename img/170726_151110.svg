@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   width="120"
+   height="120"
+   id="svg2"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="170726_151110.svg">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1024"
+     inkscape:window-height="702"
+     id="namedview82"
+     showgrid="false"
+     inkscape:zoom="1.9666667"
+     inkscape:cx="60"
+     inkscape:cy="60"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2" />
+  <defs
+     id="defs4">
+    <filter
+       x="-0.20957837"
+       y="-0.28075308"
+       width="1.4191567"
+       height="1.5615062"
+       color-interpolation-filters="sRGB"
+       id="filter3856">
+      <feGaussianBlur
+         id="feGaussianBlur3858"
+         stdDeviation="7.2547634" />
+    </filter>
+    <filter
+       x="-0.21395405"
+       y="-0.2732664"
+       width="1.4279081"
+       height="1.5465328"
+       color-interpolation-filters="sRGB"
+       id="filter3850">
+      <feGaussianBlur
+         id="feGaussianBlur3852"
+         stdDeviation="9.215625" />
+    </filter>
+    <filter
+       x="-0.23015326"
+       y="-0.62210327"
+       width="1.4603065"
+       height="2.2442064"
+       color-interpolation-filters="sRGB"
+       id="filter3934">
+      <feGaussianBlur
+         id="feGaussianBlur3936"
+         stdDeviation="8.5321763" />
+    </filter>
+    <filter
+       x="-0.22243857"
+       y="-0.26057205"
+       width="1.4448771"
+       height="1.5211442"
+       color-interpolation-filters="sRGB"
+       id="filter3962">
+      <feGaussianBlur
+         id="feGaussianBlur3964"
+         stdDeviation="8.7875315" />
+    </filter>
+    <filter
+       x="-0.28314775"
+       y="-0.20826355"
+       width="1.5662955"
+       height="1.4165272"
+       color-interpolation-filters="sRGB"
+       id="filter4018">
+      <feGaussianBlur
+         id="feGaussianBlur4020"
+         stdDeviation="7.02348" />
+    </filter>
+  </defs>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <path
+     inkscape:connector-curvature="0"
+     style="fill:#787878;fill-opacity:1;stroke:none"
+     id="rect4012"
+     d="m 13.49528,0 93.00943,0 C 113.9811,0 120,6.0189 120,13.4952 l 0,93.0095 C 120,113.9811 113.9811,120 106.50471,120 l -93.00943,0 C 6.01889,120 0,113.9811 0,106.5047 L 0,13.4952 C 0,6.0189 6.01889,0 13.49528,0 z" />
+  <path
+     inkscape:connector-curvature="0"
+     style="fill:#f0f0f0;fill-opacity:1;stroke:none;display:inline;filter:url(#filter4018)"
+     id="path4014"
+     d="m 62.75465,56.7073 31.18558,-0.028 0.0282,31.1856 -31.18559,0.028 z m -2e-5,-24.8057 17.43206,-0.016 0.0158,17.4321 -17.43207,0.016 z m -10.29757,-12.4308 4e-4,2.6563 -5e-5,75.625 4e-4,2.6563 2.65625,0 54.21875,0 2.65624,0 -4e-4,-2.6563 5e-5,-75.625 -4e-4,-2.6563 -2.65625,0 -54.21875,0 -2.65625,0 z m 5.3125,5.3126 48.90625,-2e-4 5e-5,70.3124 -48.90625,2e-4 -5e-5,-70.3124 z" />
+  <path
+     inkscape:connector-curvature="0"
+     style="fill:#f0f0f0;fill-opacity:1;stroke:none;display:inline"
+     id="path4016"
+     d="m 62.75465,56.7073 31.18558,-0.028 0.0282,31.1856 -31.18559,0.028 z m -2e-5,-24.8057 17.43206,-0.016 0.0158,17.4321 -17.43207,0.016 z m -10.29757,-12.4308 4e-4,2.6563 -5e-5,75.625 4e-4,2.6563 2.65625,0 54.21875,0 2.65624,0 -4e-4,-2.6563 5e-5,-75.625 -4e-4,-2.6563 -2.65625,0 -54.21875,0 -2.65625,0 z m 5.3125,5.3126 48.90625,-2e-4 5e-5,70.3124 -48.90625,2e-4 -5e-5,-70.3124 z" />
+</svg>

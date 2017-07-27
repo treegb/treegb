@@ -30,13 +30,20 @@
             <li><strong class="lihed"><a href="#d170722_152313">semantic of each tag.</a></strong></li>
             <li><strong class="lihed"><a href="https://www.w3schools.com/tags/tag_base.asp"><b class="code1">base</b> tag.</a></strong></li>
             <li><strong class="lihed"><a href="https://www.mozilla.org/en-US/developer/"><b class="code1">Mozilla Developers</b> - Developer tools, resources, videos and more.</a></strong> : A Mozilla new site! Seems like a portal of many Mozilla news, new tech ... _ I never seen this before.
-                <div class="code5">
+                <div class="code5 hide">
                     <blockquote>
                         <p>We know there's a lot going on in your world, and it can be difficult to keep track of everything. At Mozilla, we feel that way, too. So many tools, blogs, and reference materials... and everything is changing all the time.</p>
                         
                         <p>That's why we launched a new site to showcase what's happening across Mozilla: the Mozilla Developer page. Tools, articles, and reference materials, all in the same place.<cite><a href="https://developer.mozilla.org/en-US/">Mozilla developer newsletter.</a></cite></p>
                     </blockquote>
                 </div>
+            </li>
+            <li><strong class="lihed">iframe</strong>.
+                <ul>
+                    <li><b class="code1">contentDocument</b>, <b class="code1">contentWindow.document</b>. Both works, but <b class="code1">contentDocument</b> property is more well supported.</li>
+                    <li><a href="https://www.nczonline.net/blog/2009/09/15/iframes-onload-and-documentdomain/">This</a> is very good info about <b class="code1">contentDocument</b> and <b class="code1">contentWindow.document</b>, read this if you want to have fully understand of some problem.</li>
+                    <li><b class="code1">contentDocument</b> Can only access document in same domain (same origin), see <a href="http://www.dyn-web.com/tutorials/iframes/same-origin.php">here</a></li>
+                </ul>
             </li>
         </ul>
     </div>
