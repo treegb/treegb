@@ -18,7 +18,7 @@
     <div class="subtitle">
         <p>170720_131313</p>
         <p><iframe src="./170721_194059.html" class="ifrmRefDest"></iframe></p>
-        <p>coreNote is used to ...</p>
+        <p>coreNote is my little HTML document template to keeps minimal neccessary information still accessible anytime, even my PC fails.</p>
     </div>
 </header>
 
@@ -29,11 +29,12 @@
         <ul>
             <li><strong class="lihed"><a href="#d170721_171041">coreNote related.</a></strong></li>
             <li><strong class="lihed"><a href="170721_170001.html">asKansweR info and script.</a></strong></li>
-            <li><strong class="lihed"><a href="170721_170002.html">Debian installation.</a></strong></li>
             <li><strong class="lihed"><a href="170722_223101.html">Often used command.</a></strong></li>
-            <li><strong class="lihed"><a href="170722_151357.html">HTML related.</a></strong></li>
+            <li><strong class="lihed"><a href="170728_085534.html">Tech</a></strong></li>
             <li><strong class="lihed"><a href="https://www.facebook.com/eventshorizonspace/">News</a></strong> : 事件地平線. abundance of news resources, illustration, discussion.</li>
-            <li><strong class="lihed">thoughtco.com</strong> : This website include information about [web design // graphic design // typographic], is a very high quality density source! I read just few page and I found here is so much new [creative // inspiring] concept.
+            <li><strong class="lihed"><a href="170728_085533.html">[Knowledge / flat].</a></strong></li>
+            <li>
+                <p><strong class="lihed">thoughtco.com</strong> : This website include information about [web design // graphic design // typographic], is a very high quality density source! I read just few page and I found here is so much new [creative // inspiring] concept.</p>
                 <ul>
                     <li><a href="https://www.thoughtco.com/principles-of-graphic-design-1077541">1.</a></li>
                     <li><a href="https://www.thoughtco.com/create-contrast-with-obvious-differences-1077469">2.</a></li>
@@ -43,17 +44,76 @@
     </div>
 </section>
 
-<section class="section1 hide">
+<section class="section1">
     <h2>coreNote related<a class="ancrDest" id="d170721_171041"></a></h2>
 
     <div class="foldableContent">
         <ul>
-            <li><strong class="lihed">About <b class="code1">coreNote</b>.</strong>
-                <p>coreNote is mainly for some critical situation when I need those important information but my PC is not accessible, for example during <b class="udr">OS installation</b>, [local CMS // database // asKansweR password script] is not accessible, these might cause all my information lockdown while some of them are important.</p>
-                <p>When network is probably accessible through smartphone, I can still read those HTML document. If my PC is able to use browser, it will be much better I can use either <b class="code1">firefox</b> or <b class="code1">w3m</b> to navigate those HTML document structure. (Aware, w3m can't rander <b class="udr">iframe</b> properly, but you can still see most basic information).</p>
-                <p>Keeping neccessary and minimal note in coreNote can be very helpful when you need it in accident ... </p>
+            <li>
+                <p><strong class="lihed">About <b class="code1">coreNote</b></strong> : Start at here if you don't know my <b class="code1">coreNote</b> html template. (Click below button to expand).</p>
+                <div class="code5 hide">
+                    <ul>
+                        <li>
+                            <p><strong class="lihed">Why?</strong></p>
+                            <p>I build <b class="code1">coreNote</b> mainly to get some important information when my PC is accidentally not accessible, for example during <b class="udr">OS installation</b>, my [local CMS // database // asKansweR password script] is all not accessible, and cause all my information lockdown while some of them are important.</p>
+                            <p>When network is probably accessible through smartphone, I can still read those HTML document. If my PC is able to use browser, I can use either <b class="code1">firefox</b> or <b class="code1">w3m</b> to navigate those HTML document structure. (Aware, w3m can't rander <b class="udr">iframe</b> properly, but you can still read most basic information).</p>
+                            <p>coreNote keeps minimal neccessary information still accessible anytime.</p>
+                        </li>
+                        <li>
+                            <p><strong class="lihed">[Feature / function].</strong></p>
+                            <p>I still no much time to document this well, but this is simple introduction about [Feature / function].</p>
+                            <ul>
+                                <li>
+                                    <p><strong class="lihed"><b class="code1">Iframe</b> generate duplicate content</strong>.</p>
+                                    <p>When I have a piece of information I will used <b class="udr">again and again</b>, I don't have to [copy // paste // midify] it every place where this piece of information is, instead, I just need to create another special HTML page, and anytime I need this piece I use <b class="code1">iframe</b> tag to call it. The most benifit about this "iframe calling" is, modify one source place, apply to all destination at once, never worry about <b class="udr">duplicate or accidentally typing error</b>.
+                                    <p><b class="code1">PHP</b> have a common used feature called <b class="code1">include</b>, it is the same idea in compare. Though "iframe calling" is just simple javascript it doesn't need preprocessor, it works on static site like github, and it works simply.</p>
+                                    <p>In fact, in <b class="udr">top-right side</b> of every page of <b class="code1">coreNote</b>, you always see <b class="udr">coreNote</b> text, that piece of text is generate by iframe, not wrote inside each HTML document page (view source code of this page to see it).</p>
+                                </li>
+                                <li><strong class="lihed">Main section block [expand // collapse]</strong> : At left side of screen, the vertical bar is actually a hidden button, click it to toggle between [expand // collapse] each section block.</li>
+                                <li>
+                                    <p><strong class="lihed">"code" block [expand // collapse]</strong> : You can put anything inside <b class="udr">"code" block</b> not only code, when put any information inside <b class="udr">code block</b>, it is able to toggle between [expand // collapse], thus save space if some information is not important or too long.</p>
+                                </li>
+                                <li>
+                                    <p><strong class="lihed">Side menu (Top-right menu)</strong> : Top-right side of the screen, the menu include some features (buttons)</p>
+                                    <ul>
+                                        <li><strong class="lihed">Jump to head section</strong>.</li>
+                                        <li><strong class="lihed">Expand mode</strong> : Expand all <b class="udr">code block</b> in document.</li>
+                                        <li><strong class="lihed">Compact mode</strong> : Reset the [expand // collapse] of all <b class="udr">code block</b> in document to it's default value. _ When I was writing the document, I will hide some <b class="udr">code block</b> (just simply add <b class="code1">hide</b> class name on code block), browser will hide those code block automatically, and left others untouched.</li>
+                                        <li><strong class="lihed">Minimal mode</strong> : Minimize (collapse) all <b class="udr">code block</b> in document. _ When reading document with mobile device, this might be very useful to navigate through the long document with many <b class="code1">ul, li</b> structure because the screen is small and limited. Collapse all code block first than open it if needed.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <p><strong class="lihed">Hidden "jumpto" menu</strong> : Left side of the docuemnt, you can see some triangle strips, those are actually <b class="strong1">hidden button</b>. Click on those triangle "button" to pop out advenced menu.</p>
+                                    <ul>
+                                        <li>
+                                            <p><strong class="lihed">Triangle strips</strong> : To <b class="udr">visually</b> indicate the percentage of scrolling position. Because it's triangle shape, you can guess how much percentage you where reading in each <b class="code1">li</b> block, when the strip is thinner, you know you are more close to reach the end (100%) of each <b class="code1">li</b> block.</p>
+                                            <p>When reading document with mobile device, this might be very useful to navigate through the long document with many ul, li structure because the screen is small and limited, those triangle visual indicator give you idea of where you are reading.</p>
+                                            <p>Also this is useful when writing HTML document. When using a lot <b class="code1">ul, li</b> structure, I often get lost when writing them because the HTML markup is not as easy to read as in browser (randered).</p>
+                                        </li>
+                                        <li><strong class="lihed">Quit</strong> : Quit menu (cross button).</li>
+                                        <li><strong class="lihed">Back</strong> : Jump to last move. When using <b class="code1">jump to bookmark</b>, <b class="code1">jump to li top</b>, <b class="code1">jump to li bottom</b> buttons, the previus location will be remembered (one step only), if you "regret" the lattest move, use this button to jump back previous screen position.</li>
+                                        <li>
+                                            <p><strong class="lihed">jump to li top, jump to li bottom</strong>.</p>
+                                            <p>Jump to selected li top. <b class="code1">coreNote</b> use <b class="code1">ul, li</b> a lot to structure document in list order. When you get lost in long <b class="code1">ul, li</b> structure, you can use specific triangle strip you want, click on it brings up the menu, then click <b class="code1">jump to li top</b> or <b class="code1">jump to li bottom</b> buttons bring you to the most [top / bottom] of this selected <b class="code1">li</b>.</p>
+                                            <p>This can navigate back current li heading or to next li heading very quick.</p>
+                                            <p>Note the "destination" will placeed at the <b class="udr">center of the screen</b>, not the top of screen.</p>
+                                        </li>
+                                        <li><strong class="lihed">Bookmarks</strong> : You can save 3 bookmarks at max, use <b class="code1">+</b> button to save current screen position, and use "precentage button" to jump to that bookmark position.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <p><strong class="lihed">Some problem</strong>.</p>
+                            <ul>
+                                <li>Not optimise for mobile device, <b class="code1">CSS</b> is not coding <b class="code1">media query</b> yet, so smart phone will have some glitch style (for example the <b class="udr">bookmark</b> only shows 2 instead of 3 because flexbox is overflow).</li>
+                                <li>Bookmark in <b class="udr">Hidden "jumpto" menu</b> will lose accuracy after you change between [<b class="code1">expand</b> // <b class="code1">compact</b>// <b class="code1">minimal</b>] mode, because bookmark only save position (distance) between viewport and document top.
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </li>
-            <li><strong class="lihed"><a href="./170720_131317.html">Core note template</a></strong> : Copyt template file frome here to create every new page.</li>
+            <li><strong class="lihed"><a href="./170720_131317.html">Core note template</a></strong> : Copy template file frome here to create every new page.</li>
             <li><strong class="lihed"><a href="./170720_131316.html">Visual testing page</a></strong> : [Edit / playing around] this page as much as you want.</li>
         </ul>
     </div>

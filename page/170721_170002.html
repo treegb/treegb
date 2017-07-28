@@ -18,7 +18,6 @@
     <div class="subtitle">
         <p>170721_170002</p>
         <p><iframe src="./170721_194059.html" class="ifrmRefDest"></iframe></p>
-        <p>.</p>
     </div>
 </header>
 
@@ -31,6 +30,46 @@
             <li><strong class="lihed"><a href="https://www.debian.org/releases/stable/amd64/">Debian amd64 installation guide (official)</a></strong> : Very well wroted document. Have lots of information and every important thing you need to know, including complete path to install Debian, and understand Debian system.</li>
             <li><strong class="lihed"><a href="https://wiki.debian.org/Hardware">Debian Hardware guide</a></strong>.</li>
             <li><strong class="lihed"><a href="#d170722_231432">USB installation</a></strong></li>
+            <li>
+                <p><strong class="lihed">Kernel parameter.</strong></p>
+                <div class="code5 hide">
+                    <ul>
+                        <li>Set kernel parameters <b class="udr">permanently</b> in Grub : <a href="https://wiki.archlinux.org/index.php/Kernel_parameters">1. (Syslinux, systemd-boot, GRUB ... ) (preferable)</a> <a href="https://sites.google.com/site/easylinuxtipsproject/gruboptions">2. (view as more info).</a></li>
+                        <li><strong class="lihed"><a href="https://wiki.archlinux.org/index.php/kernel_mode_setting#Disabling_modesetting">Kernel mode setting</a></strong> : Kernel Mode Setting (KMS) is a method for setting display resolution and depth in the kernel space rather than user space.</li>
+                        <li><b class="code1">modeset</b> : You may want to disable KMS for various reasons, such as getting a blank screen or a "no signal" error from the display.</li>
+                        <li><b class="code1">nomodeset</b>, <b class="code1">quiet, splash</b>, <b class="code1">noacpi, nolacpi</b> : See <a href="https://askubuntu.com/questions/716957/what-do-the-nomodeset-quiet-and-splash-kernel-parameters-mean">here</a>.</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <p><strong class="lihed">Grub (bootloader)</strong></p>
+                <div class="code5 hide">
+                    <ul>
+                        <li><a href="https://sites.google.com/site/easylinuxtipsproject/grub#TOC-Adapt-Grub:-make-Windows-the-first-option-in-the-Grub-boot-menu">Grub with motherboard that are UEFI but use BIOS compatible mode.</a></li>
+                        <li><a href="https://sites.google.com/site/easylinuxtipsproject/6">Grub with motherboard that are UEFI and use full UEFI mode.</a></li>
+                        <li><a href="https://sites.google.com/site/easylinuxtipsproject/tips#TOC-Make-Windows-the-default-option-in-the-Grub-boot-menu">Make Windows the default option in the Grub boot menu</a> : (I guess this work for any OS).</li>
+                        <li><a href="https://sites.google.com/site/easylinuxtipsproject/grub#TOC-Adapt-Grub:-change-the-timeout">Change the Grub OS menu option timeout.</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li>[<a href="https://en.wikipedia.org/wiki/MBR_partition_table">MBR partition table (Master Boot Record)</a> // <a href="https://zh.wikipedia.org/zh-tw/GUID%E7%A3%81%E7%A2%9F%E5%88%86%E5%89%B2%E8%A1%A8">GUID Partition Table (GPT)].</a></li>
+            <li><strong class="lihed"><a href="https://zh.wikipedia.org/zh-tw/GUID%E7%A3%81%E7%A2%9F%E5%88%86%E5%89%B2%E8%A1%A8#.E6.93.8D.E4.BD.9C.E7.B3.BB.E7.BB.9F.E6.94.AF.E6.8C.81">OS support boot from [<b class="code1">BIOS/GPT</b> // <b class="code1">EFI/GPT</b>].</a></strong></li>
+            <li>
+                <p><strong class="lihed"><a href="http://smxi.org/">smxi</a></strong> : Don't know if this is useful, I just keep it here. _ <q>smxi is an interactive script designed to help people maintain their systems. It supports Debian based distros.</q></p>
+                <div class="code5 hide">
+                    <p>Smxi is a feature rich, powerful script, and has the following primary features and options :</p>
+                    <ul>
+                            <li>System Upgrades (dist-upgrade / upgrade)</li>
+                            <li>Kernel upgrades / kernel module upgrades</li>
+                            <li>Automatated video card driver installation (plus any needed patches), especially non-free drivers like nVidia and AMD/ATI fglrx</li>
+                            <li>Installing extra software (including building a desktop/server from scratch, starting with just the base Debian system)</li>
+                            <li>Removing certain software</li>
+                            <li>Cleaning up your system (cleaning up apt archives, removing kernels/ kernel modules, cleaning system cruft, etc)</li>
+                            <li>Tweaking your system, mozilla configurations, installing some small graphics tweaks, etc.</li>
+                            <li><q>Check out the script called SMXI. Further down the line it installs the correct graphic driver.</q></li>
+                    </ul>
+                </div>
+            </li>
         </ul>
     </div>
 </section>
@@ -42,14 +81,16 @@
         <ul>
             <li><strong class="lihed"><a href="https://www.debian.org/releases/stable/i386/ch04s03.html.en">Debian manual way</a></strong> : Also see <a href="#d170722_232950">here</a>.</li>
             <li><strong class="lihed"><a href="https://wiki.archlinux.org/index.php/USB_flash_installation_media_%28%E6%AD%A3%E9%AB%94%E4%B8%AD%E6%96%87%29">USB flash installation media (正體中文)</a></strong> : This <b class="code1">Arch</b> wiki page demonstrate different approach to install a bootable USB.</li>
-            <li><strong class="lihed"><a href="https://wiki.archlinux.org/index.php/USB_flash_installation_media_%28%E6%AD%A3%E9%AB%94%E4%B8%AD%E6%96%87%29"><b class="code1">boot.img.gz</b>, <b class="code1">initrd.gz</b>, <b class="code1">vmlinuz</b></a></strong>.
+            <li>
+                <p><strong class="lihed"><a href="https://wiki.archlinux.org/index.php/USB_flash_installation_media_%28%E6%AD%A3%E9%AB%94%E4%B8%AD%E6%96%87%29"><b class="code1">boot.img.gz</b>, <b class="code1">initrd.gz</b>, <b class="code1">vmlinuz</b></a></strong>.</p>
                 <ul>
                     <li>under <a href="http://http.us.debian.org/debian/dists/stretch/main/installer-amd64/current/images/">Debian archives</a> (you need to get deeper inside the tree to find it).</li>
                     <li>Those "things" are similar to</li>
                     <li>Not sure if <initrd.gz>, <vmlinuz> these 2 called "Debian-installer".</li>
                 </ul>
             </li>
-            <li><strong class="lihed">Multiple ISO images in one USB.</strong>
+            <li>
+                <p><strong class="lihed">Multiple ISO images in one USB.</strong></p>
                 <ul>
                     <li><strong class="lihed"><a href="https://askubuntu.com/questions/46624/how-to-create-a-bootable-usb-with-multiple-iso-images-in-it/518583#518583">Follow this</a></strong></li>
                     <li><strong class="lihed"><a href="https://askubuntu.com/questions/372607/how-to-create-a-bootable-ubuntu-usb-flash-drive-from-terminal/376430#376430">And this.</a></strong></li>

@@ -60,7 +60,7 @@
     }
     
     h2, h3, h4, h5, h6 {
-        margin-top: 0 ;
+        margin-top: 0.6em ;
         margin-bottom: 0.6em;
     }
 
@@ -154,7 +154,7 @@
         bottom: 0em;
         left: 0em;
         padding: 0em;
-        width: 0.8em;
+        width: 1.2em;
         transition-property: width, top, bottom;
     }
     
@@ -178,27 +178,30 @@
         margin-top: 0.8em;
         margin-bottom: 0.8em;
         /*border: 1px red solid;*/
+        /*background-color: hsla(140, 40%, 80%, 0.8);*/
     }
     
-   .section1 p, li {
-        line-height: 150% ;
+   .section1 p, .section1 li {
+        line-height: 140% ;
         /* ** Overwrite browser default value and reset to 0. */
         margin: 0em;
+        /*border: 1px green solid;*/
     }
     
     .section1 li {
         /*list-style-type: disc;*/
         list-style-type: square;
-        margin-top: 0.1em;
-        margin-bottom: 0.1em;
+        margin-top: 0.8em;
+        margin-bottom: 0.8em;
         padding-right: 1.6em;
-        border: 1px rgba(255, 0, 0, 0) solid;
         background-image: url("../img/scrolling-process-indicator.svg");
         background-size: 0.8em 100%;
         background-position: 100% 50%;
         background-repeat: no-repeat;
         /* ** Because of <.liScrollJumpBtn>. */
-        position: relative;        
+        position: relative;
+        /*border: 1px green solid;*/
+        /*background-color: hsla(210, 40%, 80%, 0.8);*/
     }
     
     .section1 li .liScrollJumpBtn {
@@ -420,10 +423,12 @@
     .section1 p {
         margin-top: 0.8em;
         margin-bottom: 0.8em;
+        /*border: 1px solid DarkGoldenRod;*/
+        /*background-color: hsla(45, 40%, 80%, 0.8);*/
     }
 
     /* ** Probably will not have much use anymore. */
-    .section1 .eye, .eyeIndex {margin-right: 0.5em ; vertical-align: middle ;}
+    .section1 .eye, .section1 .eyeIndex {margin-right: 0.5em ; vertical-align: middle ;}
 
 
 
@@ -468,8 +473,10 @@
     }
 
     .section1 .udr {
-        display: inline-block;
+        /* ** When using <display: inline;>, vertical margin don't have effect. */
+        display: inline;
         border-bottom: 0.0625em solid #666;
+        /* ** Don't use <text-decoration: underline;>, the effect is bad looking. */
         padding-left: 0.2em;
         padding-right: 0.2em;
     }
@@ -479,13 +486,17 @@
     /* ** <code> class.
        ** Aware below have selector overwrite <.code1> property! */
     .section1 .code1 {
+        /* ** When using <display: inline;>, vertical margin don't have effect. */
         display: inline-block ;
         font-size: 1em ;
-        margin: 0.125em 0;
-        padding: 0.0625em 0.3125em;
+        /* ** Notice, these style is very carefully "design". In general, I tried to make line-height of <p> as small as possible, and padding and margin of <.code1> as big as possible, but since these 2 factor conflict, this is the best setting I can get.
+           ** Use <line-height> (at least 100%) or <padding> can create vertical spacing. Though they both can do the same job, set <line-height> to 100% will cause space problem if <.code1> start to wrap to more than one line (because <display: inline-block>) and have no line height. */
+        margin: 0.0625em 0;
+        padding: 0 0.1875em;
+        line-height: 130% ;
         border-radius: 0.1875em;
         background-color: #F9F9F9;
-        border: 0.0625em solid #CCC;
+        border: 0.0625em solid #AAA;
     }
     
     /* ** Aware this will overwrite <.code1> property! */
@@ -685,7 +696,9 @@
         top: 0.3em;
         margin-left: 0.2em;
         margin-right: 0.07em;
-        color: #000;
+        color: #AAA;
+        /* ** Don't know why <line-height> cause more unexpecting spacing, but seems so. */
+        line-height: 10%;
     }
 
     q:after {
@@ -697,7 +710,9 @@
         top: 0.3em;
         margin-right: 0.2em;
         margin-left: 0.07em;
-        color: #000;
+        color: #AAA;
+        /* ** Don't know why <line-height> cause more unexpecting spacing, but seems so. */
+        line-height: 10%;
     }
 
     cite {
