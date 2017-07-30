@@ -178,7 +178,7 @@
         margin-top: 0.8em;
         margin-bottom: 0.8em;
         /*border: 1px red solid;*/
-        /*background-color: hsla(140, 40%, 80%, 0.8);*/
+        /*background-color: hsla(140, 40%, 80%, 0.5);*/
     }
     
    .section1 p, .section1 li {
@@ -504,56 +504,55 @@
         background-color: #FFF;
     }
     
-    /* ** Consider <.code4>, <.code5> selector here only set for [fallback / basic] property (when javascirpt fail to run).
+    /* ** Consider <.code5> selector here only set for [fallback / basic] property (when javascirpt fail to run).
        Advanced value please sset at below <.codeBlockCtn> area. */
     
-    .section1 .code4, .section1 .code5 {
-        display: block;
-        /*border-left: 0.55em solid #EEE;*/
-        margin: 0;
-        /* ** If <.code4>, <.code5> don't have javascript generate <codeBlockCtn>, then use this.
-           ** Aware here use 2 direction margin. */
-        /*margin: 1em 0 1em calc(1.7em + 0.55em);
-        padding-left: 1.1em;*/
-        
-        /* ** If <.code4>, <.code5> have javascript generate <codeBlockCtn>, then use this.
-           ** Aware here use 2 direction margin.
-           ** These value should update with <.btnToggleHideCodeBlock>. <0.5em> here is to add some little extra space so when use cursor to select text, cursor will not accidentally click on <.btnToggleHideCodeBlock>. */
-        margin: 1em 0 1em calc(0.8em + (0.6em * 2) + 0.3em + 0.5em);
-        padding-left: 0;
-        /*border: 1px solid red;*/
-    }
-    
-    /* ** Aware, even using <code4>, you need to substitute < to &lt; and > to %gt; , browser will rander tag name and you can use style in <code4> too! */
-    .section1 .code4 {
+    /* ** Aware, even using <.pre>, you need to substitute < to &lt; and > to %gt; , browser will rander tag name and you can use style in <.pre> too! */
+    .section1 .pre {
         white-space: pre-wrap;
     }
     
     .section1 .code5 {
+        display: block;
+        /*border-left: 0.55em solid #EEE;*/
+        margin: 0;
+        
+        /* ** Aware here use 2 direction margin.
+           ** These value should update with <.btnToggleHideCodeBlock>. <0.5em> here is to add some little extra space so when use cursor to select text, cursor will not accidentally click on <.btnToggleHideCodeBlock>. */
+        margin-left: calc(0.8em + (0.6em * 2) + 0.3em + 0.5em);
+        padding-left: 0;
+        /*border: 1px solid red;*/
+        /*background-color: hsla(0, 40%, 80%, 0.5);*/
     }
 
 
 
-    /* ** Toggle [fold // unfold] code block (<code4>, <code5>). those DOM and class property is generate by javascript. */
+    /* ** Toggle [fold // unfold] code block (<code5>). those DOM and class property is generate by javascript. */
     /* ** <.codeBlockCtn>. */
     
     .section1 .codeBlockCtn, .section1 .codeBlockCtn.forceDisplay {
         position: relative;
         margin: 0;
+        /* ** Nagative margin. Because margin collapse of <.code5> don't extend to outside of <.codeBlockCtn>, it cause problem - double spacing than EXPECT. My page design is building on EXPECT every element (p, ul, li, div ...) will have margin collapse finally become same single spacing result instead of incrementing, but <.codeBlockCtn {overflow: hidden;}> and <.codeBlockCtn .code5 {overflow: auto;}> BLOCK THIS BEHAVIOR, causing double spacing than expect.
+           The solution is set <.codeBlockCtn> margin to nagative, exactly 0.8em, <.codeBlockCtn .code5> and <blockquote> to 0, and let the rest inside have same margin collapse effect. */
+        margin-top: -0.8em;
+        margin-bottom: -0.8em;
         padding: 0;    
         /* ** This transition have no effect now because I have no useful property to make transition effect in <.section1 .codeBlockCtn.hide>. I keep it here for placeholder. */
         transition: all 1.4s;
-        /* ** This fix <.code4> <.code5> margin collapse problem, because they use 2 direction margin. */
+        /* ** This fix <.code5> margin collapse problem, because they use 2 direction margin. */
         overflow: hidden;
         /*border: 1px coral solid;*/
     }
     
     .section1 .codeBlockCtn.forceHide {
-        /* This value should update with [<.code4> // <code5>]. */
-        margin-bottom: 1em;
-        min-height: 1.4em;
-        /* Aware this little adjustment setting is bit of hacky and hard to debug! */
-        transform: translateY(0.2em);
+        margin-top: -0.8em;
+        margin-bottom: -0.8em;
+        /* ** This adjust <.codeBlockCtn> height, the more the value, the more extra spacing with [up // down] siblings you get.
+           Notice, this value can be any value but must BIGGER THAN <height> of <.codeBlockCtn.forceHide .btnToggleHideCodeBlock>. */
+        min-height: 1.7em;
+        /*border: 1px solid red;*/
+        /*background-color: hsla(290, 40%, 80%, 0.5);*/
     }
     
     /* ** <.btnToggleHideCodeBlock>. */
@@ -561,9 +560,9 @@
     .section1 .codeBlockCtn .btnToggleHideCodeBlock
     , .section1 .codeBlockCtn.forceDisplay .btnToggleHideCodeBlock {
         position: absolute;
-        /* ** <top> and <bottom> value should update with <.code4>, <.code5> margin-top and margin-bottom. */
-        top: 1em;
-        bottom: 1em;
+        /* ** <top> and <bottom> value should update with elements inside <.code5> (like ul, li, p ...) margin-top and margin-bottom. */
+        top: 0.8em;
+        bottom: 0.8em;
         left: 0.8em;
         width: 0.3em;
         content: "";
@@ -572,11 +571,9 @@
         opacity: 0.05;
         background-clip: content-box;
         padding: 0 0.6em;
-        /* ** When transition from "fold" to "unflod", there is no <transition-property: width>. */
-        transition-property: top, bottom;
-        transition-duration: 0.3s;
         cursor: pointer;
-        /*border: 1px rgba(0, 0, 255, 0.9) solid;*/
+        /*border: 1px red solid;*/
+        /*background-color: hsla(120, 40%, 80%, 1);*/
     }
     
     .section1 .codeBlockCtn.forceHide .btnToggleHideCodeBlock {
@@ -584,47 +581,46 @@
         opacity: 0.3;
         background-image: url("../img/coreNote_codeBlock-arrow.svg");
         background-size: 100% 100%;
-        /* ** <top> value should update with <.section1> margin-top and margin-bottom. */
-        top: 0;
-        bottom: 0;
-        left: 0;
+        background-origin: content-box;
+        top: 50%;
+        transform: translateY(-50%);
+        /* ** This adjust <.codeBlockCtn.forceHide .btnToggleHideCodeBlock> height, the more the value, the more icon height you get.
+           Notice, this value can be any value but must SMALLER THAN <min-height> of <.codeBlockCtn>. */
+        height: 0.88em;
+        /* ** <0.88em> should update with <height>. <150/200> is the ratio of the background image. Since we didn't specific different <box-sizing>, this formula is enough. */
+        width: calc(0.88em * (150/200));
+        left: 0;           
         padding: 0;
         padding: 0 0.6em;
         /* ** <0.29em> is adjust by imprecise visual feeling, not by math.
            And <0.8em> should update with <.section1 .codeBlockCtn .btnToggleHideCodeBlock>. */
         margin-left: calc(0.8em - 0.29em);
-        background-origin: content-box;
-        /* ** If you want to change width here, you have to go to <.section1 .codeBlockCtn.forceHide> to change min-height too
-           , it is that decide the height. */
-        width: 1.0em;
-        transition-property: width, top, bottom;
+        /*border: 1px solid red;*/
+        /*background-color: hsla(120, 40%, 80%, 1);*/
     }
     
-    /* ** <.code4>, <.code5>. */
+    /* ** <.code5>. */
     
-    .section1 .codeBlockCtn .code4
-    , .section1 .codeBlockCtn.forceDisplay .code4
-    , .section1 .codeBlockCtn .code5
+    .section1 .codeBlockCtn .code5
     , .section1 .codeBlockCtn.forceDisplay .code5 {
         overflow: auto;
-        transition: all 2.3s;
+        margin-top: 0;
+        margin-right: 0;
+        margin-bottom: 0;
+        /* ** <margin-left> set at earlier place, not here. */
+        /* ** Good looking, but too long. */
+        /*transition: all 2.3s;*/
+        transition: all 0.7s;
         /*border: 1px orange solid;*/
     }
     
-    .section1 .codeBlockCtn.forceHide .code4
-    , .section1 .codeBlockCtn.forceHide .code5 {
+    .section1 .codeBlockCtn.forceHide .code5 {
         transition: all 0s;
         opacity: 0;
         /* ** Don't use <display: none> because transition will not work on this, use <visibility> instead. */
         /*display: none;*/
         visibility: hidden;
         position: absolute;
-        /* ** Useless comment? */
-            /* ** These 2 style must update related with <.code4> <.code5> style.
-               ** These 2 style is crucial to make hight transition when toggle, because there is no other [property / value] to make transition work beside padding in <.code4> <.code5>. */
-        /* ** Why set this? */
-        margin-top: 0;
-        margin-bottom: 0;
     }
     
     
@@ -658,6 +654,7 @@
     
     /* ** Block quote. */
     blockquote {
+        /* This margin setting related to <.section1 .codeBlockCtn> section. */
         margin: 0;
         padding-left: 2.0em;
         position: relative;

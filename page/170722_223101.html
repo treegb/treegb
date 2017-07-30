@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="../css/css_coreNote_001.css">
 <link rel="shortcut icon" href="../img/treegb_icon.ico">
-<title>Often used command</title>
+<title>Command</title>
 </head>
 
 <style type="text/css">
@@ -14,11 +14,10 @@
 <body>
 
 <header>
-    <h1>Often used command</h1>
+    <h1>Command</h1>
     <div class="subtitle">
         <p>170722_223101</p>
         <p><iframe src="./170721_194059.html" class="ifrmRefDest"></iframe></p>
-        <p>.</p>
     </div>
 </header>
 
@@ -28,6 +27,8 @@
     <div class="foldableContent">
         <ul>
             <li><strong class="lihed"><a href="#d170722_224937">Nav.</a></strong></li>
+            <li><strong class="lihed">[<b class="code1"><a href="170730_091357.html">apt // aptitude // dpkg</a></b>].</strong></li>
+            <li><strong class="lihed"><a href="170721_170001.html">asKansweR info and script.</a></strong></li>
             <li><strong class="lihed"><b class="code1">bash</b></strong>
                 <ul>
                     <li><strong class="lihed"><b class="code1">shopt -s dotglob</b></strong> : Make <b class="code1">cp</b> and <b class="code1">rm</b> to include hidden file. _ See <a href="https://superuser.com/questions/61611/how-to-copy-with-cp-to-include-hidden-files-and-hidden-directories-and-their-con/547166#547166">here</a> for more info</li>
@@ -43,23 +44,25 @@
             </li>
             <li><strong class="lihed"><b class="code1">dmesg</b></strong> : This is very usful because some time error occurs you can find the log here.</li>
             <li><strong class="lihed"><b class="code1">lspci -nn</b></strong> : Check device basic info (name) like (VGA) graphic card name, product code, vendor name ... If you want to install [firmware / driver] you have to at least to know it's product code first.</li>
-            <li><strong class="lihed"><b class="code1">parted</b></strong>.
-                <ul>
-                    <li><strong class="lihed">End point</strong> : Use <b class="code1">-1s</b> or <b class="code1">100%</b> to set end point to max size of rest space of disk. ("s" stand for sector, you can use <b class="code1">unit</b> to change unit too.)</li>
-                    <li><strong class="lihed"><a href="https://blog.gtwang.org/linux/parted-command-to-create-resize-rescue-linux-disk-partitions/2/">Basic usage.</a></strong></li>
-                    <li><strong class="lihed">label</strong>
-                        <ul>
-                            <li>Notice, most common used <b class="code1">[disk label / label type]</b> on PC are <b class="code1">msdos</b>, you are mostly going to set to this. <b class="code1">gpt</b> is for purpose when are used if disk size is larger than 2TB.</li>
-                            <li><a href="https://www.gnu.org/software/parted/manual/html_node/mklabel.html"><b class="code1">mklabel</b> - gnu.org.</a></li>
-                        </ul>
-                    </li>
-                    <li><strong class="lihed"><b class="code1">mkpart</b></strong> : Creates a new partition, WITHOUT creating a new file system on that partition. _ You need to use other tools like <b class="code1">mkfs.[ext4 // ntfs // fat (= msdos, vfat)]</b> to do it.</li>
-                    <li><strong class="lihed"><a href="https://www.gnu.org/software/parted/manual/html_node/mkpart.html#FOOT2">4MB begining of USB, don't use it</a></strong> : If USF drive, leave 4MB at the begining and don't use it?</li>
-                    <li><strong class="lihed">Following command had been removed</strong> : Note that after version 2.4, the following commands were removed: check, cp, "mkfs", "mkpartfs", move, resize.</li>
-                </ul>
+            <li>
+                <p><strong class="lihed"><b class="code1">parted.</b></strong></p>
+                <div class="code5 hide">
+                    <ul>
+                        <li><strong class="lihed">End point</strong> : Use <b class="code1">-1s</b> or <b class="code1">100%</b> to set end point to max size of rest space of disk. ("s" stand for sector, you can use <b class="code1">unit</b> to change unit too.)</li>
+                        <li><strong class="lihed"><a href="https://blog.gtwang.org/linux/parted-command-to-create-resize-rescue-linux-disk-partitions/2/">Basic usage.</a></strong></li>
+                        <li><strong class="lihed">label</strong>
+                            <ul>
+                                <li>Notice, most common used <b class="code1">[disk label / label type]</b> on PC are <b class="code1">msdos</b>, you are mostly going to set to this. <b class="code1">gpt</b> is for purpose when are used if disk size is larger than 2TB.</li>
+                                <li><a href="https://www.gnu.org/software/parted/manual/html_node/mklabel.html"><b class="code1">mklabel</b> - gnu.org.</a></li>
+                            </ul>
+                        </li>
+                        <li><strong class="lihed"><b class="code1">mkpart</b></strong> : Creates a new partition, WITHOUT creating a new file system on that partition. _ You need to use other tools like <b class="code1">mkfs.[ext4 // ntfs // fat (= msdos, vfat)]</b> to do it.</li>
+                        <li><strong class="lihed"><a href="https://www.gnu.org/software/parted/manual/html_node/mkpart.html#FOOT2">4MB begining of USB, don't use it</a></strong> : If USF drive, leave 4MB at the begining and don't use it?</li>
+                        <li><strong class="lihed">Following command had been removed</strong> : Note that after version 2.4, the following commands were removed: check, cp, "mkfs", "mkpartfs", move, resize.</li>
+                    </ul>
+                </div>
             </li>
             <li><strong class="lihed"><b class="code1"><a href="#d170723_173307">rsync</a></b>.</strong></li>
-            <li><strong class="lihed"><b class="code1">w3m</b></strong> : Use <b class="code1">SHift + h</b> for shortcut keys.</li>
         </ul>
     </div>
 </section>
@@ -70,7 +73,8 @@
     <div class="foldableContent">
         <ul>
             <li><strong class="lihed"><a href="https://www.howtogeek.com/175008/the-non-beginners-guide-to-syncing-data-with-rsync/">Incremental backup</a></strong>.</li>
-            <li><strong class="lihed">My Important Final Conclusion.</strong>
+            <li>
+                <p><strong class="lihed">My Important Final Conclusion.</strong></p>
                 <div class="code5">
                     <ul>
                         <li>Don't use <b class="code1">-f '+sr_'</b>, <b class="code1">-f '-rs'</b> any more, it is over complicate and not much benifit to general usage tough it can works.</li>
@@ -98,7 +102,8 @@
                                 <li>Directory and file is speerate thing for rsync, that is why you need to put <b class="code1">--include="**/"</b> first when you want to inclde some filter.</li>
                             </ul>
                         </li>
-                        <li><strong class="lihed">Best [practice / example].</strong>
+                        <li>
+                            <p><strong class="lihed">Best [practice / example].</strong></p>
                             <div class="code5">
                                 <ul>
                                     <li>this example is most common used case for these 2 usage :

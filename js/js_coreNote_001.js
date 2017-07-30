@@ -502,8 +502,8 @@ addLoadEvent(function () {
     addLoadEvent(liScrollJump);*/
 
 
-    /* ** Global eventListener if any part of <body> get clicked. */
-    document.body.addEventListener("click", function(a) {
+    /* ** Global eventListener if any part of <window> get clicked. */
+    window.addEventListener("click", function(a) {
         if (! (sideMenu.contains(a.target) || sideMenu === a.target)) {
             /* Not finished!!! */
             closeSideMenu();

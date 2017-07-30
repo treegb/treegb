@@ -18,7 +18,6 @@
     <div class="subtitle">
         <p>170721_170001</p>
         <p><iframe src="./170721_194059.html" class="ifrmRefDest"></iframe></p>
-        <p>.</p>
     </div>
 </header>
 
@@ -28,17 +27,21 @@
     <div class="foldableContent">
         <ul>
             <li><strong class="lihed"><a href="#d170722_225458">Nav.</a></strong></li>
-            <li><strong class="lihed"><a href="#d170721_170653">asKansweR info</a></strong> : This is exactly copy of that dokuwiki page.</li>
+            <li><strong class="lihed"><a href="#d170721_170653">asKansweR info</a></strong> : This is exactly same copy of dokuwiki.</li>
             <li><strong class="lihed"><a href="#d170721_170924">asKansweR script</a></strong> : Include bash and python3 script.</li>
         </ul>
     </div>
 </section>
 
-<section class="section1 hide">
+<section class="section1">
     <h2>asKansweR info<a class="ancrDest" id="d170721_170653"></a></h2>
 
     <div class="foldableContent">
-        <p class="code4">====== password ======
+        <ul>
+            <li>
+                <p><strong class="lihed">asKansweR info original</strong> : (exactly same copy of dokuwiki).</p>
+                <div class="code5 hide">
+                    <p class="pre">====== password ======
 
 &lt;div tags_p&gt;asKansweR, asKansweRm, 密碼雜湊函式, sha512, hash, Cryptographic hash function, base64, encrypt, security, passwd,&lt;/div&gt;
 
@@ -170,23 +173,41 @@ while w != "exit":
 &lt;div tags_d&gt;x hand writing,&lt;/div&gt;
 
   * [[https://en.wikipedia.org/wiki/Regional_handwriting_variation|Regional handwriting variation]] : 為了區別手寫字元 0, 1, 7, 9, q, g, o, i, l 的問題, 找到這篇文章研究字元標準的手寫方法.</p>
+                </div>
+            </li>
+            <li>
+                <p><strong class="lihed">Newly added</strong> : (should update to dokuwiki).</p>
+                <div class="code5">
+                    <ul>
+                        <li><strong class="lihed">linuxquestions.org</strong> : {username : treegb ; answeR : <b class="code1">linuxquestions</b> ; email : bambooindark@gmail.com}.</li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
     </div>
 </section>
 
-<section class="section1 hide">
+<section class="section1">
     <h2>asKansweR script<a class="ancrDest" id="d170721_170924"></a></h2>
 
     <div class="foldableContent">
         <ul>
-            <li><strong class="lihed">Bash</strong>
+            <li>
+                <p><strong class="lihed">Bash</strong></p>
                 <ul>
                     <li>See <a href="./170721_170003.html">bash_aliases_main</a>.</li>
-                    <li><strong class="lihed">(quick use).</strong></li>
-                    <p class="code4">read -p "Your message :" asKansweR ; echo -n "$asKansweR" | sha512sum | sed -n 's/^\(.*\)  -$/\1/p' | tr -d '\n' | xxd -r -p | base64 | tr -d '\n' | sed -n 's/^\(.*\)/\1\n/p'</p>
+                    <li>
+                        <p><strong class="lihed">(quick use).</strong></p>
+                        <div class="code5">
+                            <p class="pre">read -p "Your message :" asKansweR ; echo -n "$asKansweR" | sha512sum | sed -n 's/^\(.*\)  -$/\1/p' | tr -d '\n' | xxd -r -p | base64 | tr -d '\n' | sed -n 's/^\(.*\)/\1\n/p'</p>
+                        </div>
+                    </li>
                 </ul>
             </li>
-            <li><strong class="lihed">Python.</strong>
-                <p class="code4">#asKansweR.py
+            <li>
+                <p><strong class="lihed">Python.</strong></p>
+                <div class="code5 hide">
+                    <p class="pre">#asKansweR.py
 import base64
 import hashlib
 
@@ -212,7 +233,9 @@ while w != "exit":
     #print(x)
     y = base64.b64encode(x)
     print(y.decode("utf-8"))</p>
-        </li>
+                </div>
+            </li>
+        </ul>
     </div>
 </section>
 
