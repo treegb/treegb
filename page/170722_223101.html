@@ -27,14 +27,13 @@
     <div class="foldableContent">
         <ul>
             <li><strong class="lihed"><a href="#d170722_224937">Nav.</a></strong></li>
+            <li><strong class="lihed"><a href="#d170731_082724">tmp command</a></strong></li>
             <li><strong class="lihed">[<b class="code1"><a href="170730_091357.html">apt // aptitude // dpkg</a></b>].</strong></li>
-            <li><strong class="lihed"><a href="170721_170001.html">asKansweR info and script.</a></strong></li>
             <li><strong class="lihed"><b class="code1">bash</b></strong>
                 <ul>
                     <li><strong class="lihed"><b class="code1">shopt -s dotglob</b></strong> : Make <b class="code1">cp</b> and <b class="code1">rm</b> to include hidden file. _ See <a href="https://superuser.com/questions/61611/how-to-copy-with-cp-to-include-hidden-files-and-hidden-directories-and-their-con/547166#547166">here</a> for more info</li>
                 </ul>
             </li>
-            <li><strong class="lihed"><b class="code1">date</b></strong> : <b class="code1">date +"d%y%m%d_%H%M%S"</b>.</li>
             <li><strong class="lihed"><b class="code1">df</b>.</strong>
                 <ul>
                     <li><strong class="lihed">df show nothing?</strong> : Use <b class="code1">lsblk</b> or <b class="code1">dmesg</b> to see your target [disk / partition] first, then mount it, then finally use <b class="code1">df</b> to see disk size usage.
@@ -46,7 +45,7 @@
             <li><strong class="lihed"><b class="code1">lspci -nn</b></strong> : Check device basic info (name) like (VGA) graphic card name, product code, vendor name ... If you want to install [firmware / driver] you have to at least to know it's product code first.</li>
             <li>
                 <p><strong class="lihed"><b class="code1">parted.</b></strong></p>
-                <div class="code5 hide">
+                <div class="cbk1 hide">
                     <ul>
                         <li><strong class="lihed">End point</strong> : Use <b class="code1">-1s</b> or <b class="code1">100%</b> to set end point to max size of rest space of disk. ("s" stand for sector, you can use <b class="code1">unit</b> to change unit too.)</li>
                         <li><strong class="lihed"><a href="https://blog.gtwang.org/linux/parted-command-to-create-resize-rescue-linux-disk-partitions/2/">Basic usage.</a></strong></li>
@@ -75,7 +74,7 @@
             <li><strong class="lihed"><a href="https://www.howtogeek.com/175008/the-non-beginners-guide-to-syncing-data-with-rsync/">Incremental backup</a></strong>.</li>
             <li>
                 <p><strong class="lihed">My Important Final Conclusion.</strong></p>
-                <div class="code5">
+                <div class="cbk1">
                     <ul>
                         <li>Don't use <b class="code1">-f '+sr_'</b>, <b class="code1">-f '-rs'</b> any more, it is over complicate and not much benifit to general usage tough it can works.</li>
                         <li>Use <b class="code1">--include</b> and <b class="code1">--exclude</b>. This works similar to <b class="code1">-f '+sr_'</b> and <b class="code1">-f '-rs'</b>, it will always represent both <b class="code1">s</b> (send) and <b class="code1">r</b> (receive) sides on current "filter pattern". You don't need to specify [s // r] one side only in most of case.</li>
@@ -104,7 +103,7 @@
                         </li>
                         <li>
                             <p><strong class="lihed">Best [practice / example].</strong></p>
-                            <div class="code5">
+                            <div class="cbk1">
                                 <ul>
                                     <li>this example is most common used case for these 2 usage :
                                         <ul>
@@ -131,6 +130,18 @@
                 </div>
             </li>
             <!-- ** End of My <Important Final Conclusion>. -->
+        </ul>
+    </div>
+</section>
+
+<section class="section1">
+    <h2>tmp command<a class="ancrDest" id="d170731_082724"></a></h2>
+
+    <div class="foldableContent">
+        <ul>
+            <li><strong class="lihed"><a href="170721_170001.html">asKansweR info and script.</a></strong></li>
+            <li><strong class="lihed"><b class="code1">date</b></strong> : <b class="code1">date +"d%y%m%d_%H%M%S"</b>.</li>
+            <li><strong class="lihed">Search dokuwiki page</strong> : <b class="code1">egrep -iR --color=always -A3 -B3 'florian bur' . | less -MiR -j3</b>.</li>
         </ul>
     </div>
 </section>

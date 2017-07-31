@@ -62,7 +62,7 @@ addLoadEvent(function () {
     /* ** "Global-like" varialbe in this big function (and accessible only in this big function). */
     var section1All = document.querySelectorAll(".section1");
     var liAll = document.querySelectorAll(".section1 li");
-    var codeBlockAll = document.querySelectorAll(".code5, .code4");
+    var codeBlockAll = document.querySelectorAll(".cbk1");
 
     /* ** <.eye> and <.eyeIndex> might be useless now (I even forget what different between these 2), I never use them again. */
     var eyeIndex = document.querySelectorAll('.eyeIndex');
@@ -81,7 +81,7 @@ addLoadEvent(function () {
         eyeCurrent.setAttribute('src', eyeSrc);
     }
 
-    /* ** Aware <.hide> class in [<.section1> // <.code4> // <.code5>] doesn't meant to be a volatile class toggle to be added and removed when clicking button, but to be a "default" or "fall back" value.
+    /* ** Aware <.hide> class in [<.section1> // <.cbk1>] doesn't meant to be a volatile class toggle to be added and removed when clicking button, but to be a "default" or "fall back" value.
        When there is <.forceHide> and <.forceDisplay> class aside, these 2 class will have higher priority effect. */
     /* ** Share function for after similar usage. */
     function toggleHideClass(toggleClassTarget) {
@@ -119,8 +119,8 @@ addLoadEvent(function () {
     }
 
 
-    /* ** Create <btnToggleHideCodeBlock> for <code4> and <code5> to make it function to toggle the visibility.
-       ** Aware, if you rename [<code4> // <code5>] in CSS, this code should update the name too. */
+    /* ** Create <btnToggleHideCodeBlock> for <cbk1> to make it function to toggle the visibility.
+       ** Aware, if you rename <cbk1> in CSS, this code should update the name too. */
     var i = 0;
 
     for (; i < codeBlockAll.length ; i++) {
@@ -128,7 +128,7 @@ addLoadEvent(function () {
         codeBlockCtn.classList.add("codeBlockCtn");
         
         /* ** Aware, <.hide> have no any effect on CSS style, the purpose of <.hide> is give here javascript to add <.forceHide> class. HTML document arthor don't need to care about writing <forceHide> and <forceDisplay> class in HTML document. Just simplily put <.hide> in where you expect to hide to give javascript advice to hide here if possible.
-           ** <.hide> class in <.code4>, <.code5> will be used to send to their parent <codeBlockCtn> (and add same class name again) and have no any more purpose. */
+           ** <.hide> class in <.cbk1> will be used to send to their parent <codeBlockCtn> (and add same class name again) and have no any more purpose. */
         if (codeBlockAll[i].classList.contains("hide")) {
             codeBlockCtn.classList.add("hide");
             codeBlockCtn.classList.add("forceHide");

@@ -40,7 +40,7 @@
         <ul>
             <li>
                 <p><strong class="lihed">asKansweR info original</strong> : (exactly same copy of dokuwiki).</p>
-                <div class="code5 hide">
+                <div class="cbk1 hide">
                     <p class="pre">====== password ======
 
 &lt;div tags_p&gt;asKansweR, asKansweRm, 密碼雜湊函式, sha512, hash, Cryptographic hash function, base64, encrypt, security, passwd,&lt;/div&gt;
@@ -177,9 +177,32 @@ while w != "exit":
             </li>
             <li>
                 <p><strong class="lihed">Newly added</strong> : (should update to dokuwiki).</p>
-                <div class="code5">
+                <div class="cbk1">
                     <ul>
-                        <li><strong class="lihed">linuxquestions.org</strong> : {username : treegb ; answeR : <b class="code1">linuxquestions</b> ; email : bambooindark@gmail.com}.</li>
+                        <li>
+                            <p><strong class="lihed">主機</strong></p>
+                            <ul>
+                                <li><strong class="lihed"></strong></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <p><strong class="lihed">主要網路服務</strong></p>
+                            <ul>
+                                <li><strong class="lihed"></strong></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <p><strong class="lihed">自由社群</strong></p>
+                            <ul>
+                                <li><strong class="lihed"></strong></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <p><strong class="lihed">Dirty 類</strong></p>
+                            <ul>
+                                <li><strong class="lihed">linuxquestions.org</strong> : {username : treegb ; answeR : <b class="code1">linuxquestions</b> ; email : bambooindark@gmail.com}.</li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </li>
@@ -198,7 +221,7 @@ while w != "exit":
                     <li>See <a href="./170721_170003.html">bash_aliases_main</a>.</li>
                     <li>
                         <p><strong class="lihed">(quick use).</strong></p>
-                        <div class="code5">
+                        <div class="cbk1">
                             <p class="pre">read -p "Your message :" asKansweR ; echo -n "$asKansweR" | sha512sum | sed -n 's/^\(.*\)  -$/\1/p' | tr -d '\n' | xxd -r -p | base64 | tr -d '\n' | sed -n 's/^\(.*\)/\1\n/p'</p>
                         </div>
                     </li>
@@ -206,7 +229,7 @@ while w != "exit":
             </li>
             <li>
                 <p><strong class="lihed">Python.</strong></p>
-                <div class="code5 hide">
+                <div class="cbk1 hide">
                     <p class="pre">#asKansweR.py
 import base64
 import hashlib

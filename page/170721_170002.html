@@ -32,7 +32,7 @@
             <li><strong class="lihed"><a href="#d170722_231432">USB installation</a></strong></li>
             <li>
                 <p><strong class="lihed">Kernel parameter.</strong></p>
-                <div class="code5 hide">
+                <div class="cbk1 hide">
                     <ul>
                         <li>Set kernel parameters <b class="udr">permanently</b> in Grub : <a href="https://wiki.archlinux.org/index.php/Kernel_parameters">1. (Syslinux, systemd-boot, GRUB ... ) (preferable)</a> <a href="https://sites.google.com/site/easylinuxtipsproject/gruboptions">2. (view as more info).</a></li>
                         <li><strong class="lihed"><a href="https://wiki.archlinux.org/index.php/kernel_mode_setting#Disabling_modesetting">Kernel mode setting</a></strong> : Kernel Mode Setting (KMS) is a method for setting display resolution and depth in the kernel space rather than user space.</li>
@@ -42,11 +42,21 @@
                 </div>
             </li>
             <li>
+                <p><strong class="lihed"><b class="code1">boot.img.gz</b>, <b class="code1">initrd.gz</b>, <b class="code1">vmlinuz</b></a></strong>.</p>
+                <div class="cbk1 hide">
+                    <ul>
+                        <li><a href="http://www.linuxquestions.org/questions/linux-server-73/difference-between-initrd-and-vmlinuz-images-892868/">What is <b class="code1">vmlinuz</b> and <b class="code1">initrd</b>?</a> (vmlinuz is kernel, initrd is tiny file system image, will include some crucial modules and something more for vmlinuz to use).</li>
+                        <li>For Debian, those file is under <a href="http://http.us.debian.org/debian/dists/stretch/main/installer-amd64/current/images/">Debian archives</a> (you need to get deeper inside the tree to find it).</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
                 <p><strong class="lihed">Grub (bootloader)</strong></p>
-                <div class="code5 hide">
+                <div class="cbk1 hide">
                     <ul>
                         <li><a href="https://sites.google.com/site/easylinuxtipsproject/grub#TOC-Adapt-Grub:-make-Windows-the-first-option-in-the-Grub-boot-menu">Grub with motherboard that are UEFI but use BIOS compatible mode.</a></li>
                         <li><a href="https://sites.google.com/site/easylinuxtipsproject/6">Grub with motherboard that are UEFI and use full UEFI mode.</a></li>
+                        <li><strong class="lihed">[Dealing <b class="code1">Grub</b> with multiple OS / should I install grub again when I am installing the 2nd OS?]</strong> : See <a href="http://www.linuxquestions.org/questions/linux-newbie-8/grub-bootloader-4175610586/">this thread</a>, including discussion about run <b class="code1">update-grub</b> with rescue USB stick and it will auto detect all OS on same disk and fix broken Grub.</li>
                         <li><a href="https://sites.google.com/site/easylinuxtipsproject/tips#TOC-Make-Windows-the-default-option-in-the-Grub-boot-menu">Make Windows the default option in the Grub boot menu</a> : (I guess this work for any OS).</li>
                         <li><a href="https://sites.google.com/site/easylinuxtipsproject/grub#TOC-Adapt-Grub:-change-the-timeout">Change the Grub OS menu option timeout.</a></li>
                     </ul>
@@ -55,8 +65,18 @@
             <li>[<a href="https://en.wikipedia.org/wiki/MBR_partition_table">MBR partition table (Master Boot Record)</a> // <a href="https://zh.wikipedia.org/zh-tw/GUID%E7%A3%81%E7%A2%9F%E5%88%86%E5%89%B2%E8%A1%A8">GUID Partition Table (GPT)].</a></li>
             <li><strong class="lihed"><a href="https://zh.wikipedia.org/zh-tw/GUID%E7%A3%81%E7%A2%9F%E5%88%86%E5%89%B2%E8%A1%A8#.E6.93.8D.E4.BD.9C.E7.B3.BB.E7.BB.9F.E6.94.AF.E6.8C.81">OS support boot from [<b class="code1">BIOS/GPT</b> // <b class="code1">EFI/GPT</b>].</a></strong></li>
             <li>
+                <p><strong class="lihed">Module.</strong></p>
+                <div class="cbk1">
+                    <ul>
+                        <li><strong class="lihed"><b class="code1">modprobe</b>, <b class="code1">lsmod</b>, <b class="code1">modinfo</b>, <b class="code1">insmod</b>, <b class="code1">rmmod</b>, <b class="code1">depmod</b>.</strong></li>
+                        <li><strong class="lihed"><a href="https://askubuntu.com/questions/299676/how-to-install-3rd-party-module-so-that-it-is-loaded-on-boot">Install 3rd party module and make it auto loaded on boot.</a></strong></li>
+                        <li><strong class="lihed"><a href="https://wiki.debian.org/KernelModuleBlacklisting">Blacklist Kernel Module</a>.</strong></li>
+                    </ul>
+                </div>
+            </li>
+            <li>
                 <p><strong class="lihed"><a href="http://smxi.org/">smxi</a></strong> : Don't know if this is useful, I just keep it here. _ <q>smxi is an interactive script designed to help people maintain their systems. It supports Debian based distros.</q></p>
-                <div class="code5 hide">
+                <div class="cbk1 hide">
                     <p>Smxi is a feature rich, powerful script, and has the following primary features and options :</p>
                     <ul>
                             <li>System Upgrades (dist-upgrade / upgrade)</li>
@@ -81,14 +101,6 @@
         <ul>
             <li><strong class="lihed"><a href="https://www.debian.org/releases/stable/i386/ch04s03.html.en">Debian manual way</a></strong> : Also see <a href="#d170722_232950">here</a>.</li>
             <li><strong class="lihed"><a href="https://wiki.archlinux.org/index.php/USB_flash_installation_media_%28%E6%AD%A3%E9%AB%94%E4%B8%AD%E6%96%87%29">USB flash installation media (正體中文)</a></strong> : This <b class="code1">Arch</b> wiki page demonstrate different approach to install a bootable USB.</li>
-            <li>
-                <p><strong class="lihed"><a href="https://wiki.archlinux.org/index.php/USB_flash_installation_media_%28%E6%AD%A3%E9%AB%94%E4%B8%AD%E6%96%87%29"><b class="code1">boot.img.gz</b>, <b class="code1">initrd.gz</b>, <b class="code1">vmlinuz</b></a></strong>.</p>
-                <ul>
-                    <li>under <a href="http://http.us.debian.org/debian/dists/stretch/main/installer-amd64/current/images/">Debian archives</a> (you need to get deeper inside the tree to find it).</li>
-                    <li>Those "things" are similar to</li>
-                    <li>Not sure if <initrd.gz>, <vmlinuz> these 2 called "Debian-installer".</li>
-                </ul>
-            </li>
             <li>
                 <p><strong class="lihed">Multiple ISO images in one USB.</strong></p>
                 <ul>
