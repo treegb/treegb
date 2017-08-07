@@ -34,14 +34,36 @@
                     <li><strong class="lihed"><b class="code1">shopt -s dotglob</b></strong> : Make <b class="code1">cp</b> and <b class="code1">rm</b> to include hidden file. _ See <a href="https://superuser.com/questions/61611/how-to-copy-with-cp-to-include-hidden-files-and-hidden-directories-and-their-con/547166#547166">here</a> for more info</li>
                 </ul>
             </li>
-            <li><strong class="lihed"><b class="code1">df</b>.</strong>
-                <ul>
-                    <li><strong class="lihed">df show nothing?</strong> : Use <b class="code1">lsblk</b> or <b class="code1">dmesg</b> to see your target [disk / partition] first, then mount it, then finally use <b class="code1">df</b> to see disk size usage.
-                    <p>df will not showing partition without mounted, <s>so for example when you are using live usb, you only see other usb stick (/dev/sdn) showing up, but don't see yor main disk showing up, because when you plug in any usb stick, Gnome normally AUTOMATIC mount it for you under /media.</s></p>
-                    </li>
-                </ul>
+            <li>
+                <p><strong class="lihed"><b class="code1">df</b>.</strong></p>
+                <div class="cbk1 hide">
+                    <ul>
+                        <li><strong class="lihed">df show nothing?</strong> : Use <b class="code1">lsblk</b> or <b class="code1">dmesg</b> to see your target [disk / partition] first, then mount it, then finally use <b class="code1">df</b> to see disk size usage.
+                        <p>df will not showing partition without mounted, <s>so for example when you are using live usb, you only see other usb stick (/dev/sdn) showing up, but don't see yor main disk showing up, because when you plug in any usb stick, Gnome normally AUTOMATIC mount it for you under /media.</s></p>
+                        </li>
+                    </ul>
+                </div>
             </li>
             <li><strong class="lihed"><b class="code1">dmesg</b></strong> : This is very usful because some time error occurs you can find the log here.</li>
+            <li>
+                <p><strong class="lihed"><b class="code1">Groff.</b></strong></p>
+                <div class="cbk1 hide">
+                    <ul>
+                        <li>Groff (GNU troff) is a typesetting/(typeset) system that reads plain text mixed with formatting commands and produces formatted output. Output may be PostScript or PDF, html, or ASCII/UTF8 for display at the terminal.</li>
+                        <li><a href="https://www.gnu.org/software/groff/manual/">Online manual.</a></li>
+                        <li>
+                            <p><strong class="lihed"><b class="code1">Tex (or LaTax) vs Groff?</b></strong></p>
+                            <ul>
+                                <li>Groff is firmly entrenched in all UNIX/Linux systems.</li>
+                                <li><q>If you need to run the thing in a pipeline, this is your baby.
+Table processing is simpler (but I think gtbl can write TeX output...)</q></li>
+                                <li><q>I run/schedule 'canned' PDF reports using *roff, generating tables and simple PICs as I process the data with python, and organizing sources with simple bash scripts. Smooth & Simple. Like vi, *roff is always there, ready-to-run and generates clean PDFs with minimal fuss.</q></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li><strong class="lihed"><b class="code1">lsb_release</b></strong> : Print distribution-specific information e.g. current distribution release name.</li>
             <li><strong class="lihed"><b class="code1">lspci -nn</b></strong> : Check device basic info (name) like (VGA) graphic card name, product code, vendor name ... If you want to install [firmware / driver] you have to at least to know it's product code first.</li>
             <li>
                 <p><strong class="lihed"><b class="code1">parted.</b></strong></p>
@@ -62,6 +84,7 @@
                 </div>
             </li>
             <li><strong class="lihed"><b class="code1"><a href="#d170723_173307">rsync</a></b>.</strong></li>
+            <li><strong class="lihed"><b class="code1"><a href="http://linuxcommand.org/tlcl.php">linuxcommand.org</a></b></strong> : A good free book about many basic command useful application example, when you want to improve your skills of using these tools.</li>
         </ul>
     </div>
 </section>
