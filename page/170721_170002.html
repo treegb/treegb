@@ -27,17 +27,76 @@
     <div class="foldableContent">
         <ul>
             <li><strong class="lihed"><a href="#d170722_224712">Nav.</a></strong></li>
-            <li><strong class="lihed"><a href="https://www.debian.org/releases/stable/amd64/">Debian amd64 installation guide (official)</a></strong> : Very well wroted document. Have lots of information and every important thing you need to know, including complete path to install Debian, and understand Debian system.</li>
-            <li><strong class="lihed"><a href="https://wiki.debian.org/Hardware">Debian Hardware guide</a></strong>.</li>
-            <li><strong class="lihed"><a href="#d170722_231432">USB installation</a></strong></li>
             <li>
-                <p><strong class="lihed">Kernel parameter.</strong></p>
+                <p><strong class="lihed"><a href="https://www.debian.org/releases/stable/amd64/">Debian amd64 installation guide (official)</a></strong> : Very well wroted document. Have lots of information and every important thing you need to know, including complete path to install Debian, and understand Debian system.</p>
+                <p>This single root have too many useful sublinks, thus I gather some important one here.</p>
+                <div class="cbk1">
+                    <ul>
+                        <li><strong class="lihed">Finding Sources of Hardware Information<a class="ancrDest" id="d170808_095225"></a></strong> : <a href="https://www.debian.org/releases/stable/amd64/ch03s03.html.en">3.3. Information You Will Need</a>, <a href="https://wiki.debian.org/HowToIdentifyADevice/PCI">HowToIdentifyADevice - PCI</a>.</li>
+                        <li><strong class="lihed">Systems with UEFI firmware.</strong> : <a href="https://www.debian.org/releases/stable/amd64/ch03s06.html.en#UEFI">3.6. Pre-Installation Hardware and Operating System Setup.</a></li>
+                        <li>
+                            <p><strong class="lihed">Firmware</strong> : <a href="https://www.debian.org/releases/stable/amd64/ch02s02.html.en">2.2. Devices Requiring Firmware</a>, <a href="https://www.debian.org/releases/stable/amd64/ch06s04.html.en">6.4. Loading Missing Firmware</a>.</p>
+                            <ul>
+                                <li>Put extra firmware on second USB stick, under ["root" // /firmware] directory, and <b class="code1">debian-installer</b> will recognize it.</li>
+                                <li>If the firmware was loaded from loose firmware files, the firmware copied to the installed system will not be automatically updated unless the corresponding firmware package (if available) is installed after the installation is completed.</li>
+                                <li>About loading module at boot time, I don't know if <b class="code1">module</b> is related with <b class="code1">firmware</b> or not, but if you need to auto load module on boot, see <a href="#d170808_090536">Module</a> section.</li>
+                            </ul>
+                        </li>
+                        <li><strong class="lihed">USB media installation<a class="ancrDest" id="d170808_170152"></a></strong> : <a href="https://www.debian.org/releases/stable/amd64/ch04s03.html.en">4.3. Preparing Files for USB Memory Stick Booting</a>, <a href="https://www.debian.org/releases/stable/amd64/ch04s04.html.en">4.4. Preparing Files for Hard Disk Booting</a>. _ Also see <a href="#d170722_231432"><b class="code1">USB installation</b> section</a>.</li>
+                        <li><strong class="lihed">[Boot Parameter / Kernel parameter]</strong> : <a href="https://www.debian.org/releases/stable/amd64/ch05s03.html.en">5.3. Boot Parameters.</a> Also see <a href="#d170808_074846">here</a>.</li>
+                        <li><strong class="lihed"><b class="code1">dhcp-client</b>, <b class="code1">debootstrap</b>, <b class="code1">tasksel</b></strong> : See <a href="https://www.debian.org/releases/stable/amd64/ch03s01.html.en">here</a>.</li>
+                        <li><strong class="lihed"><a href="https://www.debian.org/releases/stable/amd64/ch05s04.html.en">5.4. Troubleshooting the Installation Process.</a></strong></li>
+                        <li>
+                            <p><strong class="lihed"><b class="code1">Debian Installer</b></strong> : <a href="https://www.debian.org/releases/stable/amd64/ch06.html.en">Chapter 6. Using the Debian Installer</a>.</p>
+                            <ul>
+                                <li><strong class="lihed"><a href="https://www.debian.org/releases/stable/amd64/ch06s02.html.en">6.2. Components Introduction</a></strong> : Not much to notice, but I wonder <q>cdrom-detect</q> or <q>iso-scan</q> might able to load second usb and extra firmware inside it?</li>
+                                <li><strong class="lihed"><a href="https://www.debian.org/releases/stable/amd64/ch06s03.html.en">6.3. Using Individual Components</a></strong> : More detail "components" descrition.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li><strong class="lihed"><a href="https://www.debian.org/doc/books">Debian book</a></strong> : This link is just under <b class="udr">https://www.debian.org/</b> and I just always missed it until now! English version (<b class="udr"><a href="https://debian-handbook.info">https://debian-handbook.info</a></b>) is enough to read, this is <b class="strong1">very detailed manual</b> compared to official Debian installation guide.</li>
+            <li><strong class="lihed"><a href="https://wiki.debian.org/FrontPage">Debian wiki</a></strong> : This is potential another good root resources.</li>
+            <li>
+                <p><strong class="lihed">[Mirror // archive].<a class="ancrDest" id="d170808_144245"></a></strong></p>
                 <div class="cbk1 hide">
                     <ul>
-                        <li>Set kernel parameters <b class="udr">permanently</b> in Grub : <a href="https://wiki.archlinux.org/index.php/Kernel_parameters">1. (Syslinux, systemd-boot, GRUB ... ) (preferable)</a> <a href="https://sites.google.com/site/easylinuxtipsproject/gruboptions">2. (view as more info).</a></li>
+                        <li><strong class="lihed">The term</strong> : <b class="udr">mirror</b> seems to indicate the [http // ftp] mirror site, where you can get [CD // DVD // live-CD // Kernel], and <b class="udr">archive</b> seems ot indicate old stuff, such as old-stable related.</li>
+                        <li><strong class="lihed">Mirrors</strong> : I'm confused at first when I can't find something other than CD, DVD, live-CD image when I try navigating inside "directory" in some official link (for example following <b class="udr"><a href="https://www.debian.org/CD/">https://www.debian.org/CD/</a></b> page, I finally get to <b class="udr"><a href="https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/">https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/</a></b> "directory", but I can't get to the parent of path <b class="code1">/debian-cd/</b>!). So if you want to explore all the resources (for example Kernel, namely <b class="code1">vmlinuz</b> and <b class="code1">initrd</b>) use this <b class="strong1"><a href="https://www.debian.org/mirror/list">full mirror links</a></b> to get complete resources. And also <b class="strong1"><a href="http://cdimage.debian.org/mirror/">http://cdimage.debian.org/mirror/</a></b> is Debian primary official mirror site.</li>
+                        <li><strong class="lihed">Mirrors path structure</strong> : All mirrors site have similar structure but might be a little different, <b class="code1">/debian-cd/</b> and <b class="code1">/cdimage/</b> contains [CD // DVD // live-CD] file (these 2 contain identical data?), and <b class="code1">/debian/dists/</b> contains Kernel files.</li>
+                        <li><strong class="lihed">Some mirror are outdate and don't have complete files on it</strong> : See <a href="https://www.debian.org/CD/http-ftp/#mirrors">here</a>. <q>Note that some mirrors are not up to date — before downloading, check the version number of the images is the same as the one listed on this site! Additionally, note that many sites do not mirror the full set of images (especially the DVD images) due to its size. If in doubt, use the primary CD image server in Sweden, or try the experimental automatic mirror selector that will automatically redirect you to a nearby mirror that is known to have the current version.</q></li>
+                    </ul>
+                </div>
+            </li>
+            <li><strong class="lihed"><a href="https://wiki.debian.org/Hardware">Debian Hardware guide.</a></strong></li>
+            <li>
+                <p><strong class="lihed">[GPU / Video card].</strong></p>
+                <div class="cbk1">
+                    <ul>
+                        <li>
+                            <p><strong class="lihed">Ubuntu and Mint (Debian please follow Debian way not this!)</strong></p>
+                            <ul>
+                                <li><strong class="lihed"><a href="https://sites.google.com/site/easylinuxtipsproject/12">NVIDIA - how to install the latest video card drivers.</a></strong></li>
+                                <li><strong class="lihed"><a href="https://sites.google.com/site/easylinuxtipsproject/display">Solve display problems in Ubuntu and Linux Mint.</a></strong></li>
+                            </ul>
+                        </li>
+                        <li><strong class="lihed"><b class="code1">/etc/X11/xorg.conf</b></strong> : In old days some people will change this file manually but I don't know if current day if this is still required. This file will be edited by NVIDIA automatic.</li>
+                    </ul>
+                </div>
+            </li>
+            <li><strong class="lihed"><a href="#d170722_231432">USB installation</a></strong></li>
+            <li>
+                <p><strong class="lihed">Kernel parameter.</strong><a class="ancrDest" id="d170808_074846"></p>
+                <div class="cbk1 hide">
+                    <ul>
+                        <li><strong class="lihed"><a href="http://www.tldp.org/HOWTO/BootPrompt-HOWTO.html">The Linux BootPrompt-HowTo</a></strong> : <q>This is the BootPrompt-Howto, which is a compilation of all the possible boot time arguments that can be passed to the Linux kernel at boot time. A discussion of how the kernel sorts boot time arguments, along with an overview of some of the popular software used to boot Linux kernels is also included.</q></li>
+                        <li><strong class="lihed">Set kernel parameters <b class="udr">permanently</b> in Grub</strong> : <a href="https://wiki.archlinux.org/index.php/Kernel_parameters">1. (Syslinux, systemd-boot, GRUB ... ) (preferable)</a> <a href="https://sites.google.com/site/easylinuxtipsproject/gruboptions">2. (view as more info).</a></li>
                         <li><strong class="lihed"><a href="https://wiki.archlinux.org/index.php/kernel_mode_setting#Disabling_modesetting">Kernel mode setting</a></strong> : Kernel Mode Setting (KMS) is a method for setting display resolution and depth in the kernel space rather than user space.</li>
-                        <li><b class="code1">modeset</b> : You may want to disable KMS for various reasons, such as getting a blank screen or a "no signal" error from the display.</li>
-                        <li><b class="code1">nomodeset</b>, <b class="code1">quiet, splash</b>, <b class="code1">noacpi, nolacpi</b> : See <a href="https://askubuntu.com/questions/716957/what-do-the-nomodeset-quiet-and-splash-kernel-parameters-mean">here</a>.</li>
+                        <li><strong class="lihed"><b class="code1">modeset</b></strong> : You may want to disable KMS for various reasons, such as getting a blank screen or a "no signal" error from the display.</li>
+                        <li><strong class="lihed"><b class="code1">nomodeset</b>, <b class="code1">quiet, splash</b>, <b class="code1">noacpi, nolacpi</b></strong> : See <a href="https://askubuntu.com/questions/716957/what-do-the-nomodeset-quiet-and-splash-kernel-parameters-mean">here</a>.</li>
+                        <li><strong class="lihed"><b class="code1">fb=false</b></strong> : See <a href="https://www.debian.org/releases/stable/amd64/ch05s04.html.en">here (5.4.4)</a>, <q>If your screen begins to show a weird picture while the kernel boots, eg. pure white, pure black or colored pixel garbage, your system may contain a problematic video card which does not switch to the framebuffer mode properly. Then you can use the boot parameter fb=false to disable the framebuffer console.</q></li>
+                        <li><strong class="lihed"><b class="code1">priority</b></strong> : See <a href="https://www.debian.org/releases/stable/amd64/ch06s01.html.en">6.1. How the Installer Works</a>, sometimes you can use <b class="code1">priority=medium</b>, <b class="code1">priority=low</b> to see more control options when using <b class="code1">Debian-installer</b>.</li>
                     </ul>
                 </div>
             </li>
@@ -46,34 +105,24 @@
                 <div class="cbk1 hide">
                     <ul>
                         <li><a href="http://www.linuxquestions.org/questions/linux-server-73/difference-between-initrd-and-vmlinuz-images-892868/">What is <b class="code1">vmlinuz</b> and <b class="code1">initrd</b>?</a> (vmlinuz is kernel, initrd is tiny file system image, will include some crucial modules and something more for vmlinuz to use).</li>
-                        <li>For Debian, those file is under <a href="http://http.us.debian.org/debian/dists/stretch/main/installer-amd64/current/images/">Debian archives</a> (you need to get deeper inside the tree to find it).</li>
+                        <li>For Debian, get those files at <a href="#d170808_144245">here</a> (you need to get deeper inside the tree to find it).</li>
                     </ul>
                 </div>
             </li>
-            <li>
-                <p><strong class="lihed">Grub (bootloader)</strong></p>
-                <div class="cbk1 hide">
-                    <ul>
-                        <li><a href="https://sites.google.com/site/easylinuxtipsproject/grub#TOC-Adapt-Grub:-make-Windows-the-first-option-in-the-Grub-boot-menu">Grub with motherboard that are UEFI but use BIOS compatible mode.</a></li>
-                        <li><a href="https://sites.google.com/site/easylinuxtipsproject/6">Grub with motherboard that are UEFI and use full UEFI mode.</a></li>
-                        <li><strong class="lihed">[Dealing <b class="code1">Grub</b> with multiple OS / should I install grub again when I am installing the 2nd OS?]</strong> : See <a href="http://www.linuxquestions.org/questions/linux-newbie-8/grub-bootloader-4175610586/">this thread</a>, including discussion about run <b class="code1">update-grub</b> with rescue USB stick and it will auto detect all OS on same disk and fix broken Grub.</li>
-                        <li><a href="https://sites.google.com/site/easylinuxtipsproject/tips#TOC-Make-Windows-the-default-option-in-the-Grub-boot-menu">Make Windows the default option in the Grub boot menu</a> : (I guess this work for any OS).</li>
-                        <li><a href="https://sites.google.com/site/easylinuxtipsproject/grub#TOC-Adapt-Grub:-change-the-timeout">Change the Grub OS menu option timeout.</a></li>
-                    </ul>
-                </div>
-            </li>
-            <li>[<a href="https://en.wikipedia.org/wiki/MBR_partition_table">MBR partition table (Master Boot Record)</a> // <a href="https://zh.wikipedia.org/zh-tw/GUID%E7%A3%81%E7%A2%9F%E5%88%86%E5%89%B2%E8%A1%A8">GUID Partition Table (GPT)].</a></li>
+            <li><strong class="lihed"><a href="#d170809_133501">[Grub / Grub2 / bootloader].</a></strong></li>
             <li><strong class="lihed"><a href="https://zh.wikipedia.org/zh-tw/GUID%E7%A3%81%E7%A2%9F%E5%88%86%E5%89%B2%E8%A1%A8#.E6.93.8D.E4.BD.9C.E7.B3.BB.E7.BB.9F.E6.94.AF.E6.8C.81">OS support boot from [<b class="code1">BIOS/GPT</b> // <b class="code1">EFI/GPT</b>].</a></strong></li>
             <li>
-                <p><strong class="lihed">Module.</strong></p>
+                <p><strong class="lihed">Module.<a class="ancrDest" id="d170808_090536"></a></strong></p>
                 <div class="cbk1">
                     <ul>
                         <li><strong class="lihed"><b class="code1">modprobe</b>, <b class="code1">lsmod</b>, <b class="code1">modinfo</b>, <b class="code1">insmod</b>, <b class="code1">rmmod</b>, <b class="code1">depmod</b>.</strong></li>
-                        <li><strong class="lihed"><a href="https://askubuntu.com/questions/299676/how-to-install-3rd-party-module-so-that-it-is-loaded-on-boot">Install 3rd party module and make it auto loaded on boot.</a></strong></li>
+                        <li><strong class="lihed"><a href="https://askubuntu.com/questions/299676/how-to-install-3rd-party-module-so-that-it-is-loaded-on-boot">Install 3rd party module and make it auto loaded on boot</a></strong> : In Debian, the path is at <b class="code1">/etc/modules-load.d/modules.conf</b>.</li>
                         <li><strong class="lihed"><a href="https://wiki.debian.org/KernelModuleBlacklisting">Blacklist Kernel Module</a>.</strong></li>
                     </ul>
                 </div>
             </li>
+            <li><strong class="lihed">log</strong> : Use <b class="code1"><a href="170722_223101.html#d170808_084719">dmesg</a></b> to check device message. And check <b class="code1">/var/log/</b> (and <b class="code1">/var/log/installer/</b> for <b class="code1">debian-installer</b> system message before reboot to "real" system) it might be very helpful to have a clue what problem is going on.</li>
+            <li><strong class="lihed">live-usb</strong> : The user name and password is : {user ; live}.</li>
             <li>
                 <p><strong class="lihed"><a href="http://smxi.org/">smxi</a></strong> : Don't know if this is useful, I just keep it here. _ <q>smxi is an interactive script designed to help people maintain their systems. It supports Debian based distros.</q></p>
                 <div class="cbk1 hide">
@@ -99,16 +148,70 @@
 
     <div class="foldableContent">
         <ul>
-            <li><strong class="lihed"><a href="https://www.debian.org/releases/stable/i386/ch04s03.html.en">Debian manual way</a></strong> : Also see <a href="#d170722_232950">here</a>.</li>
+            <li><strong class="lihed"><a href="https://www.debian.org/releases/stable/i386/ch04s03.html.en">Debian manual way.</a><a id="d170722_232950" class="ancrDest"></a></strong></li>
             <li><strong class="lihed"><a href="https://wiki.archlinux.org/index.php/USB_flash_installation_media_%28%E6%AD%A3%E9%AB%94%E4%B8%AD%E6%96%87%29">USB flash installation media (正體中文)</a></strong> : This <b class="code1">Arch</b> wiki page demonstrate different approach to install a bootable USB.</li>
+            <li><strong class="lihed"><a href="https://wiki.archlinux.org/index.php/Multiboot_USB_drive">Multiboot USB drive</a></strong> : This <b class="code1">Arch</b> wiki page shows the concept of install multiple ISO files to a single device (USB flash drive). The ISO files can be copied to the device and booted directly without unpacking them first. There are multiple methods available, but they may not work for all ISO images. And the drawback of first method is <b class="udr">the original boot menu for the ISO file is not shown</b>, I don't know if this will cause Live USB unusable.</li>
+            <li><strong class="lihed"><b class="code1">cp</b>, <b class="code1">dd</b>, <b class="code1">win32diskimager</b></strong> : See <a href="https://www.debian.org/CD/faq/#write-usb">here</a>. All this 3 method can be used to write <b class="code1">iso</b> to USB stick. Notice <b class="code1">win32diskimager</b> is a Windows tool, when you don't have linux to use.</li>
             <li>
                 <p><strong class="lihed">Multiple ISO images in one USB.</strong></p>
                 <ul>
                     <li><strong class="lihed"><a href="https://askubuntu.com/questions/46624/how-to-create-a-bootable-usb-with-multiple-iso-images-in-it/518583#518583">Follow this</a></strong></li>
                     <li><strong class="lihed"><a href="https://askubuntu.com/questions/372607/how-to-create-a-bootable-ubuntu-usb-flash-drive-from-terminal/376430#376430">And this.</a></strong></li>
-                    <li><strong class="lihed"><a href="https://www.debian.org/releases/stable/i386/ch04s03.html.en">Debian manual way</a></strong><a id="d170722_232950" class="ancrDest"></a> : I'd try this this method, it works, but it can only run "installation program" not <b class="udr">live USB</b>, I don't knwo how to make USB stick to run <b class="udr">live USB</b> without occupy the whole USB space, so I give up here.</li>
+                    <li><strong class="lihed"><a href="#d170722_232950">Debian manual way</a></strong> : I'd try this this method, it works, but it can only run "installation program" not <b class="udr">live USB</b>, I don't knwo how to make USB stick to run <b class="udr">live USB</b> without occupy the whole USB space, so I give up here.</li>
                 </ul>
             </li>
+        </ul>
+    </div>
+</section>
+
+<section class="section1">
+    <h2>[Grub / Grub2 / bootloader]<a class="ancrDest" id="d170809_133501"></a></h2>
+
+    <div class="foldableContent">
+        <ul>
+            <li>Unless you use <b class="code1">dd</b> to "embed" all iso image into USB stick, you have to [alter / modify / config] the grub settings (specific one is depends on which one you want to used to boot into current target (vmlinuz)) anyway to able to tell the grub to "learn" this new target, or it will not even recognize this target exist. See <a href="#d170808_170152">USB media and HD media</a> section for related info.</li>
+            <li><strong class="lihed">[<b class="code1">MBR</b> // <b class="code1">GPT</b>]</a></strong> : <a href="https://en.wikipedia.org/wiki/MBR_partition_table">MBR partition table (Master Boot Record)</a>. <a href="https://zh.wikipedia.org/zh-tw/GUID%E7%A3%81%E7%A2%9F%E5%88%86%E5%89%B2%E8%A1%A8">GUID Partition Table (GPT)]</a>.</li>
+            <li><strong class="lihed">About <b class="udr">partitioning</b>, please see <a href="170722_223101.html#d170809_125302">parted</a>.</strong></li>
+            <li><strong class="lihed"><a href="https://sites.google.com/site/easylinuxtipsproject/grub#TOC-Adapt-Grub:-make-Windows-the-first-option-in-the-Grub-boot-menu">Grub with motherboard that are UEFI but use BIOS compatible mode.</a></strong></li>
+            <li><strong class="lihed"><a href="https://sites.google.com/site/easylinuxtipsproject/6">Grub with motherboard that are UEFI and use full UEFI mode.</a></strong></li>
+            <li>
+                <p><strong class="lihed"><a href="https://www.gnu.org/software/grub/manual/grub.html">GNU GRUB Manual 2.02.</a></strong></p>
+                <ul>
+                    <li><strong class="lihed"><a href="https://www.gnu.org/software/grub/manual/grub.html#Menu-interface">The simple menu interface.</a></strong></li>
+                    <li>
+                        <p><strong class="lihed">Different and similar concept between <b class="code1">grub.cfg</b> (menu entry) and <b class="udr">Grub interactive shell</b> with examples</strong></p>
+                        <ul>
+                            <li><a href="https://www.debian.org/releases/stable/amd64/ch05s01.html.en#boot-initrd">5.1.5. Booting from Linux using LILO or GRUB.</a></li>
+                            <li><a href="https://www.gnu.org/software/grub/manual/grub.html#GNU_002fLinux">boot GNU/Linux from GRUB with interactive shell.</a></li>
+                            <li><a href="https://www.gnu.org/software/grub/manual/grub.html#Command_002dline-and-menu-entry-commands">16.3 The list of command-line and menu entry commands</a>.</li>
+                            <li><q><a href="https://wiki.archlinux.org/index.php/GRUB#Using_the_command_shell">In error conditions (e.g. if the partition layout changes) GRUB may fail to boot. When this happens, a command shell (Grub interactive shell) may appear.</a></q></li>
+                            <li><a href="https://www.gnu.org/software/grub/manual/grub.html#GRUB-only-offers-a-rescue-shell-1">22.1 GRUB only offers a rescue shell.</a></li>
+                        </ul>
+                    </li>
+                    <li><strong class="lihed"><a href="https://www.gnu.org/software/grub/manual/grub.html#Configuration">6 Writing your own configuration file.</a></strong></li>
+                </ul>
+            </li>
+            <li><strong class="lihed"><a href="https://wiki.archlinux.org/index.php/GRUB">[GRUB / Arch wiki].</a></strong></li>
+            <li><strong class="lihed"><a href="https://wiki.debian.org/Grub">[GRUB / Debian wiki].</a></strong></li>
+            <li><strong class="lihed"><b class="code1">Grub</b> package</b></strong> : don't use <b class="code1">aptitude install grub</b> to install grub package, it will install <b class="code1">grub-legacy</b> but not <b class="code1">grub2</b>. Use <b class="code1">aptitude search grub</b> to find correct package, maybe you want <b class="code1">grub-efi-amd64</b> or <b class="code1">grub-efi-pc</b> ...</li>
+            <li>
+                <p><strong class="lihed">Configuration and some key concept.</strong></p>
+                <ul>
+                    <li><strong class="lihed"><a href="https://wiki.archlinux.org/index.php/GRUB#Configuration">[Grub, configuration / Arch wiki].</a></strong></li>
+                    <li><strong class="lihed"><a href="https://wiki.archlinux.org/index.php/GRUB/Tips_and_tricks">[Grub, tips and tricks / Arch wiki]</a></strong> : Very detailed.</li>
+                    <li><strong class="lihed"><b class="code1">/etc/default/grub</b></strong></li>
+                    <li><strong class="lihed"><b class="code1">/etc/grub.d/</b></strong> : See <a href="https://wiki.archlinux.org/index.php/GRUB#Dual-booting">here</a>, it edit <b class="code1">/etc/grub.d/40_custom</b> to change Grub menu entry.</li>
+                    <li><strong class="lihed"><b class="code1">/boot/grub/grub.cfg</b></strong></li>
+                    <li><strong class="lihed"><b class="code1">update-grub</b></strong></li>
+                    <li><strong class="lihed"><b class="code1">grub-mkconfig</b></strong></li>
+                    <li><strong class="lihed"><b class="code1">grub-install</b></strong> : Install Grub on a system without Grub pre-install (new system) or MBR been overwrite by Windows. See <a href="https://wiki.archlinux.org/index.php/GRUB">here</a>. And also see <b class="strong1"><a href="https://wiki.archlinux.org/index.php/Multiboot_USB_drive">here</b> (<a href="https://wiki.archlinux.org/index.php/Multiboot_USB_drive#Installing_GRUB">this section</a>) to see the flexable usage (install on USB flash drive and with custom path) of <b class="code1">grub-install</b>.</li>
+                </ul>
+            </li>
+            <li><strong class="lihed">GPT problem</strong> : I note at <b class="code1"><a href="170722_223101.html#d170809_131918">parted</a></b>.</li>
+            <li><strong class="lihed">chain-load</strong> : Chain loading is only needed if you have proprietary OS (Windows, Mac) that GRUB can't directly handle.</li>
+            <li><strong class="lihed">[Dealing <b class="code1">Grub</b> with multiple OS / should I install grub again when I am installing the 2nd OS?]</strong> : See <a href="http://www.linuxquestions.org/questions/linux-newbie-8/grub-bootloader-4175610586/">this thread</a>, including discussion about run <b class="code1">update-grub</b> with rescue USB stick and it will auto detect all OS on same disk and fix broken Grub.</li>
+            <li><strong class="lihed"><a href="https://sites.google.com/site/easylinuxtipsproject/tips#TOC-Make-Windows-the-default-option-in-the-Grub-boot-menu">Make Windows the default option in the Grub boot menu</a></strong> : (I guess this work for any OS).</li>
+            <li><strong class="lihed"><a href="https://sites.google.com/site/easylinuxtipsproject/grub#TOC-Adapt-Grub:-change-the-timeout">Change the Grub OS menu option timeout.</a></strong></li>
         </ul>
     </div>
 </section>

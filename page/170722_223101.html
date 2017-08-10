@@ -34,6 +34,7 @@
                     <li><strong class="lihed"><b class="code1">shopt -s dotglob</b></strong> : Make <b class="code1">cp</b> and <b class="code1">rm</b> to include hidden file. _ See <a href="https://superuser.com/questions/61611/how-to-copy-with-cp-to-include-hidden-files-and-hidden-directories-and-their-con/547166#547166">here</a> for more info</li>
                 </ul>
             </li>
+            <li><strong class="lihed"><b class="code1">curl</b></strong> : <b class="code1">curl -C - -L -O &lt;URL&gt;</b> to resume from the point where it failed when download aborts, see <a href="https://www.debian.org/CD/http-ftp">here</a>.</li>
             <li>
                 <p><strong class="lihed"><b class="code1">df</b>.</strong></p>
                 <div class="cbk1 hide">
@@ -44,7 +45,15 @@
                     </ul>
                 </div>
             </li>
-            <li><strong class="lihed"><b class="code1">dmesg</b></strong> : This is very usful because some time error occurs you can find the log here.</li>
+            <li><strong class="lihed"><b class="code1">dmesg</b><a id="d170808_084719"></a></strong> : This is very usful because some time error occurs you can find the log here.</li>
+            <li>
+                <p><strong class="lihed"><b class="code1">fsck</b></strong></p>
+                <ul>
+                    <li>See <a href="https://wiki.archlinux.org/index.php/Fsck">arch wiki</a>.</li>
+                    <li>Remember to add target at the end of command (for example <b class="udr">/dev/sdb2</b>), or fsck will traval all partition according to <b class="code1">fstab</b>.</li>
+                    <li>Log : I had run <b class="code1">fsck</b>. Before this <b class="code1">dmesg</b> prompting some error but after this it fixed the partition.</li>
+                </ul>
+            </li>
             <li>
                 <p><strong class="lihed"><b class="code1">Groff.</b></strong></p>
                 <div class="cbk1 hide">
@@ -64,25 +73,8 @@ Table processing is simpler (but I think gtbl can write TeX output...)</q></li>
                 </div>
             </li>
             <li><strong class="lihed"><b class="code1">lsb_release</b></strong> : Print distribution-specific information e.g. current distribution release name.</li>
-            <li><strong class="lihed"><b class="code1">lspci -nn</b></strong> : Check device basic info (name) like (VGA) graphic card name, product code, vendor name ... If you want to install [firmware / driver] you have to at least to know it's product code first.</li>
-            <li>
-                <p><strong class="lihed"><b class="code1">parted.</b></strong></p>
-                <div class="cbk1 hide">
-                    <ul>
-                        <li><strong class="lihed">End point</strong> : Use <b class="code1">-1s</b> or <b class="code1">100%</b> to set end point to max size of rest space of disk. ("s" stand for sector, you can use <b class="code1">unit</b> to change unit too.)</li>
-                        <li><strong class="lihed"><a href="https://blog.gtwang.org/linux/parted-command-to-create-resize-rescue-linux-disk-partitions/2/">Basic usage.</a></strong></li>
-                        <li><strong class="lihed">label</strong>
-                            <ul>
-                                <li>Notice, most common used <b class="code1">[disk label / label type]</b> on PC are <b class="code1">msdos</b>, you are mostly going to set to this. <b class="code1">gpt</b> is for purpose when are used if disk size is larger than 2TB.</li>
-                                <li><a href="https://www.gnu.org/software/parted/manual/html_node/mklabel.html"><b class="code1">mklabel</b> - gnu.org.</a></li>
-                            </ul>
-                        </li>
-                        <li><strong class="lihed"><b class="code1">mkpart</b></strong> : Creates a new partition, WITHOUT creating a new file system on that partition. _ You need to use other tools like <b class="code1">mkfs.[ext4 // ntfs // fat (= msdos, vfat)]</b> to do it.</li>
-                        <li><strong class="lihed"><a href="https://www.gnu.org/software/parted/manual/html_node/mkpart.html#FOOT2">4MB begining of USB, don't use it</a></strong> : If USF drive, leave 4MB at the begining and don't use it?</li>
-                        <li><strong class="lihed">Following command had been removed</strong> : Note that after version 2.4, the following commands were removed: check, cp, "mkfs", "mkpartfs", move, resize.</li>
-                    </ul>
-                </div>
-            </li>
+            <li><strong class="lihed"><b class="code1">lspci -nn</b></strong> : Check device basic info (name) like (VGA) graphic card name, product code, vendor name ... If you want to install [firmware / driver] you have to at least to know it's product code first. _ Also see <a href="170721_170002.html#d170808_095225">here</a></li>
+            <li><strong class="lihed"><b class="code1"><a href="#d170809_125302">parted.</a></b></strong></li>
             <li><strong class="lihed"><b class="code1"><a href="#d170723_173307">rsync</a></b>.</strong></li>
             <li><strong class="lihed"><b class="code1"><a href="http://linuxcommand.org/tlcl.php">linuxcommand.org</a></b></strong> : A good free book about many basic command useful application example, when you want to improve your skills of using these tools.</li>
         </ul>
@@ -162,19 +154,53 @@ Table processing is simpler (but I think gtbl can write TeX output...)</q></li>
 
     <div class="foldableContent">
         <ul>
+            <li><strong class="lihed"><b class="code1">[source / temporary method]</b></strong> : <b class="code1">source /mnt/sda5/1_script_command_config/config/bash-config/bash_aliases_main</b>.</li>
             <li><strong class="lihed"><a href="170721_170001.html">asKansweR info and script.</a></strong></li>
             <li><strong class="lihed"><b class="code1">date</b></strong> : <b class="code1">date +"d%y%m%d_%H%M%S"</b>.</li>
             <li><strong class="lihed">Search dokuwiki page</strong> : <b class="code1">egrep -iR --color=always -A3 -B3 'florian bur' . | less -MiR -j3</b>.</li>
+            <li><strong class="lihed">rsync to purple disk (ALWAYS BE CAUTIOUS!)</strong> : <b class="code1">sudo rsync -avzh --delete --dry-run --exclude "var_www_backup/"  --exclude "lost+found/" --exclude ".Trash-1000/" /mnt/sda5/ /mnt/purple/extra-backup_2017-07-18/rt/ 1> >(tee /tmp/tmp/rsync-stdout.txt) 2> >(tee /tmp/tmp/rsync-stderr.txt)</b>.</li>
         </ul>
     </div>
 </section>
 
 <section class="section1">
-    <h2></h2>
+    <h2>Parted<a class="ancrDest" id="d170809_125302"></a></h2>
 
     <div class="foldableContent">
         <ul>
-            <li><strong class="lihed"><a href=""></a></strong> : .</li>
+            <li><strong class="lihed">Before and after "parted"</strong> : Use <a href="https://www.debian.org/releases/stable/amd64/ch04s03.html#idm46300558336592"><b class="code1">install-mb</b> (not necessary) and <b class="code1">mkfs.&lt;fs-type&gt;</b></a> before and after using <b class="code1">parted</b>. <b class="code1">mkpart</b> in <b class="code1">parted</b> will not actually create file system on the partition but only change the ["partition code?" / "partition ID?"] of it.</li>
+            <li><strong class="lihed"><a href="https://wiki.archlinux.org/index.php/Partitioning">[Partitioning / arch wiki]</a></strong> : Don't underestimate the detail and nuance knowledge need to know to solve some problem when working with partition, especially UEFI and GPT stuff ...</li>
+            <li><strong class="lihed"><a href="https://blog.gtwang.org/linux/parted-command-to-create-resize-rescue-linux-disk-partitions/2/">Parted basic simple usage example.</a></strong></li>
+            <li><strong class="lihed"><a href="https://www.gnu.org/software/parted/manual/parted.html">GNU Parted User Manual</a></strong> : Simple and detailed.</li>
+            <li><strong class="lihed"><b class="code1">help</b></strong> : Use <b class="code1">help <function></b> (inside <b class="code1">parted</b>) to get the much more detail information of <b class="code1">parted</b> function, info here is much detailed than <b class="code1">man</b>, for e.g. <b class="code1">help mkpart</b> will show what partition type and file system tyle you can use.</li>
+            <li><strong class="lihed">End point</strong> : Use <b class="code1">-1s</b> or <b class="code1">100%</b> to set end point to max size of rest space of disk. ("s" stand for sector, you can use <b class="code1">unit</b> to change unit too.)</li>
+            <li><strong class="lihed">label</strong>
+                <ul>
+                    <li>Notice, most common used <b class="code1">[disk label / label type]</b> on PC are <b class="code1">msdos</b>, you are mostly going to set to this. <b class="code1">gpt</b> is for purpose when are used if disk size is larger than 2TB.</li>
+                    <li><a href="https://www.gnu.org/software/parted/manual/html_node/mklabel.html"><b class="code1">mklabel</b> - gnu.org.</a></li>
+                </ul>
+            </li>
+            <li><strong class="lihed"><b class="code1">["partition code?" / "partition ID?" / "GUID"]</b></strong> : These info is very shattered, but <a href="https://wiki.archlinux.org/index.php/GNU_Parted#Partition_schemes">0x83</a> = <a href="https://en.wikipedia.org/wiki/Partition_type#PID_83h">83h</a>. GUID list is <a href="https://en.wikipedia.org/wiki/GUID_Partition_Table#Partition_type_GUIDs">here</a>, but don't match <a href="https://www.gnu.org/software/grub/manual/html_node/BIOS-installation.html">this GUID</a>.</li>
+            <li>
+                <p><strong class="lihed"><b class="code1">Grub</b> problem.</strong><a class="ancrDest" id="d170809_131918"></a></p>
+                <ul>
+                    <li>Go to <a href="170721_170002.html#d170809_133501">here</a> of you want to see <b class="code1">grub</b> document only.</li>
+                    <li><strong class="lihed"><b class="code1"><a href="https://wiki.archlinux.org/index.php/EFI_System_Partition">EFI System Partition</a></b></strong> : Creating a special partition for bootloader in <b class="strong1">necessary</b> for [UEFI motherboard? / GPT partition table disk?]. Not like MBR partition table,<b class="code1">Grub</b> are limited to embed in small "space" in disk.</li>
+                    <li>
+                        <p><strong class="lihed">Where <b class="code1">Grub</b> pysically installed to (location)?</strong> : See <a href="https://www.gnu.org/software/grub/manual/html_node/BIOS-installation.html">here</a> and <a href="https://wiki.archlinux.org/index.php/GRUB#GUID_Partition_Table_.28GPT.29_specific_instructions">here</a>, and <a href="https://newtoypia.blogspot.tw/2015/02/extlinux.html">this [MBR // VBR] concept figure?</a>. <b class="code1">[BIOS / MBR]</b>, <b class="code1">[BIOS / GPT]</b> and <b class="code1">[UEFI / GPT]</b> work different.</p>
+                        <p>In <b class="code1">MBR</b> patition table disk, <b class="code1">Grub</b> is partly [install / embed] in <b class="udr"><a href="https://wiki.archlinux.org/index.php/GRUB#Master_Boot_Record_.28MBR.29_specific_instructions">post-MBR gap</a></b> and partly (but mainly) install under <b class="code1">/boot</b> (and maybe files in other path) in the file system which one get control from first-stage grub program.
+                        <p>In <b class="code1">GPT</b> patition table disk, <b class="code1">Grub</b> need to install <b class="udr">after</b> this partition was created.</p>
+                    </li>
+                    <li><strong class="lihed">flag <b class="code1">bios_grub</b></strong> : So now we get conclusion, Parted <a href="https://www.gnu.org/software/grub/manual/html_node/BIOS-installation.html">can create</a> special partition with flag <b class="code1">bios_grub</b>, [if / when] some case need this partition (namely <b class="code1">[UEFI / GPT]</b>, but <b class="code1">[BIOS / GPT]</b> I'm not sure).</li>
+                </ul>
+            </li>
+            <li><strong class="lihed"><b class="code1">mkpart</b></strong> : Creates a new partition, WITHOUT creating a new file system on that partition. _ You need to use other tools like <b class="code1">mkfs.[ext4 // ntfs // fat (= msdos, vfat)]</b> to do it.</li>
+            <li><strong class="lihed"><a href="https://wiki.archlinux.org/index.php/GNU_Parted#Rounding">Rounding and units</a></strong> : Since many partitioning systems have complicated constraints, Parted will usually do something slightly different to what you asked. _  You should prefer to specify units of bytes (“B”), sectors (“s”), or IEC binary units like “MiB”, but not “MB”, “GB”, etc.</li>
+            <li><strong class="lihed"><a href="https://wiki.archlinux.org/index.php/GNU_Parted#Check_alignment">Check alignment</a></strong> : On an already partitioned disk, you can use parted to verify the alignment of a partition on a device. For instance, to verify alignment of partition 1 on /dev/sda: <b class="code1">(parted) align-check optimal 1</b>.</li>
+            <li><strong class="lihed"><a href="https://www.gnu.org/software/grub/manual/html_node/BIOS-installation.html">First partition is suggested to start after 1MB of begining.</a></strong></li>
+            <li><strong class="lihed"><a href="https://www.gnu.org/software/parted/manual/html_node/mkpart.html#FOOT2">4MB begining of USB, don't use it</a></strong> : If USB drive, leave 4MB at the begining and don't use it?</li>
+            <li><strong class="lihed">Following command had been removed</strong> : Note that after version 2.4, the following commands were removed: check, cp, "mkfs", "mkpartfs", move, resize.</li>
+            <li><strong class="lihed"><a href="https://wiki.archlinux.org/index.php/Fdisk#Convert_between_MBR_and_GPT">Convert between MBR and GPT</a></strong> : I don't need to do this now.</li>
         </ul>
     </div>
 </section>
