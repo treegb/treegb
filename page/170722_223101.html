@@ -34,6 +34,26 @@
                     <li><strong class="lihed"><b class="code1">shopt -s dotglob</b></strong> : Make <b class="code1">cp</b> and <b class="code1">rm</b> to include hidden file. _ See <a href="https://superuser.com/questions/61611/how-to-copy-with-cp-to-include-hidden-files-and-hidden-directories-and-their-con/547166#547166">here</a> for more info</li>
                 </ul>
             </li>
+            <li>
+                <p><strong class="lihed"><b class="code1">chroot</b><a class="ancrDest" id="d170810_144512"></a></strong></p>
+                <div class="cbk1 hide">
+                    <ul>
+                        <li><a href="https://wiki.debian.org/chroot">wiki.debian.org/chroot.</a></li>
+                        <li><a href="https://help.ubuntu.com/community/Grub2/Installing#via_ChRoot">Ubuntu Grub2/Installing - via ChRoot</a>.</li>
+                        <li><a href="https://serverfault.com/questions/136515/read-only-bind-mount">Read only bind-mount when chroot?</a></li>
+                        <li>Examples on <a href="https://wiki.debian.org/Debootstrap#line-19">Debootstrap page</a> you can see same logic to use chroot.</li>
+                        <li>Examples on <a href="https://unix.stackexchange.com/questions/72592/chroot-in-to-reinstall-grub2-reinstall-mnt-is-empty#72599">this</a>, again you see same logic to use chroot, which mounting these direcotry <b class="code1">/proc</b>, <b class="code1">/dev</b>, <b class="code1">/dev/pts</b>, <b class="code1">/sys</b>, <b class="code1">/run</b> ... (might be different or more) is needed to make chroot system works.</li>
+                        <li>Examples on <a href="https://youtu.be/8lod8sRb_6I">this video </a>, again you see same logic to use chroot to reinstall <b class="code1">Grub</b>, with mounting these direcotry <b class="code1">/proc</b>, <b class="code1">/dev</b>, <b class="code1">/sys</b>, and the chroot target is a real system, not empty partition.</li>
+                        <li><strong class="lihed"><b class="code1">/bin</b>, <b class="code1">/lib</b></strong> : See <a href="https://www.experts-exchange.com/questions/20696260/How-to-use-chroot.html#a9044562">here ("XoF" 's answer)</a>, it seems not only commonly seen <b class="code1">/proc</b>, <b class="code1">/dev</b>, <b class="code1">/sys</b>, I even need <b class="code1">/bin</b>, <b class="code1">/lib</b> to work. It is very possible I need all root direct sub direcotry to be [mount // exist] before <b class="code1">chroot</b>.</li>
+                        <li><strong class="lihed"><a href="https://unix.stackexchange.com/questions/105/chroot-jail-what-is-it-and-how-do-i-use-it">chroot "jail" - what is it and how do I use it?</a></strong> : This shows even <b class="code1">/lib</b> and <b class="code1">/usr/lib</b> could be mount into chroot environment.</li>
+                        <li><strong class="lihed"><b class="code1">/dev/pts</b>, <b class="code1">/proc</b>, <b class="code1">/sys</b>, <b class="code1">/dev/shm</b></strong> : See <a href="https://superuser.com/questions/529618/what-are-these-devpts-proc-sysfs">here</a>. <q>{/dev/pts: contains pseudo terminal devices (that's why Konsole, GNOME Terminal, etc. are terminal emulators) ; /proc and /sys: exposes kernel's data structures to the userspace ({/proc: mainly process-related stuff ; /sys: devices, drivers and kernel settings}) ; /dev/shm: provides file-based shared memory (basically a RAM disk).</q></li>
+                        <li><strong class="lihed"><a href="https://superuser.com/questions/165116/mount-dev-proc-sys-in-a-chroot-environment"><b class="code1">mount --bind /proc &lt;chroot-dir&gt;/proc</b> vs <b class="code1">mount -t proc none /proc</b>, what are the difference?</a></strong></li>
+                        <li><strong class="lihed"><a href="http://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/proc.html">[<b class="code1">/proc</b> / Linux Filesystem Hierarchy</a></strong> : Very detailed explain about <b class="code1">/proc</b>. I mostly don't need it, just FYI.</li>
+                        <li><strong class="lihed"><a href="https://sites.google.com/site/linuxpendrive/rorootfs">Read-only Root Filesystem</a></strong> : Very bold [experiment / practice] to use <b class="code1">chroot</b>, it made <b class="udr">file system root read only</b>. Also showing some practice. _ I don't need this practice this but is is good to have another view.</li>
+                        <li><strong class="lihed"><a href="https://unix.stackexchange.com/questions/41889/how-can-i-chroot-into-a-filesystem-with-a-different-architechture">You cannot chroot into different architecture.</a></strong></li>
+                    </ul>
+                </div>
+            </li>
             <li><strong class="lihed"><b class="code1">curl</b></strong> : <b class="code1">curl -C - -L -O &lt;URL&gt;</b> to resume from the point where it failed when download aborts, see <a href="https://www.debian.org/CD/http-ftp">here</a>.</li>
             <li>
                 <p><strong class="lihed"><b class="code1">df</b>.</strong></p>
@@ -52,6 +72,13 @@
                     <li>See <a href="https://wiki.archlinux.org/index.php/Fsck">arch wiki</a>.</li>
                     <li>Remember to add target at the end of command (for example <b class="udr">/dev/sdb2</b>), or fsck will traval all partition according to <b class="code1">fstab</b>.</li>
                     <li>Log : I had run <b class="code1">fsck</b>. Before this <b class="code1">dmesg</b> prompting some error but after this it fixed the partition.</li>
+                </ul>
+            </li>
+            <li>
+                <p><strong class="lihed"><b class="code1">grep</b>.</strong></p>
+                <ul>
+                    <li><strong class="lihed"><b class="code1">-C</b></strong> : e.g. <b class="code1">grep -C 3</b> = <b class="code1">grep -A 3 -B 3</b>.</li>
+                    <li><strong class="lihed"><b class="code1">-l</b></strong> : Only output the file name of current matched pattern when searching a file, not matched pattern itself. Practice example like this - <b class="code1 mono">grep -lr "new User" * | xargs sed -i s/new User/new Account/g'</b>.</li>
                 </ul>
             </li>
             <li>
@@ -74,8 +101,25 @@ Table processing is simpler (but I think gtbl can write TeX output...)</q></li>
             </li>
             <li><strong class="lihed"><b class="code1">lsb_release</b></strong> : Print distribution-specific information e.g. current distribution release name.</li>
             <li><strong class="lihed"><b class="code1">lspci -nn</b></strong> : Check device basic info (name) like (VGA) graphic card name, product code, vendor name ... If you want to install [firmware / driver] you have to at least to know it's product code first. _ Also see <a href="170721_170002.html#d170808_095225">here</a></li>
+            <li>
+                <p><strong class="lihed"><b class="code1">mount</b><a class="ancrDest" id="d170810_172759"></a></strong></p>
+                <ul>
+                    <li><strong class="lihed"><b class="code1">loop</b></strong> : e.g. <b class="code1">ISO</b> image, use <b class="code1">mount -o loop,ro /src /dest</b> and you cant read content inside ISO image. _ FYI, using <b class="code1">dd</b> and <b class="code1">losetup</b> can created a loop file filesystem, but not too related to this.</li>
+                    <li><strong class="lihed"><b class="code1">lsof</b></strong> : Sometimes you don't leave you terminal CWD and umount complain about it. You can use <b class="code1">lsof</b> to find the occupying one, but use lazy umount <b class="code1">umount -l</b> could be more easy.</li>
+                </ul>
+            </li>
             <li><strong class="lihed"><b class="code1"><a href="#d170809_125302">parted.</a></b></strong></li>
+            <li><strong class="lihed"><b class="code1">/proc/meminfo</b></strong> : Including <b class="udr">MemTotal</b>, <b class="udr">MemAvailable</b>, <b class="udr">SwapTotal</b>, <b class="udr">SwapFree</b> ... and many other memory usage type.</li>
+            <li>
+                <p><strong class="lihed"><b class="code1">qemu-kvm</b></strong></p>
+                <ul>
+                    <li><strong class="lihed"><a href="https://newtoypia.blogspot.tw/2015/02/qemu-kvm.html">洪朝貴</a></strong> : <q>現在的 PC 上面有很多虛擬化技術 ... 但是如果你只是想測試一下開機光碟或開機隨身碟， 而沒有要把 guest OS 安裝到硬碟上， 那麼最簡單、 最不囉嗦的方式就是使用 qemu - 一個指令啟動， 免設定!</q></li>
+                    <li><strong class="lihed">Dependent Kernel module</strong> : At least need <b class="code1">kvm</b> and <b class="code1">kvm-intel</b>. insmod if module is not installed to Kernel. _ <q>the 'kvm' module is just the generic support, then you need kvm-intel or kvm-amd to actully drive it. _ yes. in BIOS you must enable intel virtualization technology (i don't know for amd processors) to be able to use kvm. i heard that there are also systems with processors suporting IVT but the BIOS doesn't support it so you can't use it  <cite><a href="https://bbs.archlinux.org/viewtopic.php?id=29981">source</a></cite></q></li>
+                    <li><strong class="lihed">Check if hardware support</strong> : Use <b class="code1">egrep 'vmx|svm' /proc/cpuinfo</b> (vmx = intel CPU, svm = amd CPU) to check if your cpu support it. And don't forget to enable it in your [UEFI / BIOS]!</li>
+                </ul>
+            </li>
             <li><strong class="lihed"><b class="code1"><a href="#d170723_173307">rsync</a></b>.</strong></li>
+            <li><strong class="lihed"><b class="code1">tr</b></strong> : Replace <b class="udr">newline</b> to <b class="udr">null</b> character you can use <b class="code1 mono">\grep -R -l '&lt;pattern1&gt;' &lt;a dir&gt; | <b class="strong1">tr '\n' '\0' | xargs -0</b> -I {} sed 's/'&lt;pattern1&gt;'/'&lt;pattern2&gt;'/g' "{}"</b></li>
             <li><strong class="lihed"><b class="code1"><a href="http://linuxcommand.org/tlcl.php">linuxcommand.org</a></b></strong> : A good free book about many basic command useful application example, when you want to improve your skills of using these tools.</li>
         </ul>
     </div>
@@ -101,7 +145,7 @@ Table processing is simpler (but I think gtbl can write TeX output...)</q></li>
                                 <li><b class="code1">src</b> contain : <b class="code1">1.dir 2.txt 3.dir 4.txt 5.dir 6.txt</b>.</li>
                                 <li><b class="code1">dest</b> contain : <b class="code1">3.dir 4.txt 7.dir 8.txt</b></li>
                             </ul>
-                            <p>And using : <b class="code1">-a --include="1.dir/***" --include="2.txt" --include="3.dir/***" --include="4.txt" --exclude="***" --delete</b>, the result of <b class="code1">dest</b> will look like this :</p>
+                            <p>And using : <b class="code1 mono">-a --include="1.dir/***" --include="2.txt" --include="3.dir/***" --include="4.txt" --exclude="***" --delete</b>, the result of <b class="code1">dest</b> will look like this :</p>
                             <ul>
                                 <li><b class="code1">dest</b> contain : <b class="code1">1.dir (New) 2.txt (New) 3.dir (Update) 4.txt (Update) 5.dir (ignore) 6.txt (ignore) 7.dir (ignore) 8.txt (ignore)</b>.</li>
                             </ul>
@@ -126,11 +170,11 @@ Table processing is simpler (but I think gtbl can write TeX output...)</q></li>
                                             <li><b class="udr">Include all contents but exclude (ignore) several targets</b>.</li>
                                         </ul>
                                     </li>
-                                    <li><strong class="lihed">Include several targets but exclude (ignore) all other contents</strong> : <b class="code1">rsync -a -zhv --delete --dry-run --include "target1/***" --include "target2/***" --exclude "***" src/ dest/ 1&gt; &gt;(tee /tmp/tmp/rsync-stdout.txt) 2&gt; &gt;(tee /tmp/tmp/rsync-stderr.txt)</b>.</li>
-                                    <li><strong class="lihed">Include all contents but exclude (ignore) several targets</strong> : <b class="code1">rsync -a -zhv --delete --dry-run --exclude "target1/***" --exclude "target2/***" src/ dest/ 1&gt; &gt;(tee /tmp/tmp/rsync-stdout.txt) 2&gt; &gt;(tee /tmp/tmp/rsync-stderr.txt)</b>.</li>
+                                    <li><strong class="lihed">Include several targets but exclude (ignore) all other contents</strong> : <b class="code1 mono">rsync -a -zhv --delete --dry-run --include "target1/***" --include "target2/***" --exclude "***" src/ dest/ 1&gt; &gt;(tee /tmp/tmp/rsync-stdout.txt) 2&gt; &gt;(tee /tmp/tmp/rsync-stderr.txt)</b>.</li>
+                                    <li><strong class="lihed">Include all contents but exclude (ignore) several targets</strong> : <b class="code1 mono">rsync -a -zhv --delete --dry-run --exclude "target1/***" --exclude "target2/***" src/ dest/ 1&gt; &gt;(tee /tmp/tmp/rsync-stdout.txt) 2&gt; &gt;(tee /tmp/tmp/rsync-stderr.txt)</b>.</li>
                                     <li>Always aware about "ignore" is not only mean at <b class="code1">src</b>, but ignore at <b class="code1">dest</b> too!</li>
-                                    <li>Second method is useful for dealing with <b class="code1">lost+found</b> and <b class="code1">.Trash-1000</b> directory, these 2 are either useless or possible permission denied.</li>
-                                    <li>If excluding <b class="code1">lost+found</b>, use <b class="code1">--exclude="lost+found"</b>, don't use <b class="code1">--exclude="lost+found/***"</b>, becasue when rsync try to get inside the directory, it will get <b class="udr">"Permission denied"</b>. Actually, <b class="code1">--exclude</b> directory don't need to have trailing <b class="code1">***</b> and it will still work fine.</li>
+                                    <li>Second method is useful for dealing with <b class="code1 mono">lost+found</b> and <b class="code1 mono">.Trash-1000</b> directory, these 2 are either useless or possible permission denied.</li>
+                                    <li>If excluding <b class="code1 mono">lost+found</b>, use <b class="code1 mono">--exclude="lost+found"</b>, don't use <b class="code1 mono">--exclude="lost+found/***"</b>, becasue when rsync try to get inside the directory, it will get <b class="udr">"Permission denied"</b>. Actually, <b class="code1">--exclude</b> directory don't need to have trailing <b class="code1">***</b> and it will still work fine.</li>
                                 </ul>
                             </div> 
                         </li>       
@@ -158,7 +202,7 @@ Table processing is simpler (but I think gtbl can write TeX output...)</q></li>
             <li><strong class="lihed"><a href="170721_170001.html">asKansweR info and script.</a></strong></li>
             <li><strong class="lihed"><b class="code1">date</b></strong> : <b class="code1">date +"d%y%m%d_%H%M%S"</b>.</li>
             <li><strong class="lihed">Search dokuwiki page</strong> : <b class="code1">egrep -iR --color=always -A3 -B3 'florian bur' . | less -MiR -j3</b>.</li>
-            <li><strong class="lihed">rsync to purple disk (ALWAYS BE CAUTIOUS!)</strong> : <b class="code1">sudo rsync -avzh --delete --dry-run --exclude "var_www_backup/"  --exclude "lost+found/" --exclude ".Trash-1000/" /mnt/sda5/ /mnt/purple/extra-backup_2017-07-18/rt/ 1> >(tee /tmp/tmp/rsync-stdout.txt) 2> >(tee /tmp/tmp/rsync-stderr.txt)</b>.</li>
+            <li><strong class="lihed">rsync to purple disk (ALWAYS BE CAUTIOUS!)</strong> : <b class="code1 mono">sudo rsync -avzh --delete --dry-run --exclude "var_www_backup/" --exclude "lost+found/" --exclude ".Trash-1000/" /mnt/sda5/ /mnt/purple/extra-backup_2017-07-18/rt/ 1> >(tee /tmp/tmp/rsync-stdout.txt) 2> >(tee /tmp/tmp/rsync-stderr.txt)</b>.</li>
         </ul>
     </div>
 </section>
@@ -187,7 +231,7 @@ Table processing is simpler (but I think gtbl can write TeX output...)</q></li>
                     <li>Go to <a href="170721_170002.html#d170809_133501">here</a> of you want to see <b class="code1">grub</b> document only.</li>
                     <li><strong class="lihed"><b class="code1"><a href="https://wiki.archlinux.org/index.php/EFI_System_Partition">EFI System Partition</a></b></strong> : Creating a special partition for bootloader in <b class="strong1">necessary</b> for [UEFI motherboard? / GPT partition table disk?]. Not like MBR partition table,<b class="code1">Grub</b> are limited to embed in small "space" in disk.</li>
                     <li>
-                        <p><strong class="lihed">Where <b class="code1">Grub</b> pysically installed to (location)?</strong> : See <a href="https://www.gnu.org/software/grub/manual/html_node/BIOS-installation.html">here</a> and <a href="https://wiki.archlinux.org/index.php/GRUB#GUID_Partition_Table_.28GPT.29_specific_instructions">here</a>, and <a href="https://newtoypia.blogspot.tw/2015/02/extlinux.html">this [MBR // VBR] concept figure?</a>. <b class="code1">[BIOS / MBR]</b>, <b class="code1">[BIOS / GPT]</b> and <b class="code1">[UEFI / GPT]</b> work different.</p>
+                        <p><strong class="lihed">Where <b class="code1">Grub</b> pysically installed to (location)?</strong> : See <a href="https://www.gnu.org/software/grub/manual/html_node/BIOS-installation.html">here</a>, <a href="https://wiki.archlinux.org/index.php/GRUB#GUID_Partition_Table_.28GPT.29_specific_instructions">here</a>, <a href="https://askubuntu.com/questions/657179/where-is-grub-installed-on-a-gpt-disk">here</a>, and <a href="https://newtoypia.blogspot.tw/2015/02/extlinux.html">this [MBR // VBR] concept figure?</a>. <b class="code1">[BIOS / MBR]</b>, <b class="code1">[BIOS / GPT]</b> and <b class="code1">[UEFI / GPT]</b> work different.</p>
                         <p>In <b class="code1">MBR</b> patition table disk, <b class="code1">Grub</b> is partly [install / embed] in <b class="udr"><a href="https://wiki.archlinux.org/index.php/GRUB#Master_Boot_Record_.28MBR.29_specific_instructions">post-MBR gap</a></b> and partly (but mainly) install under <b class="code1">/boot</b> (and maybe files in other path) in the file system which one get control from first-stage grub program.
                         <p>In <b class="code1">GPT</b> patition table disk, <b class="code1">Grub</b> need to install <b class="udr">after</b> this partition was created.</p>
                     </li>

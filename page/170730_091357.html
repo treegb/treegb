@@ -41,7 +41,22 @@
 
     <div class="foldableContent">
         <ul>
-            <li><strong class="lihed"></strong> : .</li>
+            <li>
+                <p><strong class="lihed"><b class="code1">apt-get.</b></strong></p>
+                <ul>
+                    <li><strong class="lihed"><b class="code1">autoremove</b></strong> : Still not do what I mean to remove unused packages ... Maybe only use <b class="code1">apt-get --auto-remove purge &lt;target-package&gt;</b> in first place works? Also see <b class="code1"><a href="#d170809_202344">aptitude --purge-unused purge</a></b>.</li>
+                </ul>
+            </li>
+            <li>
+                <p><strong class="lihed"><b class="code1">apt-cache.</b></strong></p>
+                <ul>
+                    <li><strong class="lihed"><b class="code1">search</b></strong> : Like <b class="code1">aptitude search</b>.</li>
+                    <li><strong class="lihed"><b class="code1">show</b></strong> : Like <b class="code1">aptitude show</b>.</li>
+                    <li><strong class="lihed"><b class="code1">policy</b></strong> : Show available version stuff ... This is very useful when you need to use e.g. <b class="code1">aptitude -t &lt;release&gt; &lt;package&gt;</b> to install different version, this command will not only list all available version name but also show you which release name and which source (<b class="code1">sources.list</b>) it use.</li>
+                    <li><strong class="lihed"><b class="code1">depends</b></strong> : Show dependency stuff ...</li>
+                    <li><strong class="lihed"><b class="code1">rdepends</b></strong> : Show reverse dependency (reversed) stuff ... Also see <a href="">what do <b class="code1">|</b>, <b class="code1">&lt;&gt;</b> mean in <b class="code1">apt-cache depends</b></a>.</li>
+                </ul>
+            </li>
         </ul>
     </div>
 </section>
@@ -53,20 +68,34 @@
         <ul>
             <li><strong class="lihed"><a href="https://www.debian.org/doc/manuals/aptitude/index.en.html">HTML manual.</a></strong></li>
             <li><strong class="lihed"><a href="https://www.debian.org/doc/manuals/aptitude/ch02s02s02.en.html#figureCurrentFlag"><b class="code1">action flag</b>, <b class="code1">current state flag</b></a></strong>.</li>
-            <li><strong class="lihed"><a href="https://askubuntu.com/questions/133559/whats-the-meaning-of-action-flag-of-a-package">What's the meaning of <b class="code1">action flag</b> after <b class="code1">current state flag</b> of a package?</a></strong> : I know this is <b class="udr">pending actions</b> and it make sense in <b class="code1">visual interface</b>, but in <b class="code1">command-line interface</b> how can I "activate" it?</li>
+            <li><strong class="lihed"><a href="http://aptitude.alioth.debian.org/doc/en/ch02s05s05.html">Customizing aptitude - Configuration file reference</a><a class="ancrDest" id="d170813_170436"></a></strong> : Use config syntax like <b class="code1">APT::AutoRemove::RecommendsImportant true</b> to config Aptitude behavior.</li>
+            <li>
+                <p><strong class="lihed"><a href="https://www.debian.org/doc/manuals/aptitude/ch02s02s06.en.html">Managing automatically installed packages</a></strong></p>
+                <ul>
+                    <li><strong class="lihed"><a href="https://www.debian.org/doc/manuals/aptitude/ch02s02s06.en.html">Managing automatically installed packages.</a></strong></li>
+                    <li><strong class="lihed">Remove automatic installed package (orphan)<a class="ancrDest" id="d170813_170901"></a></strong> : See <a href="https://unix.stackexchange.com/questions/55425/aptitude-doesnt-remove-automatically-installed-packages">here</a>, set <a href="#d170813_170436">aptitude config file</a>, option <b class="code1">APT::AutoRemove::RecommendsImportant</b> and <b class="code1">APT::AutoRemove::SuggestsImportant</b>, value <b class="code1">false</b>, to remove those "uneeded" automatic installed package when removing one package. This <b class="udr">have proven to works</b>.</li>
+                </ul>
+            </li>
             <li>
                 <p><strong class="lihed"><b class="code1">command line interface.</b></strong></p>
                 <ul>
                     <li><strong class="lihed">HTML manual</strong> : See <a href="https://www.debian.org/doc/manuals/aptitude/ch01s02.en.html">this (common usage)</a> and <a href="https://www.debian.org/doc/manuals/aptitude/rn01re01.en.html">this (detail usage, this is as same as man page)</a>.</li>
                     <li><strong class="lihed"><b class="code1">-s</b></strong> : "simulate". In command-line mode, print the actions that would normally be performed, but don't actually perform them. This does not require root privileges. In the visual interface, always open the cache in read-only mode regardless of whether you are root. <b class="udr">Simulate</b> does not actually download or install/remove any files. </li>
                     <li>
-                        <p><strong class="lihed">What about the <b class="udr">pending mode</b> like <b class="code1">visual interface</b>?<a class="ancrDest" id="d170809_202932"></a></strong> : In <b class="code1">visual interface</b>, all changes will not appy until you use <b class="code1">g</b> command (key). In <b class="code1">command line interface</b> it apply in real-time after each command in default.</p>
-                    <p>To make <b class="code1">command line interface</b> to behave like <b class="udr">pending mode</b>, use <b class="code1 strong1">--schedule-only</b>, this will modify package states, schedule operations to be performed in the future, but don't perform them (like <b class="code1"><a href="https://www.debian.org/doc/manuals/aptitude/ch02s02s02.en.html#figureCurrentFlag">action flag in here</a></b>).</p>
-                    <p><b class="udr">Pending action</b> can be activate with <b class="strong1"><b class="code1 strong1">aptitude install</b> (without other argument)</b> and can be [abort / clear] with <b class="code1 strong1">aptitude keep &lt;package-name&gt;</b> (and <b class="code1 strong1">aptitude keep-all</b>, without other argument). <b class="code1">aptitude install</b> (without other argument) is similar to <b class="code1">apt-get autoremove</b> or <b class="code1">apt-get install --auto-remove</b>.</p>
-                    <p>Sometimes after removing a package, you see (<b class="code1">aptitude search</b>) it's <b class="udr">dependent package</b> (auto installed) sill showing <b class="code1">id &lt;package-name&gt;</b> or <b class="code1">ip &lt;package-name&gt;</b> flag and not actually removed, so use this method to activate those <b class="udr">pending action</b>.</p>
-                    <p>Notice even after using this method (<b class="code1">apt-get install</b>), I found those <b class="udr">dependent package</b> did removed, but <b class="strong1">did not purge</b>, the fisrt flage is showing <b class="code1">c</b> I don't know why. Using <a href="#d170809_202344">--purge-unused</a> will solve the problem but the man page says <q>THIS OPTION CAN CAUSE DATA LOSS! DO NOT USE IT UNLESS YOU KNOW WHAT YOU ARE DOING!</q></p>
+                        <p><strong class="lihed"><b class="udr">[Pending mode</b> (like <b class="code1">visual interface</b> has) / <b class="code1">action</b>]<a class="ancrDest" id="d170809_202932"></a></strong> : In <b class="code1">visual interface</b>, all changes will not appy until you use <a href="https://askubuntu.com/questions/133559/whats-the-meaning-of-action-flag-of-a-package"><b class="code1">g</b> command</a> (key). In <b class="code1">command line interface</b> it apply in real-time after each command in default.</p>
+                        <p>To make <b class="code1">command line interface</b> to behave like <b class="udr">pending mode</b>, use <b class="code1 strong1">--schedule-only</b>, this will modify package states, schedule operations to be performed in the future, but don't perform them (like <b class="code1"><a href="https://www.debian.org/doc/manuals/aptitude/ch02s02s02.en.html#figureCurrentFlag">action flag in here</a></b>).</p>
+                        <p><b class="udr">Pending action</b> can be activate with <b class="strong1"><b class="code1 strong1">aptitude install</b> (without other argument)</b> and can be [abort / clear] with <b class="code1 strong1">aptitude keep &lt;package-name&gt;</b> (and <b class="code1 strong1">aptitude keep-all</b>, without other argument). <b class="code1">aptitude install</b> (without other argument) is similar to <b class="code1">apt-get autoremove</b> or <b class="code1">apt-get install --auto-remove</b>.</p>
+                        <p>Sometimes after removing a package, you see (<b class="code1">aptitude search</b>) it's <b class="udr">dependent package</b> (auto installed) sill showing <b class="code1">id &lt;package-name&gt;</b> or <b class="code1">ip &lt;package-name&gt;</b> flag and not actually removed, so use this method to activate those <b class="udr">pending action</b>.</p>
+                        <p>Notice even after using this method (<b class="code1">apt-get install</b>), I found those <b class="udr">dependent package</b> did removed, but <b class="strong1">did not purge</b>, the fisrt flage is showing <b class="code1">c</b> I don't know why. Anyway, see these for more info</p>
+                        <div class="cbk1">
+                            <ul>
+                                <li>See <a href="#d170813_170901">remove automatic installed package (orphan)</a>.</li>
+                                <li>Use <a href="#d170809_202344">--purge-unused</a> will solve the problem but have others problem too.</li>
+                                <li>Using <b class="code1"><a href="https://www.debian.org/doc/manuals/aptitude/ch02s04s05.en.html#searchAction">aptitude search '?action(&lt;action&gt;)'</a></b> to check package have given <b class="code1">action</b> (pending) is going to be performed. <b class="code1">Action</b> can be “install”, “upgrade”, “downgrade”, “remove”, “purge”, “hold”.</li>
+                            </ul>
+                        </div>
                     </li>
-                    <li><strong class="lihed"><b class="code1">--purge-unused</b><a class="ancrDest" id="d170809_202344"></a></strong> : <b class="code1">aptitude --purge-unused purge &lt;manual-installed-package&gt;</b> will not only remove <b class="udr">manual installed package</b> but also set those <b class="udr">auto installed package</b> (those dependent on this manual installed package) to have flag <b class="code1">ip</b> (will purge), not <b class="code1">id</b> (will remove), this can later use <b class="code1">aptitude install</b> to activate it (see <a href="#d170809_202932">here</a> for same case). But the man page says <q>THIS OPTION CAN CAUSE DATA LOSS! DO NOT USE IT UNLESS YOU KNOW WHAT YOU ARE DOING! Nonetheless, this did solved the problem. See more at <a href="https://www.debian.org/doc/manuals/aptitude/ch02s02s06.en.html">Managing automatically installed packages</a>.</li>
+                    <li><strong class="lihed"><b class="code1">--purge-unused</b><a class="ancrDest" id="d170809_202344"></a></strong> : <b class="code1">aptitude --purge-unused purge &lt;manual-installed-package&gt;</b> will not only remove <b class="udr">manual installed package</b> but also set those <b class="udr">auto installed package</b> (those dependent on this manual installed package) to have flag <b class="code1">ip</b> (will purge), not <b class="code1">id</b> (will remove), this can later use <b class="code1">aptitude install</b> to activate it (see <a href="#d170809_202932">here</a> for same case). But the man page says <q>THIS OPTION CAN CAUSE DATA LOSS! DO NOT USE IT UNLESS YOU KNOW WHAT YOU ARE DOING! Nonetheless, this did solved the problem. See more at <a href="#d170813_170901">remove automatic installed package (orphan)</a>. _ Also you can try <b class="code1">apt-get autoremove</b>, but it will not do what I mean to remove unused packages too.</li>
                     <li>
                         <p><strong class="lihed"><b class="code1">clean.</b></strong></p>
                         <ul>
@@ -76,26 +105,37 @@
                             <li><q>Packages that are downloaded by aptitude are placed in a cache directory (typically /var/cache/apt/archives). Normally, they are just left in this directory ad infinitum. To delete all the files in this directory, use Actions → Clean package cache; to delete only files which cannot be downloaded again (ie, obsolete packages), use Actions → Clean obsolete files.</q></li>
                         </ul>
                     </li>
-                    <li><strong class="lihed"><b class="code1">why</b>, <b class="code1">why-not</b></strong> : Explains the reason that a particular package should or cannot be installed on the system. This command searches for packages that require or conflict with the given package. It displays a sequence of dependencies leading to the target package, along with a note indicating the installed state of each package in the dependency chain. See <b class="code1">man aptitude</b>.</li>
+                    <li><strong class="lihed"><b class="code1">why</b>, <b class="code1">why-not</b></strong> : Explains the reason that a particular package should or cannot be installed on the system. This command searches for packages that require or conflict with the given package. It displays a sequence of dependencies leading to the target package, along with a note indicating the installed state of each package in the dependency chain. _ See <b class="code1">man aptitude</b> for more info. _ Notice, this function <b class="udr">will not give a very clear dependency map</b>, use <b class="code1">d</b> and <b class="code1">r</b> command in <b class="code1"><a href="#d170812_095023">visual interface</a></b> instead.</li>
                     <li><strong class="lihed"><b class="code1">--safe-resolver</b>, <b class="code1">--full-resolver</b></strong> : This 2 option is not necessary need to add, because even you don't use it, aptitude will ask for resolving problem when it counter any dependecy problem by default. Add it when you are explicit want aptitude resolve the dependecy problem with <b class="code1">--safe-resolver</b> or <b class="code1">--full-resolver</b>.</li>
+                    <li><strong class="lihed"><b class="code1">-V</b></strong> : Show which versions of packages will be installed. Can see more at <a href="https://unix.stackexchange.com/questions/6284/check-package-version-using-apt-get-aptitude#6286">here</a>.</li>
                     <li><strong class="lihed">Put more than one package name to argument for action</strong> : e.g. <b class="code1">aptitude search '?name(apple.*)' '?name(.*dog)' 'cat'</b> might find <b class="udr">apple juice</b>, <b class="udr">apple pie</b>, <b class="udr">white dog</b>, <b class="udr">black dog</b>, <b class="udr">cat</b>. All action is aviable, not only <b class="code1">search</b>.</li>
                 </ul>
             </li>
             <li>
-                <p><strong class="lihed"><b class="code1">visual interface.</b></strong></p>
+                <p><strong class="lihed"><b class="code1">visual interface.</b><a class="ancrDest" id="d170812_095023"></a></strong></p>
                 <ul>
                     <li><strong class="lihed"><b class="code1 strong1">?</b></strong> : Visual interface command detail help.</li>
                     <li><strong class="lihed"><b class="code1">i</b></strong> : Cycle the content of below package infomation area.</li>
                     <li><strong class="lihed"><b class="code1">a</b>, <b class="code1">z</b></strong> : Scroll below package infomation area if the content is too long.</li>
+                    <li><strong class="lihed"><b class="code1">Tab</b></strong> : When in resolver mode (<b class="code1">e</b>), "Cursor" Jump from top package list to bottom package infomation area.</li>
                     <li><strong class="lihed"><b class="code1">D</b></strong> : [Show // hide] below package infomation area.</li>
                     <li><strong class="lihed"><b class="code1">Enter</b></strong> : <b class="udr">Expand or collapse a group of packages</b>, or <b class="udr">view information about a package</b>/</li>
                     <li><strong class="lihed"><b class="code1">d</b></strong> : Show the dependency (ies) of a package, means current package depend those packages to work.</li>
                     <li><strong class="lihed"><b class="code1">r</b></strong> : Show the reverse dependency (ies) of a package, means those packages depend current package to work.</li>
                     <li><strong class="lihed"><b class="code1">R</b></strong> : Seems like <b class="code1">dpkg-reconfigure</b>.</li>
                     <li><strong class="lihed">[<b class="code1">F6 // F7</b>]</strong> : Toggle tabs view.</li>
-                    <li><strong class="lihed"><b class="code1">g</b></strong> : Perform all pending installations, removals, and upgrades. Before this, any pending changes will not apply "physically".</li>
+                    <li><strong class="lihed">New package view (Create new package tab)</strong> : {<b class="code1">Ctrl + t</b> &gt;&gt; <b class="code1">Views</b> &gt;&gt; <b class="code1">New package view</b>}.</li>
+                    <li><strong class="lihed"><b class="code1">g</b></strong> : Press <b class="code1">g</b> 2 times to perform all pending installations, removals, and upgrades. Before this, any pending changes will not apply "physically".</li>
+                    <li>
+                        <p><strong class="lihed">resolver mode.</strong></p>
+                        <ul>
+                            <li>In resolver mode, even apply (<b class="code1">!</b>) after those decision made still not trigger the real install, only until you use <b class="code1">g</b> command.</li>
+                            <li><strong class="lihed"><b class="code1">a</b>, <b class="code1">r</b></strong> : [approval // reject] specific resolver suggestion. This 2 command (key) can use either at top or down split screen area.</li>
+                        </ul>
+                    </li>
                 </ul>
             </li>
+            <li><strong class="lihed"><b class="code1"><a href="https://askubuntu.com/questions/286947/obsolete-packages-vs-orphaned-packages">[Obsolete // Orphaned] packages</a></b>.</strong></li>
         </ul>
     </div>
 </section>
@@ -105,6 +145,14 @@
 
     <div class="foldableContent">
         <ul>
+            <li>
+                <p><strong class="lihed"><b class="code1">dpkg-query</b></strong></p>
+                <ul>
+                    <li><strong class="lihed"><b class="code1">-L</b></strong> : Show a list of all files installed (full path) on a system becuase of a package name. (Forward direction check).</li>
+                    <li><strong class="lihed"><b class="code1">-S</b></strong> : Giving a file pattern (full path) on a system to check which package name this file belongs to. (Reverse direction check).</li>
+                    <li><strong class="lihed">Need to installed first before query</strong> : Not like <b class="code1">aptitude search</b>, you need to have queried package installed first to able to use <b class="code1">dpkg-query</b> to check those information.</li>
+                </ul>
+            </li>
             <li><strong class="lihed"><b class="code1">dpkg-reconfigure</b></strong> : See <a href="http://www.linuxquestions.org/questions/linux-newbie-8/tried-everything-searched-and-searched-php7-lamp-install-4175610179/page2.html">this tread</a>, read the thread up and down to cover the background context, it use dpkg-reconfigure to re configure the broken apache.</li>
         </ul>
     </div>
@@ -118,6 +166,9 @@
             <li><strong class="lihed"><b class="code1">dpkg-reconfigure</b></strong> : Might fix some broken configured package. An example see <a href="https://superuser.com/questions/412546/lost-power-during-apt-get-install-cant-resolve-missing-dependencies">here</a>.</li>
             <li><strong class="lihed"><b class="code1">apt-get -f</b>, <b class="code1">aptitude -f</b></strong> : Might help to fix broken dependency too. See <b class="code1">man apt-get</b> and read that section, it says some situation even need to use low end way <b class="code1">dpkg --remove</b> to fixing.</li>
             <li><strong class="lihed"><a href="https://www.debian.org/doc/manuals/aptitude/ch02s02s06.en.html">Managing automatically installed packages</a></strong> : Also see <a href="#d170809_202932">here</a> and <a href="#d170809_202344">here</a> for same case</li>
+            <li><strong class="lihed">Figure out neighboring dependency map of one package</strong> : Check <b class="code1">aptitude visual interface</b>, <b class="code1">apt-cache depends</b>, <b class="code1">apt-cache rdepends</b>.</li>
+            <li><strong class="lihed">Version naming of a package</strong> : <a href="https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version">What does the colon <b class="code1">:</b>, dash <b class="code1">-</b>, <b class="code1">+</b>, <b class="code1">~</b> ... in a version number mean?</a> See more at <a href="https://www.debian.org/doc/debian-policy/">Debian Policy Manual</a>, <a href="https://unix.stackexchange.com/questions/230911/what-is-the-meaning-of-the-tilde-in-some-debian-openjdk-package-version-string">this simple explanation</a>.</li>
+            <li><strong class="lihed"><a href="https://www.debian.org/doc/debian-policy/">Debian Policy Manual.</a></strong></li>
         </ul>
     </div>
 </section>

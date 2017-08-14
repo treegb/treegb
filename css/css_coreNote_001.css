@@ -461,12 +461,14 @@
         /*margin-bottom: 0.1875em;*/
         /* ** = padding: 1px 5px;*/
         padding: 0.0625em 0.3125em;
-        font-weight: bold;
+        /*font-weight: bold;*/
+        font-weight: normal;
         /*border: 0.0625em solid #CCC;*/
     }
     
     .section1 .lihed * {
-        font-weight: bold;
+        /*font-weight: bold;*/
+        font-weight: normal;
     }
 
     .section1 .strong1 {
@@ -486,6 +488,16 @@
     }
 
     .section1 .ital {font-style: italic ;}
+    
+    /* ** Used at command code, becuase some character for example "I" and "l" is not distinguishable when using <sans-serif>. */
+    .section1 .mono {
+        font-family: monospace;
+        font-size: 1.22em;
+    }
+    
+    .section1 .mono.code1 {
+        font-size: 1.22em;
+    }
     
     /* ** <code> class.
        ** Aware below have selector overwrite <.code1> property! */
