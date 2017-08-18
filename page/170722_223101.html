@@ -29,6 +29,14 @@
             <li><strong class="lihed"><a href="#d170722_224937">Nav.</a></strong></li>
             <li><strong class="lihed"><a href="#d170731_082724">tmp command</a></strong></li>
             <li><strong class="lihed">[<b class="code1"><a href="170730_091357.html">apt // aptitude // dpkg</a></b>].</strong></li>
+            <li>
+                <p><strong class="lihed"><b class="code1">badblocks</b>.<a class="ancrDest" id="d170815_130520"></a></strong></p>
+                <ul>
+                    <li><strong class="lihed">How to check the physical health of a USB stick like <b class="code1">S.M.A.R.T</b> test?</strong> : See <a href="https://superuser.com/questions/376274/how-to-check-the-physical-health-of-a-usb-stick-in-linux">here</a>, <a href="https://en.wikipedia.org/wiki/Badblocks">wiki</a>, <a href="https://askubuntu.com/questions/539184/how-do-i-check-the-integrity-of-a-storage-medium-hard-disk-or-flash-drive">detail explain</a>, basically USB flash drive can't use <b class="udr">smart-like</b> test (such us linux utility <b class="code1">smartmontools</b>) because it only work on hard drive. You can use <b class="code1">badblocks</b>.</li>
+                    <li><strong class="lihed">[<b class="code1">-n</b> // <b class="code1">-w</b>]</strong> : <b class="code1">-n</b> is <b class="strong1">non-destructive</b> read-write mode, it will read and write data but will keep original data safe (will write over it but copy back later), this is safe to use even you still have data you need in device. _ In other way <b class="code1">-w</b> is <b class="strong1">destructive</b> read-write mode, using <b class="code1">-w</b>  will <b class="udr">destroy all data inside this device</b>! _ Remember to umount all partition before action.</li>
+                    <li><strong class="lihed">Also see <b class="code1"><a href="#d170815_130521">fsck</a></b>.</strong></li>
+                </ul>
+            </li>
             <li><strong class="lihed"><b class="code1">bash</b></strong>
                 <ul>
                     <li><strong class="lihed"><b class="code1">shopt -s dotglob</b></strong> : Make <b class="code1">cp</b> and <b class="code1">rm</b> to include hidden file. _ See <a href="https://superuser.com/questions/61611/how-to-copy-with-cp-to-include-hidden-files-and-hidden-directories-and-their-con/547166#547166">here</a> for more info</li>
@@ -67,12 +75,23 @@
             </li>
             <li><strong class="lihed"><b class="code1">dmesg</b><a id="d170808_084719"></a></strong> : This is very usful because some time error occurs you can find the log here.</li>
             <li>
-                <p><strong class="lihed"><b class="code1">fsck</b></strong></p>
-                <ul>
-                    <li>See <a href="https://wiki.archlinux.org/index.php/Fsck">arch wiki</a>.</li>
-                    <li>Remember to add target at the end of command (for example <b class="udr">/dev/sdb2</b>), or fsck will traval all partition according to <b class="code1">fstab</b>.</li>
-                    <li>Log : I had run <b class="code1">fsck</b>. Before this <b class="code1">dmesg</b> prompting some error but after this it fixed the partition.</li>
-                </ul>
+                <p><strong class="lihed"><b class="code1">fsck</b><a class="ancrDest" id="d170815_130521"></a></strong></p>
+                <div class="cbk1 hide">
+                    <ul>
+                        <li><strong class="lihed"><a href="https://blog.gtwang.org/linux/linux-fsck-examples/">fsck 指令範例教學 - blog.gtwang.org</a></strong> : (informative).</li>
+                        <li><strong class="lihed"><a href="http://wiki.linux.org.hk/w/Check_filesystem">檢查檔案系統 (Filesystem Check, fsck) - Hong Kong Linux User Group</a></strong> : (informative).</li>
+                        <li><strong class="lihed"><a href="http://www.thegeekstuff.com/2012/08/fsck-command-examples/">10 Linux Fsck Command Examples to Check and Repair Filesystem.</a></strong></li>
+                        <li><strong class="lihed"><a href="https://wiki.archlinux.org/index.php/Fsck">arch wiki</a>.</strong></li>
+                        <li><strong class="lihed">Always add target at the end</strong> : Remember to add target at the end of command (for example <b class="udr">/dev/sdb2</b>), or fsck will traval all partition according to <b class="code1">fstab</b>.</li>
+                        <li><strong class="lihed">Always specify partition number</strong> : Remember to use <b class="code1">/dev/sdxn</b> instead of <b class="code1">/dev/sdx</b>.</li>
+                        <li>
+                            <p><strong class="lihed"><b class="code1">-f</b></strong> : 強制檢查 Clean 的檔案系統. 每當檔案系統被掛載成讀寫模式（rw）時，檔案系統狀態會被設定為 not-clean，而在檔案系統被成功卸載後，其狀態就會被設定回 clean。所以檔案系統沒有被成功卸載或者運作中途系統被中斷等，狀態就會維持在 not-clean，當檔案系統下次被檢查時，就可以由檔案系統狀態得知檔案系統是否有被正常卸載。</p>
+                            <p>在預設的狀況下，fsck 只會對狀態為 not-clean 的檔案系統進行檢查，如果碰到狀態為 clean 的檔案系統，就會很快地跳過。如果想要讓它檢查 clean 的檔案系統，可以加上 -f 參數。</p>
+                        </li>
+                        <li><strong class="lihed">A log</strong> : I had run <b class="code1">fsck</b>. Before this <b class="code1">dmesg</b> prompting some error but after this it fixed the partition.</li>
+                        <li><strong class="lihed">Also see <b class="code1"><a href="#d170815_130520">badblocks</a></strong></b>.</li>
+                    </ul>
+                </div>
             </li>
             <li>
                 <p><strong class="lihed"><b class="code1">grep</b>.</strong></p>

@@ -468,14 +468,12 @@
     
     .section1 .lihed * {
         /*font-weight: bold;*/
-        font-weight: normal;
     }
 
     .section1 .strong1 {
         font-weight: bold;
         /*font-size: 1.14em;*/
         font-size: 1em;
-        color: rgba(0, 0, 0, 0.8);
     }
 
     .section1 .udr {

@@ -91,12 +91,18 @@
                 <div class="cbk1 hide">
                     <ul>
                         <li><strong class="lihed"><a href="http://www.tldp.org/HOWTO/BootPrompt-HOWTO.html">The Linux BootPrompt-HowTo</a></strong> : <q>This is the BootPrompt-Howto, which is a compilation of all the possible boot time arguments that can be passed to the Linux kernel at boot time. A discussion of how the kernel sorts boot time arguments, along with an overview of some of the popular software used to boot Linux kernels is also included.</q></li>
+                        <li><strong class="lihed">A long list of kernel paramenters</strong> : <q>Tip: For a list of kernel parameters, see kernel-parameters.rst and kernel-parameters.txt (still incomplete). For more examples of boot entries, see the GRUB upstream documentation or the documentation for the distribution you wish to boot.<cite><a href="https://wiki.archlinux.org/index.php/Multiboot_USB_drive#Boot_entries">Arch wiki.</a></q> _ Mostly only list, with little explain.
                         <li><strong class="lihed">Set kernel parameters <b class="udr">permanently</b> in Grub</strong> : <a href="https://wiki.archlinux.org/index.php/Kernel_parameters">1. (Syslinux, systemd-boot, GRUB ... ) (preferable)</a> <a href="https://sites.google.com/site/easylinuxtipsproject/gruboptions">2. (view as more info).</a></li>
+                        <li><strong class="lihed">Format</strong> : No space are allowed in Kernel Parameter. And more surprisingly I found I can't even use quote, for example <b class="code1">username='treegb'</b> is not allowed and have to use <b class="code1">username=treegb</b>.</li>
                         <li><strong class="lihed"><a href="https://wiki.archlinux.org/index.php/kernel_mode_setting#Disabling_modesetting">Kernel mode setting</a></strong> : Kernel Mode Setting (KMS) is a method for setting display resolution and depth in the kernel space rather than user space.</li>
                         <li><strong class="lihed"><b class="code1">modeset</b></strong> : You may want to disable KMS for various reasons, such as getting a blank screen or a "no signal" error from the display.</li>
-                        <li><strong class="lihed"><b class="code1">nomodeset</b>, <b class="code1">quiet, splash</b>, <b class="code1">noacpi, nolacpi</b></strong> : See <a href="https://askubuntu.com/questions/716957/what-do-the-nomodeset-quiet-and-splash-kernel-parameters-mean">here</a>.</li>
+                        <li><strong class="lihed">[<b class="code1">nomodeset</b> // <b class="code1">quiet, splash</b> // <b class="code1">noacpi, nolacpi</b>]</strong> : See <a href="https://askubuntu.com/questions/716957/what-do-the-nomodeset-quiet-and-splash-kernel-parameters-mean">here</a>.</li>
                         <li><strong class="lihed"><b class="code1">fb=false</b></strong> : See <a href="https://www.debian.org/releases/stable/amd64/ch05s04.html.en">here (5.4.4)</a>, <q>If your screen begins to show a weird picture while the kernel boots, eg. pure white, pure black or colored pixel garbage, your system may contain a problematic video card which does not switch to the framebuffer mode properly. Then you can use the boot parameter fb=false to disable the framebuffer console.</q></li>
-                        <li><strong class="lihed"><b class="code1">priority</b></strong> : See <a href="https://www.debian.org/releases/stable/amd64/ch06s01.html.en">6.1. How the Installer Works</a>, sometimes you can use <b class="code1">priority=medium</b>, <b class="code1">priority=low</b> to see more control options when using <b class="code1">Debian-installer</b>.</li>
+                        <li><strong class="lihed"><b class="code1">debconfig/priority</b></strong> : For <b class="code1">Debian-installer</b> only. See <a href="https://www.debian.org/releases/stable/amd64/ch06s01.html.en">6.1. How the Installer Works</a>, you can use <b class="code1">priority=medium</b>, <b class="code1">priority=low</b> to see more control options when using <b class="code1">Debian-installer</b>. Also this can be switch which <b class="code1">Debian-installer</b> interface, menu entry.</li>
+                        <li><strong class="lihed"><a href="https://superuser.com/questions/385734/how-can-grub-pass-any-custom-variable-into-system-enviroment">Get kernel parameter passed to Grub when booting, after boot up</a></strong> : <b class="code1">/proc/cmdline</b>.</li>
+                        <li><strong class="lihed"><b class="code1">username</b></strong> : Username for Debian live ISO OS after entering the system, for example <b class="code1">username=treegb</b>.</li>
+                        <li><strong class="lihed"><b class="code1">rescue/enable</b></strong> : Not sure the purpose, maybe boot with single mode I don't know. e.g. <b class="code1">rescue/enable=true</b>.</li>
+                        <li><strong class="lihed"><b class="code1">root</b></strong> : (I think this is not the same thing as <b class="code1">set root=(hd0,msdos1)</b> in <b class="code1">grub.cfg</b> but mean <b class="udr">file system root</b>, but I'm not sure). Set the <b class="udr">root of the filesystem</b>. Normally you don't need to set <b class="code1">root</b> because Kernel will assume <b class="udr">file system root</b> is same partition where <b class="code1">vmlinuz</b> locate. An usage example is <b class="code1">root=/dev/sda1</b>.</li>
                     </ul>
                 </div>
             </li>
@@ -111,6 +117,19 @@
             </li>
             <li><strong class="lihed"><a href="#d170809_133501">[Grub / Grub2 / bootloader].</a></strong></li>
             <li><strong class="lihed"><a href="https://zh.wikipedia.org/zh-tw/GUID%E7%A3%81%E7%A2%9F%E5%88%86%E5%89%B2%E8%A1%A8#.E6.93.8D.E4.BD.9C.E7.B3.BB.E7.BB.9F.E6.94.AF.E6.8C.81">OS support boot from [<b class="code1">BIOS/GPT</b> // <b class="code1">EFI/GPT</b>].</a></strong></li>
+            <li>
+                <p><strong class="lihed"><b class="code1">Debian installer</b>.</strong></p>
+                <div class="cbk1">
+                    <ul>
+                        <li><b class="code1">Debian installer</b> is a utility, use and boot from <b class="code1">vmlinuz</b> and <b class="code1">initrd</b> (seems only need these 2 files), showing interface to install Debian OS, also offer extra shell to use (tty2).</li>
+                        <li>
+                            <p><strong class="lihed">Install <b class="code1">Debian installer</b></strong> : ISO image already have ability to run <b class="code1">Debian installer</b> natively, but here is a problem, if you are <b class="strong1">not</b> installed those ISO with dd command, which directly low level write ISO through USB, you get a <b class="code1">Debian installer</b> don't have <b class="code1">scan hard drive for an installer iso image</b> menu entry, even you use  <b class="code1">grub.cfg</b>, <b class="code1">linux  (loop)/d-i/vmlinuz $bootoptions</b>, <b class="code1">initrd (loop)/d-i/initrd.gz</b>, you still don't see it, I don't know why.</p>
+                            <p><b class="code1">scan hard drive for an installer iso image</b> feature (a menu entry in <b class="code1">Debian installer</b>) will automatic scan all plugin device and search all direcotry checking if there is an Debian ISO file exist automatically, if you active this menu entry. If you have <b class="code1">Kernel parameter</b> <b class="code1">debconfig/priority=medium</b> set to <b class="code1">linux</b> in <b class="code1">grub.cfg</b>, later you can even manually select the device to scan ISO image, instead scaning all plugin device. After scaning extra ISO, you will find suddently there is much more extra menu entry added you are able to use much more feature (normally you should always have this feature or <b class="code1">Debian installer</b> will be pointless to use). Without this feature, you can't get full function to work in <b class="code1">Debian installer</b>.</p>
+                            <p>Solution is, download extra <b class="code1">vmlinuz</b> and <b class="code1">initrd</b> on Debian mirrow, manually [put /copy] them to partition, and config <b class="code1">grub.cfg</b> to use them instead of <b class="code1">(loop)/d-i/vmlinuz</b> and <b class="code1">(loop)/d-i/initrd.gz</b>. Actually, you just have to [download / use] <b class="code1">initrd</b>, and use <b class="code1">(loop)/d-i/vmlinuz</b> as same, <b class="strong1">the key seems to be <b class="code1 strong1">initrd</b> only.</b></p>
+                        </li>
+                    </ul>
+                </div>
+            </li>
             <li>
                 <p><strong class="lihed">Module.<a class="ancrDest" id="d170808_090536"></a></strong></p>
                 <div class="cbk1 hide">
@@ -218,7 +237,7 @@
             <li><strong class="lihed"><a href="https://sites.google.com/site/easylinuxtipsproject/6">Grub with motherboard that are UEFI and use full UEFI mode.</a></strong></li>
             <li>
                 <p><strong class="lihed"><a href="https://www.gnu.org/software/grub/manual/html_node/index.html">GNU GRUB Manual 2.02.</a></strong> : (<a href="https://www.gnu.org/software/grub/manual/grub.html">single page version</a>)</p>
-                <div class="cbk1">
+                <div class="cbk1 hide">
                     <ul>
                         <li><strong class="lihed"><a href="https://www.gnu.org/software/grub/manual/grub.html#Menu-interface">The simple menu interface.</a></strong></li>
                         <li>
@@ -242,10 +261,18 @@
             <li><strong class="lihed"><a href="https://wiki.archlinux.org/index.php/GRUB">[GRUB / Arch wiki].</a></strong></li>
             <li><strong class="lihed"><a href="https://wiki.debian.org/Grub">[GRUB / Debian wiki].</a></strong></li>
             <li><strong class="lihed"><a href="http://blog.csdn.net/xiedapang_pang/article/details/56672702"><b class="strong1">[GRUB / GRUB2 配置文件 grub.cfg 詳解]</b></a></strong> : (<a href="https://web.archive.org/web/20170814093133/http://blog.csdn.net/xiedapang_pang/article/details/56672702">Backup</a>). <b class="strong1">Very quality document</b>, including both key info (instead cumbersome) and also detailed info.</li>
+            <li>
+                <p><strong class="lihed"><b class="strong1"><a href="https://hugh712.gitbooks.io/grub/content/">[GRUB / GRUB架構解析]</a></b></strong> : Another good resource, easy to grasp the key concept, also have advenced explaination.
+                <ul>
+                    <li><strong class="lihed"><a href="https://hugh712.gitbooks.io/grub/content/test.html">Basic console</a></strong> : These is often used command when you are in console mode.</li>
+                    <li><strong class="lihed"><b class="code1"><a href="https://hugh712.gitbooks.io/grub/content/test.html">prefix</a></b><a class="ancrDest" id="d170817_103204"></a></strong> : I successfully boot without this settings. This seems have default settings <b class="code1">set prefix=($root)/boot/grub</b>. _ Also see <a href="https://hugh712.gitbooks.io/grub/content/embedding-a-configuration-file.html">here</a> have a little example of using <b class="code1">prefix</b>.</li>
+                    <li><strong class="lihed">grub.cfg can use shell script</strong> : <a href="https://hugh712.gitbooks.io/grub/content/embedding-a-configuration-file.html">Some example</a>.</li>
+                </ul>
+            </li>
             <li><strong class="lihed"><a href="https://help.ubuntu.com/community/Grub2/ISOBoot#Manually_editing_the_GRUB_files">[GRUB / Ubuntu documentation]</a></strong> : Still, I found <b class="udr">[GRUB / GRUB2 配置文件 grub.cfg 詳解]</b> is better than this.</li>
             <li><strong class="lihed"><b class="code1">Grub</b> package</b></strong> : don't use <b class="code1">aptitude install grub</b> to install grub package, it will install <b class="code1">grub-legacy</b> but not <b class="code1">grub2</b>. Use <b class="code1">aptitude search grub</b> to find correct package, maybe you want <b class="code1">grub-efi-amd64</b> or <b class="code1">grub-efi-pc</b> ...</li>
             <li>
-                <p><strong class="lihed">Configuration and some key concept.</strong></p>
+                <p><strong class="lihed"><b class="strong1">Configuration and some key concept.</b></strong></p>
                 <div class="cbk1">
                     <ul>
                         <li><strong class="lihed"><a href="https://wiki.archlinux.org/index.php/GRUB#Configuration">[Grub, configuration / Arch wiki].</a></strong></li>
@@ -256,8 +283,8 @@
                             <p><strong class="lihed"><b class="code1">/boot/grub/grub.cfg</b></strong></p>
                             <ul>
                                 <li>
-                                    <p><strong class="lihed">Basic structure and example.</strong></p>
-                                    <div class="cbk1">
+                                    <p><strong class="lihed">Basic structure and example (simple but not best, demonstration only).</strong></p>
+                                    <div class="cbk1 hide">
                                         <p class="pre mono"># begin here: https://wiki.archlinux.org/index.php/Multiboot_USB_drive
 # good reference: https://wiki.archlinux.org/index.php/GRUB
 # minimal config: https://blog.hartwork.org/?p=1807
@@ -300,16 +327,22 @@ menuentry "treegb, Debian Stretch, Debian GNU/Linux Live (kernel 4.9.0-3-amd64)"
                                     </div>
                                 </li>
                                 <li><strong class="lihed"><a href="170813_191337.html">grub.cfg on real system example</a></strong> : This is <b class="code1">/boot/grub/grub.cfg</b> file on [real / complete] system, so I can check if I miss somthing when modifying <b class="code1">grub.cfg</b> manually.</li>
+                                <li><strong class="lihed"><a href="170813_191338.html"><b class="strong1">grub.cfg on multi ISO bootable disk (partition) backup</b></a></strong> : This is <b class="code1">/boot/grub/grub.cfg</b> file on hard disk partition, which can boot to multiple ISO with this [script/config].</li>
+                                <li><strong class="lihed"><a href="https://wiki.debian.org/DebianLive/MultibootISO">[DebianLive / MultibootISO], <b class="udr">for, do, done</b> method</a></strong> : Programing grub.cfg which automatically and recursively get all ISO in the directory, and automatically generate all menuentry. This can works to boot live image, but still use [customise / manual] method to chose [all // needed] menuentry content inside ISO file. <b class="ital">(Debian Live Multiboot ISO)</b>.</li>
+                                <li><strong class="lihed"><a href="https://www.supergrubdisk.org/wiki/Loopback.cfg">Loopback.cfg method</a></strong> : This method only need add one menuentry for one ISO, the <b class="code1">configfile</b> command will makes entry menu "jump" from original outside <b class="code1">grub.cfg</b> to <b class="code1">inside</b> ISO (loop), so you actually later see all menuentries inside the ISO image. This can works to boot live image, but still need to manually add one more menuentry for one more ISO added.</li>
                                 <li>
                                     <p><strong class="lihed"><b class="code1">insmod</b></strong> : Some module are not necessary to be installed, you can add it when you have new [device // partition table type // file system type] and you have problem to load it.</p>
-                                    <ul>
-                                        <li><strong class="lihed"><b class="code1">insmod part_msdos</b>.</strong></li>
-                                        <li><strong class="lihed"><b class="code1">insmod ntfs</b>.</strong></li>
-                                        <li><strong class="lihed"><b class="code1">insmod ext4</b>.</strong></li>
-                                        <li><strong class="lihed"><b class="code1">insmod iso9660</b>.</strong></li>
-                                        <li><strong class="lihed"><b class="code1">insmod part_gpt</b>.</strong></li>
-                                    </ul>
+                                    <div class="cbk1 hide">
+                                        <ul>
+                                            <li><strong class="lihed"><b class="code1">insmod part_msdos</b>.</strong></li>
+                                            <li><strong class="lihed"><b class="code1">insmod ntfs</b>.</strong></li>
+                                            <li><strong class="lihed"><b class="code1">insmod ext4</b>.</strong></li>
+                                            <li><strong class="lihed"><b class="code1">insmod iso9660</b>.</strong></li>
+                                            <li><strong class="lihed"><b class="code1">insmod part_gpt</b>.</strong></li>
+                                        </ul>
+                                    </div>
                                 </li>
+                                <li><strong class="lihed"><b class="code1">set</b></strong> : Don't know why using this keyword <b class="code1">set</b>, I tried with may command includ <b class="code1">root=</b>, <b class="code1">prefix=</b> witout <b class="code1">set</b> and it still works well. I see GNU manual there is no document about <b class="code1">set</b>. I google <b class="code1">set</b> buildin command of <b class="code1">bash</b> everywhere, there is no common needed of this command, (but <b class="code1">export</b> is much common and useful). _ The conclusion is I don't know why use <b class="code1">set</b> before some variable, it works fine even I don't use it, but I will keep the practice with some common usage like <b class="code1">set root=</b>, <b class="code1">set prefix=</b>, other variables is not needed at all.</li>
                                 <li><strong class="lihed"><b class="code1">set default=1</b></strong> : 默認選中第幾個菜單項（從“0”開始計數）.</li>
                                 <li><strong class="lihed"><b class="code1">set timeout=20</b></strong> : 20 sec delay before auto enter first entry.</li>
                                 <li>
@@ -318,6 +351,7 @@ menuentry "treegb, Debian Stretch, Debian GNU/Linux Live (kernel 4.9.0-3-amd64)"
                                         <li><strong class="lihed">(fd0)/grldr</strong> : 第一軟盤根目錄下的 “grldr” 文件[絕對路徑]</li>
                                         <li><strong class="lihed">(hd0,gpt1)/boot/vmlinuz</strong> : 第一硬盤的第一GPT分區 “boot” 目錄下的 “vmlinuz” 文件[絕對路徑]</li>
                                         <li><strong class="lihed">/boot/vmlinuz</strong> : 根設備 “boot” 目錄下的 “vmlinuz” 文件[相對路徑]，當 “根” 環境變量等於 “(hd0，gpt1)” 時，等價於 “(hd0，gpt1)/vmlinuz”</li>
+                                        <li><strong class="lihed"><b class="code1">hd0</b> is special!</strong> : Remember, if you use <b class="udr">quick boot selection menu</b> (some motherboard use F8 key) in boot time, <b class="code1">hd0</b> exceptionally always mean <b class="udr">seleted device</b>, not first detected device, disregarding what sequence this device it actually is in [BIOS // UEFI] order. The rest of device remain normal, will follow the normal sequence.</li>
                                     </ul>
                                 </li>
                                 <li>
@@ -329,43 +363,55 @@ menuentry "treegb, Debian Stretch, Debian GNU/Linux Live (kernel 4.9.0-3-amd64)"
                                     </ul>
                                 </li>
                                 <li><strong class="lihed"><b class="code1">search [--file|--label|--fs-uuid] [--set [var]] [--no-floppy] name</b></strong> : For e.g. <b class="code1">search --fs-uuid --set=root d7540d3d-066b-40c8-8875-92026d483cdc</b>. 通過文件[--file]，卷標[--label]，文件系統UUID[--FS-UUID]來查找設備。如果使用了 --set 選項，那麼會將第一個找到的設備設置為環境變量“var”的值。默認的“var”是“root”。 Maybe this is another way to set root, without specify relative location of boot sequence.</li>
-                                <li><strong class="lihed"><b class="code1">set root=...</b></strong> : For example <b class="code1">set root=(hd0,msdos1)</b>, see more at previous section <b class="udr">文件的命名方法, 設備與分區</b>. _ <b class="udr">I think</b> you can change root as you want in any location of config, if your target ISO is at different [device / partition]. _ I see <a href="https://ubuntuforums.org/showthread.php?t=2276498">here</a> use <b class="code1">configfile <b class="strong1">(hd2,4)</b>/iso/livecdimage.cfg</b>, don't know what it mean but I think it is legit.</li>
-                                <li><strong class="lihed"><b class="code1">set isofile=&lt;iso path&gt;</b></strong> : You don't need to use <b class="code1">isofile</b> it is just a arbitrary variable name! For example <b class="code1">set isofile='/debian-live-9.0.1-amd64-gnome.iso'</b>. _ <b class="udr">I think</b> if you change root again (<b class="code1">set root=...</b>), the meaning of this path will change again too.</li>
-                                <li><strong class="lihed"><b class="code1">loopback loop $isofile</b></strong> : I means mount the iso file, so you can [use / specify] inside Kernel later. _ I found <a href="">here</a> using <b class="code1">loopback loop (hd0,1)$isofile</b>, I have 2 question 1. no need offer msdos partition table type? 2. So it is said <b class="code1">set root=...</b> is not always needed?</li>
-                                <li><strong class="lihed"><b class="code1">set loopback="findiso=${isofile}"</b></strong> : You don't need to use <b class="code1">loopback</b> it is just a arbitrary variable name! <b class="code1">findiso=${isofile}</b> will needed in later <b class="code1">linux</b> command argument.</li>
                                 <li>
-                                    <p><strong class="lihed"><b class="code1">linux</b> argument.</strong></p>
+                                    <p><strong class="lihed"><b class="code1">set root=...</b><a class="ancrDest" id="d170817_042641"></a></strong></p>
                                     <ul>
-                                        <li>
-                                            <p><strong class="lihed">如何使用 GRUB2引導（硬盤安裝）Debian LiveCD 的 ISO 文件？</strong> : 首先需要說明的是，這裡給出的方法，只適用於提供了 <b class="strong1">“iso-scan/filename=” 或 “fromiso=” 或 “isoboot=” 或 “isoloop=”</b> <b class="ital">(no "findiso=" ?)</b> 之類參數的LiveCD的。</p>
-                                            <p>下面以 “Debian 8.6 LiveCD” 為例說明。首先，假定你將 ISO 文件放在 '(hd0,gpt3)/ISO/Debian.iso' ; 然後，在 'grub.cfg' 中加入如下菜單項：</p>
-                                            <div class="cbk1">
-                                                <p class="pre mono">menuentry "Debian 8.6 LiveCD" --unrestricted {
-    loopback loop0 (hd0,gpt3)/ISO/Debian.iso
-    linux  (loop0)/live/vmlinuz boot=live fromiso=/dev/sda3/ISO/Debian.iso
-    initrd (loop0)/live/initrd.img
-}</p>
-                                            </div>
-                                            <p>[說明]這裡給出的方法，其實就是各種 “硬盤安裝XX Linux” 的翻版，只不過不再需要將 “vmlinuz” 與 “initrd” 從 ISO 中解壓出來而已。更多其它發行版的實例，請繼續閱讀下面的內容。</p>
-                                        </li>
-                                        <li><strong class="lihed"><b class="code1">(loop)/live/vmlinuz-4.9.0-3-amd64</b></strong> : kernel path. <b class="code1">(loop)</b> here means use kernel inside ISO (in previous step we had loop mount this).</li>
-                                        <li><strong class="lihed"><b class="code1">"${loopback}"</b></strong> : = previous <b class="code1">findiso=${isofile}</b>.</li>
-                                        <li><strong class="lihed"><b class="code1">boot=live</b></strong> : If you want to directly boot inside ISO kernel which used for live environment, this seems necessary. But I'm not very sure about this argument.</li>
-                                        <li><strong class="lihed"><b class="code1">components</b></strong> : Not sure. I'd try to remove this and it still works to boot inside ISO kernel which used for live environment.</li>
-                                        <li><strong class="lihed"><b class="code1">quiet</b></strong> : Don't print kernel log.</li>
-                                        <li><strong class="lihed"><b class="code1">splash</b>?</strong> : Splash background image? Do I need to add this?</li>
-                                        <li><strong class="lihed"><b class="code1"><a href="https://youtu.be/xf2CYSUXVh8?t=2m48s">iso-scan/filename=&lt;iso-path&gt;</a></b></strong> : ? not sure why use this.</li>
+                                        <li>For example <b class="code1">set root=(hd0,msdos1)</b> (don't sufix <b class="code1">/</b>, because other variable which concatenate with <b class="code1">root</b> might use prefix <b class="code1">/</b>).</li>
+                                        <li>see more at previous section <b class="udr">文件的命名方法, 設備與分區</b> in this page.</li>
+                                        <li>Specify <b class="code1">root</b> like this <b class="code1">configfile <b class="strong1">(hd2,4)</b>/iso/livecdimage.cfg</b> is legit, but this will not change global <b class="code1">root</b> variable.</li>
+                                        <li>You can change root as you want in any location of config, if your target ISO is at different [device / partition], and later operation will be more convinient, you don't need to specify root at the begining of each path, like above command.</li>
                                     </ul>
                                 </li>
+                                <li><strong class="lihed"><b class="code1">set prefix=...</b></strong> : The defualt setting is <b class="code1">set prefix=($root)/boot/grub</b> (no sufix <b class="code1">/</b>), but even <b class="code1">root</b> changes</b>, default <b class="code1">prefix</b> will not change again. <b class="code1">prefix</b> will determine basic directory where Grub require some data like modules files. Don't change this directory to other location <b class="udr">even you change <b class="code1">root</b></b>, <b class="udr">even you use <b class="code1">loop</b> and <b class="code1">configfile</b> get inside ISO loop</b>, or Grub will probably fail to load module (not a big problem though, just change it back).</li>
+                                <li><strong class="lihed"><b class="code1">set isofile=&lt;iso path&gt;</b></strong> : You don't need to use <b class="code1">isofile</b> it is just a arbitrary variable name! For example <b class="code1">set isofile='/debian-live-9.0.1-amd64-gnome.iso'</b>. _ <b class="udr">I think</b> if you change root again (<b class="code1">set root=...</b>), the meaning of this path will change again too.</li>
+                                <li><strong class="lihed"><b class="code1">loopback loop $isofile</b></strong> : I means mount the iso file, so you can [use / specify] inside Kernel later. _ I found <a href="">here</a> using <b class="code1">loopback loop (hd0,1)$isofile</b>, so I get these conclusion 1. no need offer <b class="code1">msdos</b> partition table type 2. This is another way to specify root other than <b class="code1">set root=...</b> method.</li>
+                                <li><strong class="lihed"><b class="code1">set loopback="findiso=${isofile}"</b></strong> : You don't need to use <b class="code1">loopback</b> it is just a arbitrary variable name! <b class="code1">findiso=${isofile}</b> will needed in later <b class="code1">linux</b> command argument (at least for Debian).</li>
+                                <li>
+                                    <p><strong class="lihed"><b class="code1">linux</b> argument.</strong></p>
+                                    <div class="cbk1 hide">
+                                        <ul>
+                                            <li>
+                                                <p><strong class="lihed">如何使用 GRUB2引導（硬盤安裝）Debian LiveCD 的 ISO 文件？</strong> : 首先需要說明的是，這裡給出的方法，只適用於提供了 <b class="strong1">“iso-scan/filename=” 或 “fromiso=” 或 “isoboot=” 或 “isoloop=”</b> <b class="ital">(no "findiso=" ?)</b> 之類參數的LiveCD的。</p>
+                                                <p>下面以 “Debian 8.6 LiveCD” 為例說明。首先，假定你將 ISO 文件放在 '(hd0,gpt3)/ISO/Debian.iso' ; 然後，在 'grub.cfg' 中加入如下菜單項：</p>
+                                                <div class="cbk1">
+                                                    <p class="pre mono">menuentry "Debian 8.6 LiveCD" --unrestricted {
+        loopback loop0 (hd0,gpt3)/ISO/Debian.iso
+        linux  (loop0)/live/vmlinuz boot=live fromiso=/dev/sda3/ISO/Debian.iso
+        initrd (loop0)/live/initrd.img
+    }</p>
+                                                </div>
+                                                <p>[說明]這裡給出的方法，其實就是各種 “硬盤安裝XX Linux” 的翻版，只不過不再需要將 “vmlinuz” 與 “initrd” 從 ISO 中解壓出來而已。更多其它發行版的實例，請繼續閱讀下面的內容。</p>
+                                            </li>
+                                            <li><strong class="lihed"><b class="code1">(loop)/live/vmlinuz-4.9.0-3-amd64</b></strong> : kernel path. <b class="code1">(loop)</b> here means use kernel inside ISO (in previous step we had loop mount this).</li>
+                                            <li><strong class="lihed"><b class="code1">"${loopback}"</b></strong> : = previous <b class="code1">findiso=${isofile}</b>.</li>
+                                            <li><strong class="lihed"><b class="code1">boot=live</b></strong> : If you want to directly boot inside ISO kernel which used for live environment, this seems necessary. But I'm not very sure about this argument.</li>
+                                            <li><strong class="lihed"><b class="code1">components</b></strong> : Not sure. I'd try to remove this and it still works to boot inside ISO kernel which used for live environment.</li>
+                                            <li><strong class="lihed"><b class="code1"><a href="https://youtu.be/xf2CYSUXVh8?t=2m48s">iso-scan/filename=&lt;iso-path&gt;</a></b></strong> : ? not sure why use this. I think this might (or might not) be Ubuntu specific.</li>
+                                            <li><strong class="lihed">Other Kernel Parameter</strong> : More other Kernel Parameter, document, please see <a href="#d170808_074846">here</a>. It is not possible to list all Kernel Paramenters because the range is too wide.</li>
+                                        </ul>
+                                    </div>
+                                </li>
                                 <li><strong class="lihed"><b class="code1">initrd</b></strong> : Seems don't need any extra argument except initrd.gz path.</li>
+                                <li><strong class="lihed">Change screen resolution</strong> : Set <b class="code1">gfxmode</b> (someone said <b class="code1">GRUB_GFXMODE</b>. _ Go to <b class="udr">grub interactive shell</b> first, use <b class="code1">vbeinfo</b> to check all available resolution, and later write that resolution into <b class="code1">grub.cfg</b>, e.g. <b class="code1">gfxmode=1024x768</b>, when next time you boot it will effect. Also people suggest use <b class="code1">gfxpayload=keep</b> together. _ There is another argument <b class="code1">vga</b>, but I'm not sure what it does.</li>
                             </ul>
                         </li>
                         </li>
-                        <li><strong class="lihed"><b class="code1">update-grub</b></strong></li>
+                        <li><strong class="lihed"><b class="code1">update-grub</b></strong> : See <a href="https://hugh712.gitbooks.io/grub/content/configuration-files.html">here, 組態結構</a>.</li>
                         <li><strong class="lihed"><b class="code1">grub-mkconfig</b></strong></li>
+                        <li><strong class="lihed"><b class="code1">grub-mkrescue</b></strong> : I will not need this, but just for more info. - <q>如上面所看到的，產生了一個『grub.iso』，接下來你就可以把這個image給燒入CD-ROM或是USB裡面以後，放入相關媒體重新開機後，你的機器一開始應該就會讀到了。<cite><a href="https://hugh712.gitbooks.io/grub/content/making-a-grub-bootable-cd-rom.html">建立可啟動的CD-ROM GRUB image.</a></cite</q></li>
                         <li>
                             <p><strong class="lihed"><b class="code1">grub-install</b></strong> : Install Grub on a system without Grub pre-install (new system) or MBR been overwrite by Windows. See <a href="https://wiki.archlinux.org/index.php/GRUB">here</a>. And also see <b class="strong1"><a href="https://wiki.archlinux.org/index.php/Multiboot_USB_drive">here</b> (<a href="https://wiki.archlinux.org/index.php/Multiboot_USB_drive#Installing_GRUB">this section</a>) to see the flexable usage (install on USB flash drive and with custom path) of <b class="code1">grub-install</b>.</p>
-                            <p>Notice it is not easy (and probably not "legit" method?) to install grub on empty disk (no OS on it) even you use <b class="code1 mono">grub-install --boot-directory=/mnt/your-empty-disk-root/boot/ /dev/your-empty-disk</b>. Even you can do it, I found I have no <b class="udr">grub.cfg</b> file to use after previous command becuase it need <b class="udr">update-grub</b> to [generate / update] it or maybe <b class="code1 mono">grub-mkconfig -o /boot/grub/grub.cfg</b> will create a new<b class="code1">grub.cfg</b> for me? So the conclusion is I <b class="strong1">can</b> install grub on empty disk, but it is probably <b class="strong1">not "legit"</b> method?. But some people use <b class="code1">chroot</b> method to do it and works. _ See info more at <b class="code1 strong1"><a href="170722_223101.html#d170810_144512">chroot</a></b> about installing Grub.</p>
+                            <p>Notice it is not easy (and probably not "legit" method?) to install grub on empty disk (no OS on it) even you use <b class="code1 mono">grub-install --boot-directory=/mnt/your-empty-disk-root/boot/ --force /dev/your-empty-disk</b>. Even you can do it (remember to use <b class="code1 mono">--force</b> to force install even error occurs), I found I have no <b class="udr">grub.cfg</b> file to use after previous command becuase it need <b class="udr">update-grub</b> to [generate / update] it or maybe <b class="code1 mono">grub-mkconfig -o /boot/grub/grub.cfg</b> will create a new<b class="code1">grub.cfg</b> for me? So the conclusion is I <b class="strong1">can</b> install grub on empty disk, but it is probably <b class="strong1">not "legit"</b> method?. But some people use <b class="code1">chroot</b> method to do it and works. _ See info more at <b class="code1 strong1"><a href="170722_223101.html#d170810_144512">chroot</a></b> about installing Grub.</p>
                             <p><a href="https://www.gnu.org/software/grub/manual/html_node/Invoking-grub_002dmkconfig.html#Invoking-grub_002dmkconfig">This</a> and <a href="https://unix.stackexchange.com/questions/72592/chroot-in-to-reinstall-grub2-reinstall-mnt-is-empty#72599">this</a>, said you can use <b class="code1 mono">grub-mkconfig -o /boot/grub/grub.cfg</b> to buid config file?</p>
                             <p>And I found <a href="https://youtu.be/Q5CaJRpmpLI">this good video</a>, it show copying legit grub config <b class="udr">source</b> file like htis</p>
                             <div class="cbk1">
@@ -381,11 +427,33 @@ menuentry "treegb, Debian Stretch, Debian GNU/Linux Live (kernel 4.9.0-3-amd64)"
                     </ul>
                 </div>
             </li>
+            <li>
+                <p><strong class="lihed">Grub shell (grub interactive mode).</strong></p>
+                <ul>
+                    <li><strong class="lihed">Apply in real time</strong> : Always remember <b class="udr">grub interactive shell</b> will apply the action in real time, not like static <b class="code1">grub.cfg</b>, you have to [set / type] variable or command one by one, a [command / variable] canged might effect later action, for example you first change <b class="code1">root</b> in <b class="udr">grub interactive shell</b> but when you later go back to a menuentry, which don't set <b class="code1">root</b> back to correct location (because the script might already set root before each menuentry), you will get wrong <b class="code1">root</b> settings if you execute that <b class="code1">grub.cfg</b>.</li>
+                    <li><strong class="lihed">Auto completion</strong> : In <b class="udr">grub interactive shell</b> or <b class="code1">grub.cfg</b>, <b class="code1">Tab</b> key will works, but like previous saying, the status is action in real time, it only effect you have right environment especially in <b class="code1">grub.cfg</b> you sometimes get confused, for example, if you want to auto complete the full path name under <b class="udr">grub.cfg</b>, you have to switch to <b class="udr">grub interactive shell</b> first, set <b class="code1">root</b> to correct one, then get back to <b class="code1">grub.cfg</b> and the auto completion will be correct. You can use (hd0, msdos1) prefix too it might be quicker. Also make sure have one space before a path name or auto completion will not work.</li>
+                    <li><strong class="lihed">How to scroll in grub shell?</strong> : <a href="https://superuser.com/questions/504887/how-to-scroll-in-grub2-shell">set pager=1</a>. Now <b class="code1">cat</b> is much easier to use</li>
+                    <li><strong class="lihed"><a href="https://hugh712.gitbooks.io/grub/content/test.html">Basic console</a></strong>.</li>
+                    <li><strong class="lihed"><b class="code1">cat</b>.</strong></li>
+                    <li><strong class="lihed"><b class="code1">boot</b></strong> : Boot the system. In <b class="code1">grub.cfg</b> you don't need <b class="code1">boot</b>.</li>
+                </ul>
+            </li>
             <li><strong class="lihed">GPT problem</strong> : I note at <b class="code1"><a href="170722_223101.html#d170809_131918">parted</a></b>.</li>
             <li><strong class="lihed">chain-load</strong> : Chain loading is only needed if you have proprietary OS (Windows, Mac) that GRUB can't directly handle.</li>
+            <li><strong class="lihed"><b class="code1">multiboot</b></strong> : <q>I want to edit the 'primary' GRUB 2, to show the boot option for 'secondary' GRUB2 on another HDD drive in the computer, how can I do this? ... User 'franzb' has posted the solution to this question, just use <b class="code1">multiboot</b>.<cite>See <a href="https://ubuntuforums.org/showthread.php?t=1682253&page=3&p=10439004#post10439004">here</a> and <a href="https://hugh712.gitbooks.io/grub/content/multi-boot-manual-config.html">here</a>.</cite></q></li>
+            <li>
+                <p><strong class="lihed"><b class="code1">configfile</b></strong></p>
+                <ul>
+                    <li><q>而如果你有兩個版本以上的Ubnutu或是多種的作業系統安裝的話，最好就不要使用chainloading，而是要在『/etc/grub.d/40_custom』加入像底下這樣子的entry : ... <b class="code1 mono">configfile /boot/grub/grub.cfg</b>.<cite>See <a href="https://hugh712.gitbooks.io/grub/content/multi-boot-manual-config.html">here</a>.</cite></q></li>
+                    <li><a href="https://hugh712.gitbooks.io/grub/content/embedding-a-configuration-file.html">A practical example.</a></li>
+                    <li>Don't mistype like this <b class="code1">configfile=/boot/grub/grub.cfg</b>.</li>
+                    <li>When you want to retrieve the full menuentry of <b class="code1">grub.cfg</b> in inside ISO content, you can use <b class="code1">configfile</b>, but here you need to know a key setting - use <b class="code1">export iso_path=&lt;/your/iso/file&gt;</b> before <b class="code1">configfile</b>, watching (loop) inside <b class="code1">grub.cfg</b> file, you see the script try to detect variable <b class="code1">iso_path</b>. So use <b class="code1">export iso_path=&lt;/your/iso/file&gt;</b> (e.g. <b class="code1">export iso_path='/iso/debian-live-9.0.1-amd64-gnome.iso'</b>) to [export/keep] this variable.</li>
+                    <li>I think <b class="code1">configfile</b> is not a "chroot" function, it just source another script, but doesn't fully get inside the environment. Seems there is no way to "chroot" to live ISO.</li>
+                </ul>
+            </li>
+            <li><strong class="lihed">How to edit <b class="code1">grub.cfg</b> when the partition is mount with read-only</strong> : When you have a custom bootable ISO hard disk (partition) with Grub install and have <b class="code1">grub.cfg</b> cofigured, and you boot with that partition, later you get inside the system but you found that partition is mount with read-only and you can't edit <b class="code1">grub.cfg</b>. Solution is you have to [select / use] other ISO in different partition when boot (with grub menu), don't use the ISO which are at same location of the partition your <b class="code1">grub.cfg</b> is. See <a href="#d170817_042641">set root=...</a>.</li>
             <li><strong class="lihed">[Dealing <b class="code1">Grub</b> with multiple OS / should I install grub again when I am installing the 2nd OS?]</strong> : See <a href="http://www.linuxquestions.org/questions/linux-newbie-8/grub-bootloader-4175610586/">this thread</a>, including discussion about run <b class="code1">update-grub</b> with rescue USB stick and it will auto detect all OS on same disk and fix broken Grub.</li>
             <li><strong class="lihed"><a href="https://sites.google.com/site/easylinuxtipsproject/tips#TOC-Make-Windows-the-default-option-in-the-Grub-boot-menu">Make Windows the default option in the Grub boot menu</a></strong> : (I guess this work for any OS).</li>
-            <li><strong class="lihed"><a href="https://sites.google.com/site/easylinuxtipsproject/grub#TOC-Adapt-Grub:-change-the-timeout">Change the Grub OS menu option timeout.</a></strong></li>
         </ul>
     </div>
 </section>
