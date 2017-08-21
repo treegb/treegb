@@ -80,9 +80,17 @@
                     </li>
                 </ul>
             </li>
-            <li><strong class="lihed"><b class="code1"><a href="https://sites.google.com/site/easylinuxtipsproject/tips#TOC-Generate-a-nice-hardware-list">inxi</a></b></strong> : Generate a nice hardware list. Useful to put it in a support forum message in which you request help for a problem.</li>
             <li><strong class="lihed">Hardware</strong> : (See <b class="code1">lspci</b>, <b class="code1">inxi</b>, <b class="code1">lshw</b>).</li>
+            <li><strong class="lihed"><b class="code1"><a href="https://sites.google.com/site/easylinuxtipsproject/tips#TOC-Generate-a-nice-hardware-list">inxi</a></b></strong> : Generate a nice hardware list. Useful to put it in a support forum message in which you request help for a problem.</li>
             <li><strong class="lihed"><b class="code1"><a href="https://sites.google.com/site/easylinuxtipsproject/tips#TOC-A-complete-list-of-all-the-hardware-in-your-computer">lshw.</a></b></strong></li>
+            <li>
+                <p><strong class="lihed"><b class="code1"><a href="https://www.memtest86.com/">memtest86</a></b>.</strong></p>
+                <div class="cbk1 hide">
+                    <p><b class="code1">memtest86</b> (not <b class="code1">memtest86+</b>) is utility to do memory test on x86 or x86_64 (amd64) PC. This utility seems as same as same package name in Debian repository, but I installed this utility to usb by downloading the tar.gz file from website instead of install with aptitude (maybe will install on OS and use grub to load it when boot, I don't konw).</p>
+                    <p>Installing is quite simple, just download tar.gz file from website, follow the README file use dd command to write it to usb, nothing more. This utility have free version and pro version, there is not much different so just download free version. And later when you are runing free version the interface will offer option to run v7.x or v4.x. v4.x version seems design for 32bit hardware, and you can't test memory more than 4GB.</p>
+                    <p>Make sure you disable UEFI <b class="udr">compatible mode</b> (this will cause disk or OS using MBR partition table not able to show in boot menu too), boot PC with this USB stick plugin and the utility will able to run. Select v7.x version instead of v4.x.</p>
+                </div>
+            </li>
             <li><strong class="lihed"><b class="code1">nautilus</b></strong> : <a href="https://askubuntu.com/questions/289535/bring-back-backspace-keyboard-shortcuts-on-nautilus-and-thunar">For Firefox and Nautilus: You can use <b class="code1">Alt + Left-arrow</b> to go back instead of Backspace.</a></li>
             <li><strong class="lihed"><b class="code1">pavucontrol</b></strong> : PulseAudio Volume Control (pavucontrol) is a simple GTK+ based volume control tool (mixer) for the PulseAudio sound server. In contrast to classic mixer tools this one allows you to control both the volume of hardware devices and of each playback stream separately. It also allows you to redirect a playback stream to another output device without interrupting playback.</a></li>
             <li>

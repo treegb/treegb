@@ -48,9 +48,29 @@
                     <ul>
                         <li><a href="https://wiki.debian.org/chroot">wiki.debian.org/chroot.</a></li>
                         <li><a href="https://help.ubuntu.com/community/Grub2/Installing#via_ChRoot">Ubuntu Grub2/Installing - via ChRoot</a>.</li>
+                        <li>
+                            <p><strong class="lihed">I tested chroot to an empty directory, it works.</strong></p>
+                            <div class="cbk1">
+                                <p>This was steps I use</p>
+                                <div class="cbk1">
+                                    <ul>
+                                        <li>I use live OS, but doesn't matter, real OS will works too.</li>
+                                        <li>create empty directory <b class="code1">chrootTest</b> first, then create these sub directories <b class="code1">bin proc dev sys etc lib <b class="strong1">lib64</b> usr run var sbin </b> under <b class="code1">chrootTest</b>.</li>
+                                        <li><b class="code1">cd chrootTest</b>, use <b class="code1">for i in $(\ls) ; do sudo mount --bind /$i ./$i ; done</b> to mount all these directory at once.</li>
+                                        <li>Mount /dev/pts too <b class="code1">sudo mount /dev/pts/ ./dev/pts/</b>. I don't know why <b class="code1">/dev/pts/</b> is empty even after <b class="code1">/dev</b> been mount.</li>
+                                        <li>Finally <b class="code1">sudo chroot .</b> .</li>
+                                    </ul>
+                                </div>
+                                <p>This will <b class="code1">chroot</b> successfully, and all operation <b class="udr">seems to <b class="strong1">effect original OS</b></b>! For example <b class="code1">aptitude install</b> indeed effect the original OS and install package will take effect!</p>
+                                <p>I tried to apply <b class="code1">-o ro</b> to all <b class="code1">mount</b> operation, and it indeed protect original OS from being writed, but it is obvious in chroot system it will report some error when using aptitude installing package so installation fail.</p>
+                                <p>If I don't mount <b class="code1">/dev/pts</b> in last step there will have little error message complaining when using aptitude installing package.</p>
+                                <p>I know I actually don't have to mount so many directory to work, but I'm not sure <b class="strong1">how many</b> essential directory I need at least, I have not test yet.</p>
+                                <p><b class="code1">lib</b> and <b class="code1">lib64</b> must be mounted too in order to make it work, because for example use <b class="code1">ldd /bin/bash</b> you can see <b class="code1">/bin/bash</b> <a href="https://serverfault.com/questions/162362/chroot-fails-cannot-run-command-bin-bash-no-such-file-or-directory">need extra library to work</a>.</p>
+                            </div>
+                        </li>
                         <li><a href="https://serverfault.com/questions/136515/read-only-bind-mount">Read only bind-mount when chroot?</a></li>
                         <li>Examples on <a href="https://wiki.debian.org/Debootstrap#line-19">Debootstrap page</a> you can see same logic to use chroot.</li>
-                        <li>Examples on <a href="https://unix.stackexchange.com/questions/72592/chroot-in-to-reinstall-grub2-reinstall-mnt-is-empty#72599">this</a>, again you see same logic to use chroot, which mounting these direcotry <b class="code1">/proc</b>, <b class="code1">/dev</b>, <b class="code1">/dev/pts</b>, <b class="code1">/sys</b>, <b class="code1">/run</b> ... (might be different or more) is needed to make chroot system works.</li>
+                        <li>Examples on <a href="https://unix.stackexchange.com/questions/72592/chroot-in-to-reinstall-grub2-reinstall-mnt-is-empty#72599">this</a> and <a href="https://hugh712.gitbooks.io/grub/content/fixing-a-broken-system.html#via-chroot">this</a>, again you see same logic to use chroot, which mounting these direcotry <b class="code1">/proc</b>, <b class="code1">/dev</b>, <b class="code1">/dev/pts</b>, <b class="code1">/sys</b>, <b class="code1">/run</b> ... (might be different or more) is needed to make chroot system works.</li>
                         <li>Examples on <a href="https://youtu.be/8lod8sRb_6I">this video </a>, again you see same logic to use chroot to reinstall <b class="code1">Grub</b>, with mounting these direcotry <b class="code1">/proc</b>, <b class="code1">/dev</b>, <b class="code1">/sys</b>, and the chroot target is a real system, not empty partition.</li>
                         <li><strong class="lihed"><b class="code1">/bin</b>, <b class="code1">/lib</b></strong> : See <a href="https://www.experts-exchange.com/questions/20696260/How-to-use-chroot.html#a9044562">here ("XoF" 's answer)</a>, it seems not only commonly seen <b class="code1">/proc</b>, <b class="code1">/dev</b>, <b class="code1">/sys</b>, I even need <b class="code1">/bin</b>, <b class="code1">/lib</b> to work. It is very possible I need all root direct sub direcotry to be [mount // exist] before <b class="code1">chroot</b>.</li>
                         <li><strong class="lihed"><a href="https://unix.stackexchange.com/questions/105/chroot-jail-what-is-it-and-how-do-i-use-it">chroot "jail" - what is it and how do I use it?</a></strong> : This shows even <b class="code1">/lib</b> and <b class="code1">/usr/lib</b> could be mount into chroot environment.</li>
@@ -63,6 +83,19 @@
                 </div>
             </li>
             <li><strong class="lihed"><b class="code1">curl</b></strong> : <b class="code1">curl -C - -L -O &lt;URL&gt;</b> to resume from the point where it failed when download aborts, see <a href="https://www.debian.org/CD/http-ftp">here</a>.</li>
+            <li>
+                <p><strong class="lihed"><b class="code1">dd</b>.</strong></p>
+                <div class="cbk1">
+                    <ul>
+                        <li>
+                            <p><strong class="lihed">Reclaiming <b class="udr">MBR</b>.</strong></p>
+                            <p><q>You may have noticed that the MemTest86 USB drive you have created may have lost some disk space and normal formatting will not recover the lost space. For example, this can happen when a UFD contains multiple partitions, such as the MemTest86 image. Formatting will not span across multiple partitions/volume. To erase the partition records and reclaim the whole disk, you will need to zero the MBR.</q></p>
+                            <p><b class="code1">dd if=/dev/zero of=&lt;dev&gt; bs=512 count=1</b>.</p>
+                        </li>
+                        <li><strong class="lihed"><a href="https://askubuntu.com/questions/666527/install-grub-claims-that-i-have-multiple-partiton-labels-and-that-embedding-is">Reclaiming <b class="udr">post-MBR gap</b></a><a class="ancrDest" id="d170821_090545"></a></strong> : Sometimes you got problem your USB flash drive not work properly, there is some reason you have to wipe out <b class="udr">post-MBR gap</b> clean and USB flash drive will "works" again.</li>
+                    </ul>
+                </div>
+            </li>
             <li>
                 <p><strong class="lihed"><b class="code1">df</b>.</strong></p>
                 <div class="cbk1 hide">

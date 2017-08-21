@@ -29,7 +29,7 @@
             <li><strong class="lihed"><a href="#d170722_224712">Nav.</a></strong></li>
             <li>
                 <p><strong class="lihed"><a href="https://www.debian.org/releases/stable/amd64/">Debian amd64 installation guide (official)</a></strong> : Very well wroted document. Have lots of information and every important thing you need to know, including complete path to install Debian, and understand Debian system.</p>
-                <p>This single root have too many useful sublinks, thus I gather some important one here.</p>
+                <p>This single root have too many useful sublinks, thus I only gather some important one here.</p>
                 <div class="cbk1 hide">
                     <ul>
                         <li><strong class="lihed">Finding Sources of Hardware Information<a class="ancrDest" id="d170808_095225"></a></strong> : <a href="https://www.debian.org/releases/stable/amd64/ch03s03.html.en">3.3. Information You Will Need</a>, <a href="https://wiki.debian.org/HowToIdentifyADevice/PCI">HowToIdentifyADevice - PCI</a>.</li>
@@ -53,6 +53,7 @@
                                 <li><strong class="lihed"><a href="https://www.debian.org/releases/stable/amd64/ch06s03.html.en">6.3. Using Individual Components</a></strong> : More detail "components" descrition.</li>
                             </ul>
                         </li>
+                        <li><strong class="lihed"><a href="https://www.debian.org/releases/stable/amd64/ch03s03.html.en#idm46300558481376">Network Settings when installing.</a></strong></li>
                     </ul>
                 </div>
             </li>
@@ -161,9 +162,17 @@
                     </ul>
                 </div>
             </li>
+            <li><strong class="lihed"><a href="https://www.debian.org/releases/stable/amd64/ch08s06.html.en">Compiling a New Kernel. Why would you want to compile a kernel?</a></strong></li>
             <li><strong class="lihed">log</strong> : Use <b class="code1"><a href="170722_223101.html#d170808_084719">dmesg</a></b> to check device message. And check <b class="code1">/var/log/</b> (and <b class="code1">/var/log/installer/</b> is log for <b class="code1">debian-installer</b> system message before reboot to "real" system) it might be very helpful to have a clue what problem is going on. _ Maybe this REGEXP pattern <b class="code1">unable|fail|error|warn|!|disable|cant|can't|can not</b> is useful for searching.</li>
+            <li>
+                <p><strong class="lihed">Why sometimes you will need to read local email?</strong>.</p>
+                <div class="cbk1 hide">
+                    <p><q>Even if you are planning to use a graphical mail program, it is important that a traditional MTA/MDA is also installed and correctly set up on your Debian GNU/Linux system. Reason is that various utilities running on the system[20] can send important notices by e-mail to inform the system administrator of (potential) problems or changes. ... By default it will be configured to only handle e-mail local to the system itself and e-mails addressed to the system administrator (root account) will be delivered to the regular user account created during the installation[21].</q><cite><a href="https://www.debian.org/releases/stable/amd64/ch08s05.html.en">source</a></cite>
+                </div>
+            </li>
             <li><strong class="lihed">live-usb</strong> : The user name and password is : {user ; live}.</li>
             <li><strong class="lihed">Time zone</strong> : [Setting / changing] Timezone is quite simple, just use <b class="code1">dpkg-reconfigure tzdata</b>. Read more at <a href="https://wiki.debian.org/TimeZoneChanges">TimeZoneChanges</a>.</li>
+            <li><strong class="lihed"><a href="https://www.debian.org/releases/stable/amd64/ch07s03.html.en">/usr/share/doc/HTML/index.html</a>.</strong></li>
             <li>
                 <p><strong class="lihed"><a href="http://smxi.org/">smxi</a></strong> : Don't know if this is useful, I just keep it here. _ <q>smxi is an interactive script designed to help people maintain their systems. It supports Debian based distros.</q></p>
                 <div class="cbk1 hide">
@@ -221,6 +230,8 @@
                 </ul>
             </li>
             <li><strong class="lihed">Read content inside <b class="code1">ISO</b> file</strong> : See <b class="code1"><a href="170722_223101.html#d170810_172759">mount</a></b></li>
+            <li><strong class="lihed">Some BIOSes can boot USB storage directly, and some cannot</strong> : <q>Some BIOSes can boot USB storage directly, and some cannot. You may need to configure your BIOS to boot from a “removable drive” or even a “USB-ZIP” to get it to boot from the USB device.</q></li>
+            <li><strong class="lihed">Why there is so much barrier to make ISO file in partition just boot?</strong> : See <a href="https://superuser.com/questions/154133/grub-boot-from-iso">here</a>, seems like if your ISO are not linux mainstream ISO design for this kind of boot, it will fail without CDROM.</li>
         </ul>
     </div>
 </section>
@@ -264,7 +275,9 @@
             <li>
                 <p><strong class="lihed"><b class="strong1"><a href="https://hugh712.gitbooks.io/grub/content/">[GRUB / GRUB架構解析]</a></b></strong> : Another good resource, easy to grasp the key concept, also have advenced explaination.
                 <ul>
-                    <li><strong class="lihed"><a href="https://hugh712.gitbooks.io/grub/content/test.html">Basic console</a></strong> : These is often used command when you are in console mode.</li>
+                    <li><strong class="lihed"><a href="https://hugh712.gitbooks.io/grub/content/test.html">Basic console *</a></strong> : These is often used command when you are in console mode.</li>
+                    <li><strong class="lihed"><a href="https://hugh712.gitbooks.io/grub/content/commands.html#general-commands">General command *</a></strong> : These is advenced command could be used in both <b class="udr">grub interactive shell</b> and <b class="udr">grub.cfg menu</b>.</li>
+                    <li><strong class="lihed"><a href="https://hugh712.gitbooks.io/grub/content/environment-variable.html">Environment variable *.</a></strong></li>
                     <li><strong class="lihed"><b class="code1"><a href="https://hugh712.gitbooks.io/grub/content/test.html">prefix</a></b><a class="ancrDest" id="d170817_103204"></a></strong> : I successfully boot without this settings. This seems have default settings <b class="code1">set prefix=($root)/boot/grub</b>. _ Also see <a href="https://hugh712.gitbooks.io/grub/content/embedding-a-configuration-file.html">here</a> have a little example of using <b class="code1">prefix</b>.</li>
                     <li><strong class="lihed">grub.cfg can use shell script</strong> : <a href="https://hugh712.gitbooks.io/grub/content/embedding-a-configuration-file.html">Some example</a>.</li>
                 </ul>
@@ -402,18 +415,35 @@ menuentry "treegb, Debian Stretch, Debian GNU/Linux Live (kernel 4.9.0-3-amd64)"
                                     </div>
                                 </li>
                                 <li><strong class="lihed"><b class="code1">initrd</b></strong> : Seems don't need any extra argument except initrd.gz path.</li>
-                                <li><strong class="lihed">Change screen resolution</strong> : Set <b class="code1">gfxmode</b> (someone said <b class="code1">GRUB_GFXMODE</b>. _ Go to <b class="udr">grub interactive shell</b> first, use <b class="code1">vbeinfo</b> to check all available resolution, and later write that resolution into <b class="code1">grub.cfg</b>, e.g. <b class="code1">gfxmode=1024x768</b>, when next time you boot it will effect. Also people suggest use <b class="code1">gfxpayload=keep</b> together. _ There is another argument <b class="code1">vga</b>, but I'm not sure what it does.</li>
+                                <li><strong class="lihed">Change screen resolution</strong> : Set <b class="code1">gfxmode</b> (someone said <b class="code1">GRUB_GFXMODE</b>. _ Go to <b class="udr">grub interactive shell</b> first, use <b class="code1">vbeinfo</b> to check all available resolution, and later write that resolution into <b class="code1">grub.cfg</b>, e.g. <b class="code1">gfxmode=1024x768</b>, when next time you boot it will effect. Also people suggest use <b class="code1">gfxpayload=keep</b> together. _ There is another argument <b class="code1">vga</b>, but I'm not sure what it does, see <a href="https://hugh712.gitbooks.io/grub/content/environment-variable.html#gfxpayload">here</a> it seems like <b class="code1">gfxpayload</b> can replace <b class="code1">vga</b>. _ See <a href="https://hugh712.gitbooks.io/grub/content/environment-variable.html#gfxmode">here</a> for more info.</li>
                             </ul>
                         </li>
-                        </li>
-                        <li><strong class="lihed"><b class="code1">update-grub</b></strong> : See <a href="https://hugh712.gitbooks.io/grub/content/configuration-files.html">here, 組態結構</a>.</li>
-                        <li><strong class="lihed"><b class="code1">grub-mkconfig</b></strong></li>
-                        <li><strong class="lihed"><b class="code1">grub-mkrescue</b></strong> : I will not need this, but just for more info. - <q>如上面所看到的，產生了一個『grub.iso』，接下來你就可以把這個image給燒入CD-ROM或是USB裡面以後，放入相關媒體重新開機後，你的機器一開始應該就會讀到了。<cite><a href="https://hugh712.gitbooks.io/grub/content/making-a-grub-bootable-cd-rom.html">建立可啟動的CD-ROM GRUB image.</a></cite</q></li>
+                        
+                    </ul>
+                </div>
+            </li>
+            <li><strong class="lihed"><b class="code1">update-grub</b></strong> : See <a href="https://hugh712.gitbooks.io/grub/content/configuration-files.html">here, 組態結構</a>.</li>
+            <li><strong class="lihed"><b class="code1">grub-mkconfig</b></strong> : <a href="https://www.gnu.org/software/grub/manual/html_node/Invoking-grub_002dmkconfig.html#Invoking-grub_002dmkconfig">This</a> and <a href="https://unix.stackexchange.com/questions/72592/chroot-in-to-reinstall-grub2-reinstall-mnt-is-empty#72599">this</a>, said you can use <b class="code1 mono">grub-mkconfig -o /boot/grub/grub.cfg</b> to buid config file?</li>
+            <li><strong class="lihed"><b class="code1">grub-mkrescue</b></strong> : I will not need this, but just for more info. - <q>如上面所看到的，產生了一個『grub.iso』，接下來你就可以把這個image給燒入CD-ROM或是USB裡面以後，放入相關媒體重新開機後，你的機器一開始應該就會讀到了。<cite><a href="https://hugh712.gitbooks.io/grub/content/making-a-grub-bootable-cd-rom.html">建立可啟動的CD-ROM GRUB image.</a></cite</q></li>
+            <li>
+                <p><strong class="lihed"><b class="code1">grub-install</b>.</strong></p>
+                <div class="cbk1 hide">
+                    <ul>
+                        <li><strong class="lihed">See <a href="https://wiki.archlinux.org/index.php/GRUB">Grub - Arch wiki</a>.</strong></li>
+                        <li><strong class="lihed">See <a href="https://wiki.archlinux.org/index.php/Multiboot_USB_drive">Multiboot USB drive</b> (<a href="https://wiki.archlinux.org/index.php/Multiboot_USB_drive#Installing_GRUB">this section</a>)</strong> : Flexable usage (install on USB flash drive and with custom path).</li>
                         <li>
-                            <p><strong class="lihed"><b class="code1">grub-install</b></strong> : Install Grub on a system without Grub pre-install (new system) or MBR been overwrite by Windows. See <a href="https://wiki.archlinux.org/index.php/GRUB">here</a>. And also see <b class="strong1"><a href="https://wiki.archlinux.org/index.php/Multiboot_USB_drive">here</b> (<a href="https://wiki.archlinux.org/index.php/Multiboot_USB_drive#Installing_GRUB">this section</a>) to see the flexable usage (install on USB flash drive and with custom path) of <b class="code1">grub-install</b>.</p>
-                            <p>Notice it is not easy (and probably not "legit" method?) to install grub on empty disk (no OS on it) even you use <b class="code1 mono">grub-install --boot-directory=/mnt/your-empty-disk-root/boot/ --force /dev/your-empty-disk</b>. Even you can do it (remember to use <b class="code1 mono">--force</b> to force install even error occurs), I found I have no <b class="udr">grub.cfg</b> file to use after previous command becuase it need <b class="udr">update-grub</b> to [generate / update] it or maybe <b class="code1 mono">grub-mkconfig -o /boot/grub/grub.cfg</b> will create a new<b class="code1">grub.cfg</b> for me? So the conclusion is I <b class="strong1">can</b> install grub on empty disk, but it is probably <b class="strong1">not "legit"</b> method?. But some people use <b class="code1">chroot</b> method to do it and works. _ See info more at <b class="code1 strong1"><a href="170722_223101.html#d170810_144512">chroot</a></b> about installing Grub.</p>
-                            <p><a href="https://www.gnu.org/software/grub/manual/html_node/Invoking-grub_002dmkconfig.html#Invoking-grub_002dmkconfig">This</a> and <a href="https://unix.stackexchange.com/questions/72592/chroot-in-to-reinstall-grub2-reinstall-mnt-is-empty#72599">this</a>, said you can use <b class="code1 mono">grub-mkconfig -o /boot/grub/grub.cfg</b> to buid config file?</p>
-                            <p>And I found <a href="https://youtu.be/Q5CaJRpmpLI">this good video</a>, it show copying legit grub config <b class="udr">source</b> file like htis</p>
+                            <p><strong class="lihed">Install grub on empty partition</strong> : Notice it is easy but probably not "legit" to install grub on empty disk (no OS on it).</p>
+                            <p>Even you can use <b class="code1 mono">grub-install --boot-directory=/mnt/your-empty-disk-root/boot/ --force /dev/your-empty-disk</b> (remember to use <b class="code1 mono">--force</b> to force install even error occurs), I found you will not get <b class="code1">grub.cfg</b> file generate becuase this file is usually [generate / update] by <b class="udr">update-grub</b> or maybe by <b class="code1 mono">grub-mkconfig -o /boot/grub/grub.cfg</b> command. But both command will need <b class="udr">/etc/default/grub</b> and <b class="udr">/etc/grub.d/</b> to generate <b class="code1">grub.cfg</b>.</p>
+                            <p>Conclusion is I <b class="strong1">can</b> install grub on <b class="strong1">empty disk</b>, it works and works fine, but it is probably <b class="strong1">not "legit"</b>? I'm not sure. _ In another way I found there is quite some people use this method too and I think it is somewhat a "standard" way, no need to worry about this.</p>
+                        </li>
+                        <li>
+                            <p><strong class="lihed"><b class="code1">chroot</b>.</strong></p>
+                            <p><b class="udr"><b class="code1">chroot</b> method</b> could be used if your target system (or <b class="udr">normal system</b>, the system you want to fix) are a complete installed file system, not just an empty disk partition. In this case if you <b class="code1">chroot</b> to this system you can fix it (<b class="code1">update-grub</b> or even reinstall <b class="code1">Grub</b> ... something like this).</p>
+                            <p>But some people can even use <b class="udr"><b class="code1">chroot</b> method</b> to install <b class="code1">Grub</b> on empty partition. These case is rare but I believe it will work if you mount enough critical needed second level directory under root directory from live OS to chroot system.</p>
+                            <p>See info more at <b class="code1 strong1"><a href="170722_223101.html#d170810_144512">chroot</a></b> about using <b class="code1">chroot</b> to install Grub.</p>
+                        </li>
+                        <li>
+                            <p><strong class="lihed"><a href="https://youtu.be/Q5CaJRpmpLI">A video example</a></strong> : It show copying legit grub config <b class="udr">source</b> file like htis</p>
                             <div class="cbk1">
                                 <p>(Use <b class="code1">mkdir -p</b> to build required directory respectively.)
                                 cp -a /etc/default/grub /mnt/newUsbPartition/etc/default/<br>
@@ -422,22 +452,37 @@ menuentry "treegb, Debian Stretch, Debian GNU/Linux Live (kernel 4.9.0-3-amd64)"
                                 <b class="strong1">grub-mkconfig</b> -o /mnt/newUsbPartition/boot/grub/grub.cfg</p>
                             </div>
                             <p>, from <b class="udr">normal OS</b> to backup <b class="udr">USB (or hard disk)</b>, and if Grub in your <b class="udr">normal OS</b> broke, you can use this <b class="udr">USB (or hard disk)</b> to boot into your <b class="udr">normal system</b>. But I think same problem here, <b class="code1">grub-mkconfig</b> alaways get source (config file) from you current OS too?</p>
-                            <p>In [UEFI / GPT] system you need to use <b class="code1 mono">--efi-directory=/mnt/target/EFI/BOOT</b>.</p>
+                        </li>
+                        <li><strong class="lihed">[UEFI / GPT]</strong> : In [UEFI / GPT] system you need to use <b class="code1 mono">--efi-directory=/mnt/target/EFI/BOOT</b>.</li>
+                        <li>
+                            <p><strong class="lihed">Error message : <q>warning: Attempting to install GRUB to a disk with multiple partition labels ...</q></strong> : If you get following error when useing <b class="code1">grub-install</b></p>
+                            <div class="cbk1">
+                                <blockquote>
+                                    <p>grub-install: warning: Attempting to install GRUB to a disk with multiple partition labels.  This is not supported yet..<br>
+grub-install: warning: Embedding is not possible.  GRUB can only be installed in this setup by using blocklists.  However, blocklists are UNRELIABLE and their use is discouraged..<br>
+Installation finished. No error reported.</p>
+                                </blockquote>
+                            </div>
+                            <p>I follow <a href="170722_223101.html#d170821_090545">this solution</a> (first answer) us <b class="code1">dd</b> wipe out the <b class="udr">post-MBR gap</b> (between sector 0 and last sector before first partition), then the problem solved! Not very sure how this error happened.</p>
                         </li>
                     </ul>
                 </div>
             </li>
+            <li><strong class="lihed"><a href="https://hugh712.gitbooks.io/grub/content/purging-and-reinstalling-grub-2.html">Purge Grub then reinstall it again</a></strong> : <q>在『grub-install』和『purging & reinstalling』 GRUB之間的差別，主要是後者是可以完全的移除所有GRUB的檔案和系統設定，有些GRUB的錯誤主要是因為舊的組態有問題，檔案損毀，或是檔案/資料夾被不小心刪掉了了等等，所以就算你在安裝在多次，那些有問題的檔案或組態依然存在，</q></li>
             <li>
                 <p><strong class="lihed">Grub shell (grub interactive mode).</strong></p>
                 <ul>
                     <li><strong class="lihed">Apply in real time</strong> : Always remember <b class="udr">grub interactive shell</b> will apply the action in real time, not like static <b class="code1">grub.cfg</b>, you have to [set / type] variable or command one by one, a [command / variable] canged might effect later action, for example you first change <b class="code1">root</b> in <b class="udr">grub interactive shell</b> but when you later go back to a menuentry, which don't set <b class="code1">root</b> back to correct location (because the script might already set root before each menuentry), you will get wrong <b class="code1">root</b> settings if you execute that <b class="code1">grub.cfg</b>.</li>
                     <li><strong class="lihed">Auto completion</strong> : In <b class="udr">grub interactive shell</b> or <b class="code1">grub.cfg</b>, <b class="code1">Tab</b> key will works, but like previous saying, the status is action in real time, it only effect you have right environment especially in <b class="code1">grub.cfg</b> you sometimes get confused, for example, if you want to auto complete the full path name under <b class="udr">grub.cfg</b>, you have to switch to <b class="udr">grub interactive shell</b> first, set <b class="code1">root</b> to correct one, then get back to <b class="code1">grub.cfg</b> and the auto completion will be correct. You can use (hd0, msdos1) prefix too it might be quicker. Also make sure have one space before a path name or auto completion will not work.</li>
                     <li><strong class="lihed">How to scroll in grub shell?</strong> : <a href="https://superuser.com/questions/504887/how-to-scroll-in-grub2-shell">set pager=1</a>. Now <b class="code1">cat</b> is much easier to use</li>
-                    <li><strong class="lihed"><a href="https://hugh712.gitbooks.io/grub/content/test.html">Basic console</a></strong>.</li>
+                    <li><strong class="lihed"><a href="https://hugh712.gitbooks.io/grub/content/test.html">Basic console *</a></strong>.</li>
                     <li><strong class="lihed"><b class="code1">cat</b>.</strong></li>
                     <li><strong class="lihed"><b class="code1">boot</b></strong> : Boot the system. In <b class="code1">grub.cfg</b> you don't need <b class="code1">boot</b>.</li>
+                    <li><strong class="lihed">How to go from <b class="code1">rescue</b> mode back to <b class="code1">normal</b> mode?</strong> : See <a href="https://hugh712.gitbooks.io/grub/content/fix_rescue_mode.html">用救援模式修復</a>. Set back correct <b class="code1">root</b> and <b class="code1">prefix</b> first, and use <b class="code1">insmod normal</b> or use absolute path e.g. <b class="code1">insmod (hdX,Y)/usr/lib/grub/i386-pc/normal.mod</b> then finally <b class="code1">normal</b>.</li>
                 </ul>
             </li>
+            <li><strong class="lihed"><a href="https://hugh712.gitbooks.io/grub/content/commands.html#general-commands">General command *</a></strong> : These is advenced command could be used in both <b class="udr">grub interactive shell</b> and <b class="udr">grub.cfg menu</b>.</li>
+            <li><strong class="lihed"><a href="https://hugh712.gitbooks.io/grub/content/environment-variable.html">Environment variable *.</a></strong></li>
             <li><strong class="lihed">GPT problem</strong> : I note at <b class="code1"><a href="170722_223101.html#d170809_131918">parted</a></b>.</li>
             <li><strong class="lihed">chain-load</strong> : Chain loading is only needed if you have proprietary OS (Windows, Mac) that GRUB can't directly handle.</li>
             <li><strong class="lihed"><b class="code1">multiboot</b></strong> : <q>I want to edit the 'primary' GRUB 2, to show the boot option for 'secondary' GRUB2 on another HDD drive in the computer, how can I do this? ... User 'franzb' has posted the solution to this question, just use <b class="code1">multiboot</b>.<cite>See <a href="https://ubuntuforums.org/showthread.php?t=1682253&page=3&p=10439004#post10439004">here</a> and <a href="https://hugh712.gitbooks.io/grub/content/multi-boot-manual-config.html">here</a>.</cite></q></li>
