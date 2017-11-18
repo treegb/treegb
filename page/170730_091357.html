@@ -107,8 +107,10 @@
                     </li>
                     <li><strong class="lihed"><b class="code1">why</b>, <b class="code1">why-not</b></strong> : Explains the reason that a particular package should or cannot be installed on the system. This command searches for packages that require or conflict with the given package. It displays a sequence of dependencies leading to the target package, along with a note indicating the installed state of each package in the dependency chain. _ See <b class="code1">man aptitude</b> for more info. _ Notice, this function <b class="udr">will not give a very clear dependency map</b>, use <b class="code1">d</b> and <b class="code1">r</b> command in <b class="code1"><a href="#d170812_095023">visual interface</a></b> instead.</li>
                     <li><strong class="lihed"><b class="code1">--safe-resolver</b>, <b class="code1">--full-resolver</b></strong> : This 2 option is not necessary need to add, because even you don't use it, aptitude will ask for resolving problem when it counter any dependecy problem by default. Add it when you are explicit want aptitude resolve the dependecy problem with <b class="code1">--safe-resolver</b> or <b class="code1">--full-resolver</b>.</li>
+                    <li><strong class="lihed"><b class="code1">-r</b></strong> : <b class="udr">--with-recommends</b>. Treat recommendations as dependencies when installing new packages (this overrides settings in /etc/apt/apt.conf and ~/.aptitude/config).</li>
                     <li><strong class="lihed"><b class="code1">-V</b></strong> : Show which versions of packages will be installed. Can see more at <a href="https://unix.stackexchange.com/questions/6284/check-package-version-using-apt-get-aptitude#6286">here</a>.</li>
                     <li><strong class="lihed">Put more than one package name to argument for action</strong> : e.g. <b class="code1">aptitude search '?name(apple.*)' '?name(.*dog)' 'cat'</b> might find <b class="udr">apple juice</b>, <b class="udr">apple pie</b>, <b class="udr">white dog</b>, <b class="udr">black dog</b>, <b class="udr">cat</b>. All action is aviable, not only <b class="code1">search</b>.</li>
+                    <li><strong class="lihed"><b class="code1">-F</b></strong> : Custom output, for example <b class="code1">aptitude -F "%p" search ...</b> will only output package name, but no description. _ See more at <a href="https://www.debian.org/doc/manuals/aptitude/ch02s05s01.en.html">Customizing the package list</a> (Customizing how packages are displayed).</li>
                 </ul>
             </li>
             <li>
@@ -169,6 +171,15 @@
             <li><strong class="lihed">Figure out neighboring dependency map of one package</strong> : Check <b class="code1">aptitude visual interface</b>, <b class="code1">apt-cache depends</b>, <b class="code1">apt-cache rdepends</b>.</li>
             <li><strong class="lihed">Version naming of a package</strong> : <a href="https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version">What does the colon <b class="code1">:</b>, dash <b class="code1">-</b>, <b class="code1">+</b>, <b class="code1">~</b> ... in a version number mean?</a> See more at <a href="https://www.debian.org/doc/debian-policy/">Debian Policy Manual</a>, <a href="https://unix.stackexchange.com/questions/230911/what-is-the-meaning-of-the-tilde-in-some-debian-openjdk-package-version-string">this simple explanation</a>.</li>
             <li><strong class="lihed"><a href="https://www.debian.org/doc/debian-policy/">Debian Policy Manual.</a></strong></li>
+            <li><strong class="lihed"><a href="https://wiki.debian.org/Multiarch/HOWTO">Multiarch - adding different architecture package</a></strong> : Multiarch lets you install library packages from multiple architectures on the same machine, so you can for example install i386 package on amd64 system.</li>
+            <li>
+                <p></p><strong class="lihed">Compile source code</strong></p>
+                <ul>
+                    <li><strong class="lihed">See <a href="https://www.howtogeek.com/105413/how-to-compile-and-install-from-source-on-ubuntu/">These basic steps to compile a tarball</a>.</strong></li>
+                    <li><strong class="lihed"><b class="code1">make uninstall</b></strong> : See <a href="https://askubuntu.com/questions/87111/if-i-build-a-package-from-source-how-can-i-uninstall-or-remove-completely">here</a>, <b class="code1">make uninstall</b> will depends on if author had taken care of making a good uninstall rule to remove self compiled package. So make sure evey time you self compile a package, DON'T remove that directory (or at leaast you need the tarball left for future <b class="code1">./configure</b> again to follow the clue the path it will install) so you can use <b class="code1">make uninstall</b> method.</li>
+                    <li><strong class="lihed"><b class="code1">checkinstall</b></strong> : See <a href="http://tuxradar.com/answers/523">here</a>,  <b class="code1">checkinstall</b> is better management of removing self compiled package. Integrates self-compiled programs with your package manager, so everything can be uninstalled (or updated) in the same way. Install CheckInstall, and use this instead of make install.</li>
+                </ul>
+            </li>
         </ul>
     </div>
 </section>

@@ -59,6 +59,7 @@
             </li>
             <li><strong class="lihed"><a href="https://www.debian.org/doc/books">Debian book</a></strong> : This link is just under <b class="udr">https://www.debian.org/</b> and I just always missed it until now! English version (<b class="udr"><a href="https://debian-handbook.info">https://debian-handbook.info</a></b>) is enough to read, this is <b class="strong1">very detailed manual</b> compared to official Debian installation guide.</li>
             <li><strong class="lihed"><a href="https://wiki.debian.org/FrontPage">Debian wiki</a></strong> : This is potential another good root resources.</li>
+            <li><strong class="lihed"><a href="http://forums.debian.net">Debian User Forums</a></strong> : New place I didn't know.</li>
             <li>
                 <p><strong class="lihed">[Mirror // archive].<a class="ancrDest" id="d170808_144245"></a></strong></p>
                 <div class="cbk1 hide">
@@ -72,7 +73,7 @@
             </li>
             <li><strong class="lihed"><a href="https://wiki.debian.org/Hardware">Debian Hardware guide.</a></strong></li>
             <li>
-                <p><strong class="lihed">[GPU / Video card].</strong></p>
+                <p><strong class="lihed">[GPU / video card / graphic driver].</strong></p>
                 <div class="cbk1">
                     <ul>
                         <li>
@@ -83,6 +84,10 @@
                             </ul>
                         </li>
                         <li><strong class="lihed"><b class="code1">/etc/X11/xorg.conf</b></strong> : In old days some people will change this file manually but I don't know if current day if this is still required. This file will be edited by NVIDIA automatic.</li>
+                        <li><strong class="lihed">OpenGL</strong> : <q>It sounds like the same as #126 to me. libgl1-mesa-glx:i386 is your OpenGL driver, and when you install it the driver should configure things properly so that OpenGL works ...</q></li>
+                        <li><strong class="lihed"><a href="file:///usr/share/doc/nvidia-driver/README.alternatives">[Short summary about selecting a glx implementation / update-glx / libGL.so / NVidia].</a></strong></li>
+                        <li><strong class="lihed"><a href="http://forums.debian.net/viewtopic.php?t=105647">Steam, missing libGL.so.1</a></strong> : Maybe I have to try running <b class="code1">update-glx</b> if all solution not work.</li>
+                        <li><strong class="lihed">Steam, missing libGL.so.1, problem solved!</strong> : I installed this 2 package (remember to use <b class="code1">dpkg --add-architecture i386</b> to add <b class="udr">multiarch</b> package first so the i386 package will added to your repo) - <b class="code1">libgl1-glvnd-nvidia-glx:i386</b> and <b class="code1">libgl1-nvidia-glvnd-glx:i386</b> (don't know if just one of them needed or both are needed), then whala! it works. _ I think the problem is Steam rely some openGL package to work.</li>
                     </ul>
                 </div>
             </li>
@@ -141,8 +146,9 @@
                         <li>
                             <p><strong class="lihed">Firmware<a class="ancrDest" id="d170811_120814"></a>.</strong></p>
                             <ul>
+                                <li><strong class="lihed"><a href="https://superuser.com/questions/299442/difference-and-relation-between-firmware-and-device-driver">Difference between firmware and driver?</a></strong> : Seems firmware is more low level, and driver is more high level. Firmware is more like embed in hardware (e.g. wireless card), while driver is act as intermediate between hardware and software (OS).</li>
                                 <li>
-                                    <p>About loading module at boot time, I don't know if <b class="code1">module</b> is related with <b class="code1">firmware</b> or not, but these 2 seems different</p>
+                                    <p>It seems <b class="code1">module</b> is related with <b class="code1">firmware</b>, but they are different.</p>
                                     <div class="cbk1">
                                         <p>(kernel module entity is at<br>
                                         <b class="code1">/lib/modules/`uname -r`/</b><br>
@@ -157,6 +163,8 @@
                                 </li>
                                 <li>About finding specific firmware, you cant use <b class="code1">aptitude search firmware</b> to show all firmware packages. Notice, single firmware file might include in specific firmware package, for example <b class="code1">rtl_nic/rtl8168g-2.fw</b> is inside <b class="code1">firmware-realtek</b> package.</li>
                                 <li>Current PC need to install realtek firmware <b class="code1">rtl_nic/rtl8168g-2.fw</b>, use <b class="code1">aptitude install firmware-realtek</b> to install it.</li>
+                                <li><strong class="lihed"><a href="https://unixblogger.com/2016/08/11/how-to-get-your-realtek-rtl8111rtl8168-working-updated-guide/">How To get your Realtek RTL8111/RTL8168 working guide</a></strong> : Install firmware for Realtek network hardware. It didn't download firmware from Debian, but download it from Realtek official website, then compile it, then use <b class="code1">insmod</b> to install it to system.</li>
+                                <li><strong class="lihed">Not showing <b class="code1">eth0</b></strong> : When you encounter network connection probelm, you can use <b class="code1">ip link show</b> first, then if it is not showing <b class="code1">eth0</b> but <b class="code1"><a href="https://askubuntu.com/questions/704035/no-eth0-listed-in-ifconfig-a-only-enp0s3-and-lo">enpXsX</a></b>, it seems you can judge that network hardware firmware is not properly driven, in this case you have to install firmware ; or otherwise it more likely to be network configure problem and you can try to configure <b class="code1">/etc/network/interfaces</b> (about dhcp, someone will use <b class="code1">auto eth0</b>, <b class="code1">iface eth0 inet dhcp</b>, but I found even I don't configure any of these I can have DHCP network connection automatically).</li>
                             </ul>
                         </li>
                     </ul>
@@ -172,7 +180,8 @@
             </li>
             <li><strong class="lihed">live-usb</strong> : The user name and password is : {user ; live}.</li>
             <li><strong class="lihed">Time zone</strong> : [Setting / changing] Timezone is quite simple, just use <b class="code1">dpkg-reconfigure tzdata</b>. Read more at <a href="https://wiki.debian.org/TimeZoneChanges">TimeZoneChanges</a>.</li>
-            <li><strong class="lihed"><a href="https://www.debian.org/releases/stable/amd64/ch07s03.html.en">/usr/share/doc/HTML/index.html</a>.</strong></li>
+            <li><strong class="lihed"><a href="https://www.debian.org/releases/stable/amd64/ch07s03.html.en">/usr/share/doc/HTML/index.html</a></strong> : Might have some useful document, I don't know.</li>
+            <li><strong class="lihed"><a href="170729_083147.html#d170821_184415">About <b class="code1">Gnome</b> info see here</a>.</strong></li>
             <li>
                 <p><strong class="lihed"><a href="http://smxi.org/">smxi</a></strong> : Don't know if this is useful, I just keep it here. _ <q>smxi is an interactive script designed to help people maintain their systems. It supports Debian based distros.</q></p>
                 <div class="cbk1 hide">

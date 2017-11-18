@@ -151,6 +151,9 @@ Table processing is simpler (but I think gtbl can write TeX output...)</q></li>
                     </ul>
                 </div>
             </li>
+            <li><strong class="lihed"><b class="code1">ldconfig</b></strong> : ldconfig - configure dynamic linker run-time bindings ... ldconfig creates the necessary links and cache to the most recent shared libraries found in the directories specified on the com‐
+       mand line, in the file /etc/ld.so.conf, and in the trusted directories, /lib and /usr/lib  ...</li>
+            <li><strong class="lihed"><b class="code1">ldd</b></strong> : Prints  the  shared  objects (shared libraries) required by each program or shared object specified on the command line.</li>
             <li><strong class="lihed"><b class="code1">lsb_release</b></strong> : Print distribution-specific information e.g. current distribution release name.</li>
             <li><strong class="lihed"><b class="code1">lspci -nn</b></strong> : Check device basic info (name) like (VGA) graphic card name, product code, vendor name ... If you want to install [firmware / driver] you have to at least to know it's product code first. _ Also see <a href="170721_170002.html#d170808_095225">here</a></li>
             <li>
@@ -234,7 +237,12 @@ Table processing is simpler (but I think gtbl can write TeX output...)</q></li>
                             <ul>
                                 <li>Even without <b class="code1">-P</b> you still can see the result statistic (total size, sent, received) and also "deleting" keyword in stdout too. Just using <b class="code1">-v</b> is fine.</li>
                                 <li><b class="code1">deleting</b>, not "delete", "remove" or "removing" string, will showing up in stdout when deleted a file (and directory too?).</li>
-                                <li>All the path in stdout, if path end with <b class="code1">/</b>, it do nothing (or maybe add a directory?), but if end with other character like <b class="code1">.jpg</b>, <b class="code1">.txt</b>, it means that file are new copy from <b class="code1">src</b> to <b class="code1">dest</b>.
+                                <li>All the path in stdout, if path end with <b class="code1">/</b>, it do nothing (or maybe add a directory?), but if end with other character like <b class="code1">.jpg</b>, <b class="code1">.txt</b>, it means that file are new copy from <b class="code1">src</b> to <b class="code1">dest</b>.</li>
+                            </ul>
+                        </li>
+                        <li><strong class="lihed"><b class="code1">ssh</b>.</strong>
+                            <ul>
+                                <li><strong class="lihed">Example of AWS</strong> : <b class="code1">rsync -a -zhv -e 'ssh -i /mnt/rt/2_Wa/aws/awsTreegbFirstInstancePrivateKey.pem' /tmp/tmp/ admin@ec2-52-72-238-180.compute-1.amazonaws.com:/tmp/tmp/</b>. This send data from home to AWS.</li>
                             </ul>
                         </li>
                     </ul>

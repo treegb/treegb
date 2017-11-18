@@ -57,29 +57,7 @@
                     </ul>
                 </div>
             </li>
-            <li>
-                <p><strong class="lihed">[<b class="code1">dconf</b> // <b class="code1">gsettings</b>].</strong></p>
-                <ul>
-                    <li>
-                        <p><strong class="lihed">What is [<b class="code1">dconf</b> // <b class="code1">gsettings</b>]</strong> : <a href="https://wiki.gnome.org/action/show/Projects/dconf?action=show&redirect=dconf">Here</a> - <q class="ital">dconf is a low-level configuration system. Its main purpose is to provide a backend to GSettings on platforms that don't already have configuration storage systems.</q></p>
-                        <p class="ital"><q>gsettings is a command line tool for viewing and modifying GSettings, and works regardless of the GSettings backend in use. For modifying the dconf backend storage itself, use the dconf tool; but gsettings should be used by preference.</q></p>
-                        <p class="ital"><a href="https://developer.gnome.org/GSettings/">Here</a> - <q>GSettings are a nice way to manage your application’s settings. Those settings are stored in binary form for fast retrieval, and can be manipulated outside of your application as well using specific tools. This system can be seen as a database, whose schema is described in an XML file (conventionally named .gschema.xml) ...</q></p>
-                    </li>
-                    <li>
-                        <p><strong class="lihed"><b class="code1">gsettings</b>.</strong></p>
-                        <ul>
-                            <li><strong class="lihed">How to I view and set property in <b class="code1">gsettings</b>?</strong> : See <a href="https://askubuntu.com/questions/22313/what-is-dconf-what-is-its-function-and-how-do-i-use-it#answer-191013">here</a>.</li>
-                            <li>
-                                <p><strong class="lihed">keyboard repeat rate</strong> : See <a href="https://askubuntu.com/questions/140255/how-to-override-the-new-limited-keyboard-repeat-rate-limit#198488">here</a>. Just set like this and now keybord <b class="code1">delay</b> and <b class="code1">repeat-interval</b> of keyboard is nice</p>
-                                <div class="cbk1">
-                                    <p>gsettings set org.gnome.desktop.peripherals.keyboard delay '300' <b class="ital">(default = 500. <b class="udr">uinit32</b> is probably data type, ignore it.)</b><br>
-                                    gsettings set org.gnome.desktop.peripherals.keyboard repeat-interval '18' <b class="ital">(default = 30)</b></p>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
+            <li><strong class="lihed"><a href="#d170821_184415">Gnome.</a></strong></li>
             <li><strong class="lihed">Hardware</strong> : (See <b class="code1">lspci</b>, <b class="code1">inxi</b>, <b class="code1">lshw</b>).</li>
             <li><strong class="lihed"><b class="code1"><a href="https://sites.google.com/site/easylinuxtipsproject/tips#TOC-Generate-a-nice-hardware-list">inxi</a></b></strong> : Generate a nice hardware list. Useful to put it in a support forum message in which you request help for a problem.</li>
             <li><strong class="lihed"><b class="code1"><a href="https://sites.google.com/site/easylinuxtipsproject/tips#TOC-A-complete-list-of-all-the-hardware-in-your-computer">lshw.</a></b></strong></li>
@@ -105,11 +83,52 @@
 </section>
 
 <section class="section1">
-    <h2><a class="ancrDest" id=""></a></h2>
+    <h2>Gnome<a class="ancrDest" id="d170821_184415"></a></h2>
 
     <div class="foldableContent">
         <ul>
-            <li><strong class="lihed"></strong> : .</li>
+            <li>
+                <p><strong class="lihed">More help.</strong></p>
+                <ul>
+                    <li><strong class="lihed">Use <b class="code1">Help</b> tool in Gnome</strong> : Use Gnome buid-in <b class="code1">Help</b> utility (Open the <b class="code1">Activities</b> (mouse cursor to pressure top left cornor, or press super key) overview and start typing <b class="udr">help</b>) offer many detailed document. See here first before you want to google, I always underestimate how well documented this is and get nothing from google at the same time.</li>
+                    
+                </ul>
+            </li>
+            <li>
+                <p><strong class="lihed">Installing Chinese input method.</strong></p>
+                <div class="cbk1">
+                    <ul>
+                    <li>Install <b class="code1">ibus-chewing</b> (酷音) package first.</li>
+                    <li>Type <b class="code1">ibus-setup</b> command, go to second tab (Input Method), add newly installed <b class="code1">ibus-chewing</b> input method. (If you still don't see <b class="code1">ibus-chewing</b> after install, you probably need to reboot your system).</li>
+                    <li>Then follow Gnome <b class="code1">Help</b> tool, [search / find] <b class="code1">Use alternative keyboard layouts</b> section and follow the steps, that is, open <b class="code1">Region & Language</b> and enable <b class="code1">ibus-chewing</b> to join the <b class="code1">input sources</b> switch (after this, you can see the effect at layout indicator at top bar). The defualt key to switch different input method is <b class="code1">Super + space</b>.</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <p><strong class="lihed">[<b class="code1">dconf</b> // <b class="code1">gsettings</b>].</strong></p>
+                <ul>
+                    <li>
+                        <p><strong class="lihed">What is [<b class="code1">dconf</b> // <b class="code1">gsettings</b>]</strong> : <a href="https://wiki.gnome.org/action/show/Projects/dconf?action=show&redirect=dconf">Here</a> - <q class="ital">dconf is a low-level configuration system. Its main purpose is to provide a backend to GSettings on platforms that don't already have configuration storage systems.</q></p>
+                        <p class="ital"><q>gsettings is a command line tool for viewing and modifying GSettings, and works regardless of the GSettings backend in use. For modifying the dconf backend storage itself, use the dconf tool; but gsettings should be used by preference.</q></p>
+                        <p class="ital"><a href="https://developer.gnome.org/GSettings/">Here</a> - <q>GSettings are a nice way to manage your application’s settings. Those settings are stored in binary form for fast retrieval, and can be manipulated outside of your application as well using specific tools. This system can be seen as a database, whose schema is described in an XML file (conventionally named .gschema.xml) ...</q></p>
+                    </li>
+                    <li>
+                        <p><strong class="lihed"><b class="code1">gsettings</b>.</strong></p>
+                        <ul>
+                            <li><strong class="lihed">How to I view and set property in <b class="code1">gsettings</b>?</strong> : See <a href="https://askubuntu.com/questions/22313/what-is-dconf-what-is-its-function-and-how-do-i-use-it#answer-191013">here</a>.</li>
+                            <li>
+                                <p><strong class="lihed">keyboard repeat rate</strong> : See <a href="https://askubuntu.com/questions/140255/how-to-override-the-new-limited-keyboard-repeat-rate-limit#198488">here</a>. Just set like this and now keybord <b class="code1">delay</b> and <b class="code1">repeat-interval</b> of keyboard is nice</p>
+                                <div class="cbk1">
+                                    <p>gsettings set org.gnome.desktop.peripherals.keyboard delay '300' <b class="ital">(default = 500. <b class="udr">uinit32</b> is probably data type, ignore it.)</b><br>
+                                    gsettings set org.gnome.desktop.peripherals.keyboard repeat-interval '23' <b class="ital">(default = 30)</b></p>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li><strong class="lihed">Settings integrate with browser?</strong> : <q>...The Gnome Desktop Environment integrate with web browser, you actually have an extension running on web browser which give you access to all the available extention ...<cite><a href="https://youtu.be/SBz5A-fqnb4?t=12m58s">source.</cite></q></li>
+            <li><strong class="lihed">show desktop icon</strong> : {{ <b class="code1">tweak tool</b> &gt;&gt; <b class="code1">Desktop</b> &gt;&gt; <b class="code1">Icon on Desktop</b> }}.</li>
         </ul>
     </div>
 </section>
