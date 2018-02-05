@@ -19,6 +19,12 @@
             color: #11605e;
         }
 
+        #g_ctn1_title,
+        .ctn1 h1,
+        .ctn1 h2 {
+            font-family: serif;
+        }
+
         header .ctn1 h1 {
             font-size: 2em;
             text-align: center;
@@ -205,7 +211,10 @@
         }
 
         header {
-            width: 700px;
+            width: calc( 860px - ( 1em * 2 ) );
+            /* "1em" is should sync with body margin (1em currently). In fact, this value (1em * 2) is too precise
+             * , when the viewport is 861px, the h1 title of header just "touch" the viewport left side, having no extra space
+             * , the better design is to set greater than 1em if you can. */
         }
 
         header .ctn1 {
@@ -555,19 +564,23 @@
         <div class="ctn2">
             <ul>
                 <li><span class="strong1 liHead">Graphic Design</span> -<br>
-                Basic/moderate Graphic Design including Vector and Raster image software, and product hand sketching.</li>
-                <li><span class="strong1 liHead">3D modeling with Blender</span> -<br>
-                Basic/moderate 3D modeling, static model animation (video). Very basic video editing and audio editing with Blender.</li>
-                <li><span class="strong1 liHead">HTML, CSS</span> -<br>
-                Basic/moderate understanding of front-end web developing.</li>
+                Basic/moderate Graphic Design including Vector and Raster image type, and product hand sketching.</li>
+                <li><span class="strong1 liHead">3D modeling</span> -<br>
+                Basic/moderate 3D modeling with Blender, for product concept design.</li>
+                <li><span class="strong1 liHead">HTML / CSS</span> -<br>
+                Basic/moderate understanding of front-end web developing, without using framework like bootstrap.</li>
                 <li><span class="strong1 liHead">Javascript</span> -<br>
                 Basic/moderate understanding of front-end web developing.</li>
-                <li><span class="strong1 liHead">PHP</span> -<br>
-                Only buiding basic CRUD operation with PHP script and javascript to interact with MySQL.</li>
+                <li><span class="strong1 liHead">PHP / MySQL</span> -<br>
+                    <ul>
+                        <li>Building a small web apps project to save text and and file (and directory) with the form of "post" on server, and use custom metadata keyword to find specific post.</li>
+                        <li>Using OOP way to manage code and interact with MySQL.</li>
+                        <li>Basic understand of how to write Wordpress theme and plugin.</li>
+                    </ul>
                 <li><span class="strong1 liHead">Python</span> -<br>
                 Only writing simple python script for web scraping.</li>
                 <li><span class="strong1 liHead">Linux</span> -<br>
-                some basic understanding of Linux).</li>
+                some basic understanding of Debian Linux. Some basic understanding of using SSH to manage AWS server.</li>
                 <li><span class="strong1 liHead">English</span> -<br>
                 Basic/moderate skills of reading / listening / speaking English.</li>
             </ul>
@@ -579,13 +592,15 @@
             <h2 class="colorBlkSectionTitle">Works<br>&amp;<br>Projects</h2>
         </div>
         <div class="ctn2">
-            <p>Visit ... this page ... for more information about my works and projects, including job and personal.</p>
-            <p>Finish subsequence page.</p>
-            <p>Finish subsequence page.</p>
-            <p>Finish subsequence page.</p>
-            <p>Finish subsequence page.</p>
-            <p>Finish subsequence page.</p>
-            <p>Finish subsequence page.</p>
+            <ul>
+                <li><span class="liHead"><a href="">Graphic design and hand sketching</a></span> -<br>
+                (still waiting former company to give permit to make those project public) Project from previous job.</li>
+                <li><span class="liHead"><a href="https://treegb.github.io/treegb/page/170306_180946.html">30x30 month life time table.</a></span> -<br>
+                 Time is short.</li>
+                <li><span class="liHead"><a href="https://treegb.github.io/treegb/page/170720_131313.html">Quick note-taking static website.</a></span> -<br>
+                Attempt to try different application using javascript on this project.</li>
+                <li><span class="liHead"><a href="https://youtu.be/AIwv4lZwKq8">Corenet Web apps, PHP + Javascript.</a></span> -<br>
+                Not only save text but also save file (and directory).</li>
         </div>
     </section>
 
@@ -595,14 +610,16 @@
         </div>
         <div class="ctn2">
             <ul>
-                <li><span class="liHead">Learning path</span> -
+                <li>
+                    <p><span class="liHead">Learning path</span> -</p>
                     <p>I try to self learning HTML knowledge and programing with limited resources and orientation guide. It is hard sometimes but I still improved little step by step after soloving each tiny problem.</p>
+                    <p>When I have basic understanding of full-stack web developing, I start to aim to be a <span class="underline1">backend developer</span>. Compare to graphic design, my personality more suit for backend works. I wish I can add up <span class="underline1">general used / more abastract level</span> experience and knowledge on this field, instead of finding myself floating around the bleeding edge trends which might disappear after few years in the future.</p>
                     <p>English is not my native language, but more I feel important souce is mainly from English first, the more I realize the importance of English. I try to obtain knowledge from more well-known site instead of Chinese (Taiwanese) site as possible.</p>
-                    <p>My aim is have some degree of understanding in full-stack web developing / web design, though leaning all that knowledge / technique or working only with single person is not possible.</p>
                 </li>
-                <li><span class="liHead">Interest</span> -<br>
-                Engage in Effective Altruism if pissible. Help people in the world who need prior help if pissible.</br>
-                Try to find <span class="underline1">Engaging</span>, <span class="underline1">Meaning</span>, <span class="underline1">have Accomplishment</span> thing to do in lifetime.</li>
+                <li>
+                    <p><span class="liHead">Personality and personal interest</span> -</p>
+                    <p>I value on honest, credit when it comes to working with people, others are not such important for me.</p>
+                    <p>I wish I can have ability to engage in Effective Altruism if pissible. Help people in the world who need prior help if pissible. The best thing is finding the job which is - <span class="underline1">Engaging</span>, <span class="underline1">Meaning</span>, <span class="underline1">have Accomplishment</span> in lifetime.</p></li>
             </ul>
         </div>
     </section>
@@ -643,29 +660,63 @@
     //var bgLarge1Width = bgLarge1.clientWidth;
     //bgLarge1.style.height = bgLarge1Width + "px";
 
-    /* ** <bgLarge1> big background (The entity is body background. */
+    /* -{ <bgLarge1> big background (The entity is body background.
+     * 
+     * * The <bgLarge1> is the biggest background image of this webpage, it dynamic adjust it's size
+     * to fit the position of <header> (because of the pure graphic layout needed).
+     * The basic logic in this block will do this dynamic resizing, however, when the <bgLarge1> is too big, it start to cuase other layout problem.
+     * To solve this, I use <viewportWidthCriti> to calculate <bgLarge1WidthCriti> which mean when the viewport is exact <viewportWidthCriti>
+     * , how width is <bgLarge1Width> going to be. So in the end <bgLarge1Width> is not going to be greater than <bgLarge1WidthCriti>. */
+
     var viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    var viewportWidthCriti = 1920;
+    /* You can safely change this value, this value mean when viewport greater than this, <bgLarge1Width> and <header.style.marginLeft>
+     * are not going to growth anymore. */
     var bgLarge1Ratio = 1000/304;
-    var bgLarge1Width = Math.min(Math.round(370 + ( (viewportWidth - 860) * (230/370) ) ) , 700);
+    // <bgLarge1> svg image ratio. Unless you change svg image, you don't need to change this.
+    var bgLarge1WidthGrthRato = ( 220 / 370 );
+    /* When viewport are in 860px (861 actually), <bgLarge1> will be given a "base width" (370px currently), so the initial position
+     * (graphic layout) is correct. After this, everytime viewport growing bigger, <bgLarge1> will follow a static growing rate
+     * based on new viewport width, this is what <bgLarge1WidthGrthRato> do.
+     In fact, <bgLarge1WidthGrthRato> is a try-and-error value, it has no any meaning on percise math calculation. */
+    var bgLarge1WidthCriti = Math.round(370 + ( (viewportWidthCriti - 860) * bgLarge1WidthGrthRato ) );
+    var bgLarge1Width = Math.min(Math.round(370 + ( (viewportWidth - 860) * bgLarge1WidthGrthRato ) ) , bgLarge1WidthCriti );
     document.body.style.backgroundSize = bgLarge1Width + "px " +  Math.round(bgLarge1Width * bgLarge1Ratio) + "px";
     //bgLarge1.style.width = bgLarge1Width + "px";
     //bgLarge1.style.height = Math.round(bgLarge1Width * bgLarge1Ratio) + "px";
+
+    /* -} <bgLarge1> big background (The entity is body background. */
 
     
 
 
 
-    /* ** Re-adjust the margin left (center <header> to center)>.
-       If margin-left of <header> is greater than "281", then set to 281 constantly. So the wide screen won't have too big <bgLarge1> and the text in <header> match the <bgLarge1> background precisely.
-       This is the reason why I need to set [margin-left / margin-right] mamually instead of auto. */
+    /* -{ * Re-adjust the margin left (center <header> to center)>.
+     *
+     * * See previous <bgLarge1> comment. If margin-left of <header> is greater than <hdrLftRgtMargnCriti>
+     * , then set to <hdrLftRgtMargnCriti> constantly, so the wide screen won't have too big <bgLarge1> and the text
+     * in <header> match the <bgLarge1> background precisely.
+     * This is the reason why I need to set [margin-left / margin-right] mamually with JS instead of keep it auto (css). */
+
     var bodyWidth = document.body.clientWidth;
     var header = document.querySelector("header");
     var headerWidth = window.getComputedStyle(header).getPropertyValue("width").match(/\d+/);
-    header.style.marginLeft = Math.min( (bodyWidth - headerWidth) / 2, 281) + "px";
+
+    var bodyMargin = ( ( viewportWidth - bodyWidth ) / 2 );
+    /* * Use current (is also dynamic) viewport width and body width, to "reason" the "body margin".
+     * * "body margin" is always fix because it written in css, but since css might change at anytime I have to
+     * use this "dynamic" way to [calculate / get] it.
+     * * Current "body margin" is always "1em" (css). */
+
+    var hdrLftRgtMargnCriti = ( viewportWidthCriti - ( bodyMargin * 2 ) - headerWidth ) / 2;
+    /* <hdrLftRgtMargnCriti> present the exact left or right (they are the same) margin of header
+     * , when the viewport width is exactly <viewportWidthCriti>. */
+
+                    header.style.marginLeft = Math.min( ( ( bodyWidth - headerWidth ) / 2 ), hdrLftRgtMargnCriti ) + "px";
     //window.alert("bgLarge1 width = " + Math.round(370 + ( (viewportWidth - 860) * (230/370) ) ).toString() );
     //window.alert("header.style.marginLeft = " + ((bodyWidth - headerWidth) / 2).toString() );
 
-
+    /* -} * Re-adjust the margin left (center <header> to center)>. */
 
 
 
