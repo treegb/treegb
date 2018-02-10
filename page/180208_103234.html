@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="../img/treegb_icon.ico">
+<title>陳叙廷 履歷</title>
+</head>
+
+<style type="text/css">
+    :root{
+
+        /* -{ Length. */
+
+        --bgLftWdth: 17em;
+        /* Width of the left background. */
+        --vVLineWdth: calc( 3 * 0.0625em );
+        /* Width of the Vertical visual line. */
+        --paddSecNameTopBtm: 1.4em;
+        /* This not only affect padding of <secName>, but also affect <secMCtnt>. */
+        --mgnMyNameLft: 3rem;
+        /* This not only affect left margin of <MyName>, but also affect left padding of <.secTopc .rgt .topcCtnt > ul>. */
+        --mgnTopcTtlVsul: 0.9rem;
+        /* This not only affect right margin of <.secTopc .lft .topcTtlVsul>, but also affect left margin of <.secTopc .rgt .topcTtlVsul>. */
+
+        /* -} Length. */
+
+        /* -{ Color. */
+        --clr1Hue: 183;
+        --clrGry: #555;
+        /* Grey tone. */
+        /* -} Color. */
+    }
+    
+    @font-face {
+        font-family: "Noto Sans CJK TC Light";
+        src: url( "../font/notoSansCjkTcLight.otf" ) format( "opentype" );
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    main {
+        margin: 3em 0;
+        padding: 0;
+        color: var( --clrGry );
+    }
+    
+    .secMn {
+        position: relative;
+        margin: 0;
+        padding: 0;
+    }
+
+    .secHdr {
+        height: 5em;
+    }
+
+    .secFtr {
+        height: 12em;
+    }
+
+    .secAvatar {
+        height: 3.5em;
+        /* This is just temporary size, it should adjust with avatar size. */
+        z-index: 1;
+        /* Rise z-index above <secName> and <secMCtnt>. */
+    }
+
+    .secAvatar .avatar {
+        /* This is container of image. */
+        position: absolute;
+        top: 50%;
+        left: calc( var( --bgLftWdth ) + ( var( --vVLineWdth ) / 2 ) );
+    }
+
+    .secAvatar .avatar img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        /*transform: translate( -50%, -50%);*/
+        transform: translate( -50%, calc( -50% - 0em ) );
+        /* Notice, Y value is not "50%". */
+        width: 5em;
+        height: 5em;
+    }
+
+    .secName .myNameCtn {
+        margin-left: calc( var( --bgLftWdth ) + var( --vVLineWdth ) );
+        padding-top: var( --paddSecNameTopBtm );
+        padding-bottom: var( --paddSecNameTopBtm );
+    }
+
+    #g_myName_and_contact,
+    .myNameCtn .myName,
+    .myNameCtn .contact {
+        display: inline-block;
+        /* set no wrap on text later, so the inline-block will wrap, instead of inside text. */
+    }
+
+    .myNameCtn .myName {
+        /* <h1>. */
+        font-size: 2.3em;
+        font-weight: unset;
+        /* Because h1. */
+        letter-spacing: 0.6em;
+        margin: 0;
+        margin-left: var( --mgnMyNameLft );
+    }
+
+    .myNameCtn .contact {
+        font-size: 0.9em;
+    }
+
+    .myNameCtn .contact ul {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .secMCtnt {
+        padding-top: calc( var( --paddSecNameTopBtm ) * 1.3 );
+        padding-bottom: calc( var( --paddSecNameTopBtm ) * 1.3 );
+        /* The ratio behind <--paddSecNameTopBtm> is to make tiny visual adjust. */
+    }
+
+    #g_visual_items,
+    .vVLine,
+    .bgLft,
+    .bgRgt {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+    }
+
+    .vVLine {
+        /* Vertical visual line. */
+        left: var( --bgLftWdth );
+        width: var(--vVLineWdth );
+    }
+
+    .secHdr .vVLine {
+        background: linear-gradient(
+            0deg,
+            hsla( var( --clr1Hue ), 62%, 46%, 0.8 ) 0%,
+            hsla( var( --clr1Hue ), 62%, 46%, 0 ) 100% 
+        );
+    }
+
+    .secFtr .vVLine {
+        background: linear-gradient(
+            180deg,
+            hsla( var( --clr1Hue ), 62%, 46%, 1 ) 0%,
+            hsla( var( --clr1Hue ), 62%, 46%, 0 ) 100% 
+        );
+    }
+
+    .secName .vVLine {
+        background: linear-gradient(
+            0deg,
+            hsla( var( --clr1Hue ), 62%, 46%, 1 ) 0%,
+            hsla( var( --clr1Hue ), 62%, 46%, 0.8 ) 100% 
+        );
+    }
+
+    .secAvatar .vVLine,
+    .secMCtnt .vVLine {
+        background: hsl( var( --clr1Hue ), 62%, 46% );
+    }
+
+    .bgLft {
+      /* Left background. */
+        left: 0;
+        width: var(--bgLftWdth );
+        z-index: -1;
+        /* Take out to see the effect and you know why this line (and also read the HTML structure). */
+        background: linear-gradient(
+            -90deg,
+            hsla( var( --clr1Hue ), 45%, 46%, 1 ) 1%,
+            hsla( var( --clr1Hue ), 45%, 46%, 0.5 ) 15%,
+            hsla( var( --clr1Hue ), 45%, 46%, 0.2 ) 70% 
+        );
+        opacity: 0.08;
+    }
+
+    .bgRgt {
+      /* Right background. */
+        left: calc( var( --bgLftWdth ) + var( --vVLineWdth ) );
+            /*width: calc( var( --bgLftWdth ) * 1.8 );*/
+            /* A ratio is given after <--bgLftWdth> length, for pure visual reason. */
+        right: 0;
+        z-index: -1;
+        /* Take out to see the effect and you know why this line (and also read the HTML structure). */
+        background: linear-gradient(
+            90deg,
+            hsla( var( --clr1Hue ), 45%, 46%, 1 ) 1%,
+            hsla( var( --clr1Hue ), 45%, 46%, 0.5 ) 15%,
+            hsla( var( --clr1Hue ), 45%, 46%, 0.2 ) 70% 
+        );
+        opacity: 0.08;
+    }
+
+    .secTopc {
+        display: grid;
+        grid-template-columns: var( --bgLftWdth ) var( --vVLineWdth ) 1fr;
+        /* Second column is in fact empty. */
+        margin-top: 9em;
+    }
+
+    .secTopc:first-of-type {
+        margin-top: 0em;
+    }
+
+    .secTopc .lft {
+        align-self: start;
+        justify-self: end;
+    }
+
+    .secTopc .lft .topcTtlVsul {
+        grid-column: 1;
+        font-size: 6em;
+        line-height: 100%;
+        /* To make the text height exactly as as same as <topcTtlVsul> height (border). */
+        margin: 0;
+        padding: 0;
+        margin-right: calc( var( --mgnTopcTtlVsul ) * 1.3 );
+        /* The ratio after <--mgnTopcTtlVsul> is purly for visual adjust. */
+        color: hsl( var( --clr1Hue ), 35%, 90% );
+    }
+
+    .secTopc .rgt {
+        grid-column: 3;
+        margin: 0;
+        padding: 0;
+    }
+
+    .secTopc .rgt .topcTtlReal {
+        display: none;
+    }
+
+    .secTopc .rgt .topcTtlVsulCtn {
+        /* The purpose of this container is to vertical center <vsulDot>. */
+        position: relative;
+        /* In order to offer <vsulDot>,, <position: absolute>. */
+        margin: 0 0 1.4rem 0;
+        padding: 0;
+    }
+
+    .secTopc .rgt .vsulDot {
+        position: absolute;
+        top: 50%;
+        left: calc( 0px - ( var( --vVLineWdth ) / 2 ) );
+        width: 0.7em;
+        height: 0.7em;
+        border-radius: 50%;
+        /* Temporary value. This should be dynamic value, but I don't know if "50%" works or not. */
+        margin: 0;
+        padding: 0;
+        transform: translate( -50%, -50% );
+        background: rgba( 140, 140, 140, 0.7 );
+    }
+
+    .secTopc .rgt .topcTtlVsul {
+        display: block;
+        font-size: 2.1em;
+        margin: 0;
+        padding: 0;
+        margin-left: var( --mgnTopcTtlVsul );
+        line-height: 100%;
+    }
+
+    .secTopc .rgt .topcCtnt {
+        display: block;
+        margin: 0 0 0 0em;
+    }
+
+    .secTopc .rgt .topcCtnt > ul {
+        padding-left: calc( var( --mgnMyNameLft ) + 1em );
+        /* The value after <--mgnMyNameLft> is for pure visual adjust. */
+            line-height: 140%;
+    }
+
+    .secTopc .topcCtnt li,
+    .secTopc .topcCtnt p {
+        margin-top: 1em;
+        margin-bottom: 1em;
+    }
+
+    .secTopc .topcCtnt li {
+    }
+
+    .secTopc .topcCtnt p {
+    }
+
+
+    #g_web_font,
+    .myNameCtn .myName,
+    .secTopc .lft .topcTtlVsul,
+    .secTopc .rgt .topcTtlVsul {
+        font-family: "Noto Sans CJK TC Light";
+    }
+
+</style>
+
+<body>
+
+<main>
+    <section class="secMn secHdr">
+        <div class="vVLine"></div>
+    </section>
+
+    <section class="secMn secName">
+        <div class="vVLine"></div>
+        <div class="bgRgt"></div>
+        <div class="myNameCtn">
+            <h1 class="myName">陳叙廷</h1>
+            <div class="contact">
+                <ul>
+                    <li>bambooindark@gmail.com</li>
+                    <li>0905714604</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="secMn secAvatar">
+        <div class="vVLine"></div>
+        <div class="avatar"
+             ><img src="../img/180210_110902.svg"
+         ></div>
+    </section>
+
+    <section class="secMn secMCtnt">
+        <div class="vVLine"></div>
+        <div class="bgLft"></div>
+        <section class="secTopc">
+            <div class="lft">
+                <p class="topcTtlVsul">學</p>
+            </div>
+            <div class="rgt">
+                <h2 class="topcTtlReal">學歷</h2>
+                <div class="topcTtlVsulCtn">
+                    <div class="vsulDot"></div>
+                    <p class="topcTtlVsul">歷</p>
+                </div>
+                <div class="topcCtnt">
+                    <ul>
+                        <li>大同大學 工業設計系 2010 ~ 2013</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section class="secTopc">
+            <div class="lft">
+                <p class="topcTtlVsul">工</p>
+            </div>
+            <div class="rgt">
+                <h2 class="topcTtlReal">工作經歷</h2>
+                <div class="topcTtlVsulCtn">
+                    <div class="vsulDot"></div>
+                    <p class="topcTtlVsul">作經歷</p>
+                </div>
+                <div class="topcCtnt">
+                    <ul>
+                        <li>
+                            <p>2015 ~ 2016 高夫貝爾國際有限公司</p>
+                            <ul>
+                                <li>
+                                    <p>描述</p>
+                                    <ul>
+                                        <li>Product concept design for ...</li>
+                                        <li>Graphic design for ...</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <p>達成</p>
+                                    <ul>
+                                        <li>Designed Oscar belt buckle. The design went to real product finally. (Include product concept design and (assist) setting dimension specification).</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </section>
+
+
+    <section class="secMn secFtr">
+        <div class="vVLine"></div>
+    </section>
+</main>
+
+
+<script type="text/javascript">
+</script>
+
+</body>
+</html>
