@@ -122,6 +122,8 @@
         padding-top: calc( var( --paddSecNameTopBtm ) * 1.3 );
         padding-bottom: calc( var( --paddSecNameTopBtm ) * 1.3 );
         /* The ratio behind <--paddSecNameTopBtm> is to make tiny visual adjust. */
+        margin-right: 2em;
+        /* To prevent long text touching right border. */
     }
 
     #g_visual_items,
@@ -204,7 +206,7 @@
         display: grid;
         grid-template-columns: var( --bgLftWdth ) var( --vVLineWdth ) 1fr;
         /* Second column is in fact empty. */
-        margin-top: 9em;
+        margin-top: 6em;
     }
 
     .secTopc:first-of-type {
@@ -280,6 +282,10 @@
             line-height: 140%;
     }
 
+    .secTopc .rgt .topcCtnt ul {
+        list-style: square;
+    }
+
     .secTopc .topcCtnt li,
     .secTopc .topcCtnt p {
         margin-top: 1em;
@@ -292,12 +298,63 @@
     .secTopc .topcCtnt p {
     }
 
-
     #g_web_font,
-    .myNameCtn .myName,
-    .secTopc .lft .topcTtlVsul,
-    .secTopc .rgt .topcTtlVsul {
+    .secTopc .lft .topcTtlVsul {
         font-family: "Noto Sans CJK TC Light";
+        transform: translateY( -0.5rem );
+        /* Small visual [adjust / fix] with this font. */
+    }
+
+    .lihd {
+        font-weight: 900;
+    }
+
+    .lihd:after {
+        display: inline-block;
+        content: ":";
+        font-size: 1.2em;
+        margin-left: calc( 2 * 0.0625rem );
+        margin-right: calc( 6 * 0.0625rem );
+    }
+
+    .udr {
+        display: inline-block;
+        font-weight: normal;
+            border-bottom: calc( 1 * 0.0625em ) solid hsl( var( --clr1Hue ), 62%, 40% );
+    }
+
+    a,
+    a:link,
+    a:visited {
+        color: hsl( var( --clr1Hue ), 62%, 40% );
+    }
+
+    @media screen and (max-width: 900px) {
+        :root{
+            --bgLftWdth: 7em;
+        }
+
+        .secMCtnt {
+            /*margin-right: 1em;*/
+        }
+
+        .secTopc .lft .topcTtlVsul {
+            font-size: 5em;
+            margin-right: calc( var( --mgnTopcTtlVsul ) * 0.6 );
+        }
+
+        main {
+            margin-top: 2em;
+            margin-bottom: 1em;
+        }
+
+        .secHdr {
+            height: 3em;
+        }
+
+        .secFtr {
+            height: 5em;
+        }
     }
 
 </style>
@@ -334,6 +391,7 @@
     <section class="secMn secMCtnt">
         <div class="vVLine"></div>
         <div class="bgLft"></div>
+
         <section class="secTopc">
             <div class="lft">
                 <p class="topcTtlVsul">學</p>
@@ -346,7 +404,7 @@
                 </div>
                 <div class="topcCtnt">
                     <ul>
-                        <li>大同大學 工業設計系 2010 ~ 2013</li>
+                        <li>大同大學 工業設計系 2010 ~ 2013.</li>
                     </ul>
                 </div>
             </div>
@@ -364,19 +422,26 @@
                 <div class="topcCtnt">
                     <ul>
                         <li>
-                            <p>2015 ~ 2016 高夫貝爾國際有限公司</p>
+                            <p><strong class="lihd">2015 ~ 2016 高夫貝爾國際有限公司</strong></p>
                             <ul>
                                 <li>
-                                    <p>描述</p>
+                                    <p><strong class="lihd">描述</strong></p>
                                     <ul>
-                                        <li>Product concept design for ...</li>
-                                        <li>Graphic design for ...</li>
+                                        <li><strong class="lihd">產品設計</strong> 做 帶頭的概念 sketching, 平面尺寸三視圖，3d 概念模型。</li>
+                                        <li><strong class="lihd">平面設計</strong> 做 海報，產品型錄，少數 logo，少數公司專屬球標，其他種種 等平面設計。</li>
+                                        <li><strong class="lihd">色彩計畫</strong> 幫 客戶客制球標，太陽眼鏡(商品)，網站主題色 等做配色。</li>
+                                        <li><strong class="lihd">產品攝影</strong> 拍攝皮帶和其他週邊商品。後製照片 (去污點，去背景，強化陰影) 然後做其他用途。</li>
+                                        <li><strong class="lihd">協助檢查</strong> 協助檢查球標圖稿尺寸，色彩，協助追蹤交期。</li>
+                                        <li><a href="http://www.golfbelt.com.tw/index_en.php">(高夫貝爾 網站)</a></li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <p>達成</p>
+                                    <p><strong class="lihd">達成</strong></p>
                                     <ul>
-                                        <li>Designed Oscar belt buckle. The design went to real product finally. (Include product concept design and (assist) setting dimension specification).</li>
+                                        <li>設計 <b class="udr">Oscar</b> 皮帶帶頭 (概念設計以及協助尺寸規劃)。設計最終商品化。</li>
+                                        <li>設計 <b class="udr">Oscar</b> 以及其他週邊商品的海報和產品型錄。</li>
+                                        <li>設計 2 個公司專屬球標 logo，設計最終商品化。</li>
+                                        <li>設計作品集見底下 <b class="udr">作品集/專案</b>。</li>
                                     </ul>
                                 </li>
                             </ul>
@@ -385,8 +450,126 @@
                 </div>
             </div>
         </section>
+        <section class="secTopc">
+            <div class="lft">
+                <p class="topcTtlVsul">專</p>
+            </div>
+            <div class="rgt">
+                <h2 class="topcTtlReal">專業技能</h2>
+                <div class="topcTtlVsulCtn">
+                    <div class="vsulDot"></div>
+                    <p class="topcTtlVsul">業技能</p>
+                </div>
+                <div class="topcCtnt">
+                    <ul>
+                        <li>
+                            <p><strong class="lihd">平面設計</strong></p>
+                            <p>了解基礎的平面設計，包含點陣圖和向量圖，還有手繪 (sketching) 產品概念設計。</p>
+                        </li>
+                        <li>
+                            <p><strong class="lihd">3D 建模</strong></p>
+                            <p>了解基礎的 3D 建模，用於產品設計的概念階段。</p>
+                        </li>
+                        <li>
+                            <p><strong class="lihd">HTML/CSS</strong></p>
+                            <p>了解基礎的前端網頁開發，從 0 做起不須使用框架例如 bootstrap。</p>
+                        </li>
+                        <li>
+                            <p><strong class="lihd">Javascript</strong></p>
+                            <p>了解基礎的前端網頁開發。</p>
+                        </li>
+                        <li>
+                            <p><strong class="lihd">PHP/MySQL</strong></p>
+                            <ul>
+                                <li>製作 "Corenet" Web apps 個人專案，請見 <b class="udr">作品集/專案</b> 的部份。</li>
+                                <li>用 OOP 的方式做程式設計，以及跟 MySQL 溝通。</li>
+                                <li>了解並可做出基本的 Wordpress theme 和 plugin。</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <p><strong class="lihd">Python</strong></p>
+                            <p>只有簡單嘗試過用 python 做 web scraping。</p>
+                        </li>
+                        <li>
+                            <p><strong class="lihd">Linux</strong></p>
+                            <p>了解基礎的 Debian Linux。基本的了解如何用 SSH 去管理 AWS server。</p>
+                        </li>
+                        <li>
+                            <p><strong class="lihd">英文</strong></p>
+                            <p>英文聽說讀寫 基本/尚可。</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section class="secTopc">
+            <div class="lft">
+                <p class="topcTtlVsul">作</p>
+            </div>
+            <div class="rgt">
+                <h2 class="topcTtlReal">作品集/專案</h2>
+                <div class="topcTtlVsulCtn">
+                    <div class="vsulDot"></div>
+                    <p class="topcTtlVsul">品集/專案</p>
+                </div>
+                <div class="topcCtnt">
+                    <ul>
+                        <li>
+                            <p><strong class="lihd"><a href="./180208_103234.html">中文履歷 網頁</a></strong></p>
+                            <p>嘗試不同於常見網頁排版的視覺設計。</p>
+                        </li>
+                        <li>
+                            <p><strong class="lihd"><a href="./170619_005245.html">英文履歷 網頁</a></strong></p>
+                            <p>嘗試 RWD，螢幕寬度範圍從 400px ~ 1920px (改變螢幕大小後需 reload)。</p>
+                        </li>
+                        <li>
+                            <p><strong class="lihd"><a href="https://flic.kr/s/aHsmfr6WGP">產品設計和平面設計</a></strong></p>
+                            <p>任職於高夫貝爾時期的設計，包括帶頭，球標，DM，海報 (大部分設計圖稿本身屬於公司，無法公開)。</p>
+                        </li>
+                        <li>
+                            <p><strong class="lihd"><a href="https://treegb.github.io/treegb/page/170306_180946.html">30x30 個月的生命表</a></strong></p>
+                            <p>人生其實很短。</p>
+                        </li>
+                        <li>
+                            <p><strong class="lihd"><a href="https://treegb.github.io/treegb/page/170720_131313.html">靜態網頁的個人筆記</a></strong></p>
+                            <p>做不同的設計嘗試，設計出一個個人筆記靜態網頁。用 javascript 把一些功能/構想 做出來，包含 書籤紀錄頁面長度百分比，倒三角按鈕 顯示/跳越 段落，展開/收折 不重要的段落。</p>
+                        </li>
+                        <li>
+                            <p><strong class="lihd"><a href="https://youtu.be/AIwv4lZwKq8">Corenet Web apps, PHP + Javascript. </a></strong></p>
+                            <p>個人資訊管理系統 (CMS)。 不只儲存文字，還儲存檔案 (還有資料夾)。</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section class="secTopc">
+            <div class="lft">
+                <p class="topcTtlVsul">自</p>
+            </div>
+            <div class="rgt">
+                <h2 class="topcTtlReal">自傳</h2>
+                <div class="topcTtlVsulCtn">
+                    <div class="vsulDot"></div>
+                    <p class="topcTtlVsul">傳</p>
+                </div>
+                <div class="topcCtnt">
+                    <ul>
+                        <li>
+                            <p><strong class="lihd">學習過程</strong></p>
+                            <p>我嘗試在沒有指導以及有限的資源的狀態下自我學習網頁設計相關知識，有時候受到阻礙就會前進很困難，但隨著解決各個小問題，我一點一滴的推進。事實上我的學習也斷斷續續了很多次，不過終於能夠用累積出這些基礎知識到有能力去進行我的個人專案。</p>
+                            <p>當我看到整個網頁設計的分工，從 UX/UI, 前端，後端，DevOps，我把我的目標鎖定在<b class="udr">後端</b>，我還是覺得我的的個性比較適合後端。我希望我能學習到並且累積那些 <b class="udr">抽象/通用使用</b> 的知識，而不是不斷的在前線趨變換目標，那些幾年後就淘汰的技術上。</p>
+                            <p>在製作個人專案的過程中我發現，有些實務標準作法可能是不會出現在網路資源上的，只有當進入公司工作才有辦法獲得這些實務經驗。希望學習到相關產業實務，同時也能幫助到公司。</p>
+                        </li>
+                        <li>
+                            <p><strong class="lihd">個人特質</strong></p>
+                            <p>我比較重視 <b class="udr">坦白、信用、互相溝通</b> 的交流環境。其他事情對我來說比較次要。</p>
+                            <p>我希望將來有能力投入有效利他 (Effective Altruism) 的社群，幫助到最需要幫助的 人/計畫。也希望最後能找到能投入，有意義，有成就感的工作。</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
     </section>
-
 
     <section class="secMn secFtr">
         <div class="vVLine"></div>
