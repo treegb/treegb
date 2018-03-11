@@ -1,0 +1,28 @@
+* sjcl (),, official github document is very poor (at least for beginners):
+http://bitwiseshiftleft.github.io/sjcl/doc/index.html
+
+Useful page are
+Class:sha512:
+http://bitwiseshiftleft.github.io/sjcl/doc/sjcl.hash.sha512.html
+Namespace:base64:
+http://bitwiseshiftleft.github.io/sjcl/doc/sjcl.codec.base64.html
+
+* Example code,, you can see here:
+https://stackoverflow.com/questions/16752924/good-stanford-javascript-crypto-library-sjcl-examples-js-cryptography
+
+* Simple example,, by me.
+
+The basic setup is include <sjcl.js> and <sha512.js> (if you want to use sha512) script first:
+
+<script src="./sjcl-master/sjcl.js" type="text/javascript"></script>
+<script src="./sjcl-master/core/sha512.js" type="text/javascript"></script>
+
+Then you can use js code like this:
+
+var out = sjcl.hash.sha512.hash("foobar");
+var hash = sjcl.codec.base64.fromBits(out)
+console.log( hash );
+
+So you get:
+
+ClAmHr0aOQ/tK/Mm8mc8FFWCpjQtUjIElz0CGTN/gWFqgGmwElh89WNfaSXxtWw2AjDBmyc1AO4BPgMGAb8kJQ==

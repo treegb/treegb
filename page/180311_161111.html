@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<!--
+* About this [page] [script]: This is asKansweR program, a javascript implementation. Because I found using shell script and python
+is kind of cumbersome, they are not portable (or need extra effort to do this). Javascript can run on any browser, and mobile too.
+-->
+<head>
+<meta charset="utf-8">
+<title>asKansweR (180311_161111.html)</title>
+<style type="text/css">
+    h1 {
+        margin-top: 1em;
+        margin-bottom: 0.6em;
+        text-align: center;
+        font-size: 2em;
+        color: #ECECEC;
+    }
+
+    .main {
+        display: grid;
+        grid-template-columns: minmax( min-content, max-content );
+        justify-content: center;
+        margin: 1em 0.5em;
+    }
+
+    #ipt,
+    #opt {
+    }
+
+    #ipt {
+    }
+
+    #ipt #iptMsg,
+    #ipt #btn {
+        display: inline-block;
+    }
+
+    #ipt #iptMsg {
+        text-align: center;
+        min-width: 40rem;
+        font-size: 1.5em;
+        border: 1px solid #CCC;
+        border-radius: calc( 0.0625em * 2 );
+    }
+
+    #ipt #iptMsg:focus {
+        border: 1px solid teal;
+    }
+
+    #ipt #iptMsg::placeholder {
+        color: #BBB;
+    }
+
+    #ipt #btn > * {
+        display: inline-block;
+    }
+
+    #ipt #btn #slctMsgLen {
+        margin-left: 1.3em;
+        max-width: 7em;
+    }
+
+    #ipt #btn #btnExec {
+        min-width: 8em;
+    }
+
+    #opt {
+        margin-top: 2.8em;
+        justify-self: center;
+    }
+
+    #opt #msgDigest,
+    #opt #answeR {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        /* Because hash string is a very long string, if don't use this, it will "overflow" the screen area. */
+        margin-top: 2em;
+        padding-bottom: 0.4em;
+        border-bottom: 1px solid teal;
+    }
+
+    /* Should sync with javascript <vpBrkPont>. */
+    @media screen and ( max-width: 1000px ) {
+        .main {
+            grid-template-columns: 1fr;
+            justify-content: stretch;
+            justify-items: center;
+        }
+
+        #ipt {
+            width: 100%;
+        }
+
+        #ipt #iptMsg,
+        #ipt #btn {
+            display: block;
+        }
+
+        #ipt #iptMsg {
+            min-width: unset;
+            /* To clear the previous setting. */
+            width: calc( 100% - 0.3em );
+        }
+
+        #ipt #btn {
+            margin-top: 0.6em;
+        }
+
+        #ipt #btn #slctMsgLen {
+            margin-left: 1.3em;
+            max-width: 7em;
+        }
+
+        #ipt #btn {
+            text-align: center;
+        }
+    }
+</style>
+</head>
+<body>
+    <h1>asKansweR</h1>
+    <div class="main">
+        <div id="ipt">
+            <input id="iptMsg" type="text" placeholder="Please enter the Message" autocomplete="off">
+            <div id="btn">
+                <select id="slctMsgLen" >
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15" selected="selected">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                </select>
+                <button id="btnExec" type="button">Run</button>
+                <button id="btnClear" type="button">clear</button>
+            </div>
+        </div>
+        <br>
+        <div id="opt">
+            <p id="answeR"></p>
+            <p id="msgDigest"></p>
+        </div>
+    </div>
+</body>
+<!-- -{ <sjcl> library, must include. -->
+<script src="../js/sjcl/sjcl.js" type="text/javascript"></script>
+<script src="../js/sjcl/core/sha512.js" type="text/javascript"></script>
+<!-- -} <sjcl> library, must include. -->
+<script>
+
+    //console.log( foo );
+
+    window.onload = init;
+    function init () {
+        var btnExec = document.querySelector( "#btnExec" );
+        var btnClear = document.querySelector( "#btnClear" );
+        var iptMsg = document.querySelector( "#iptMsg" );
+        btnExec.onclick = asKansweR;
+        iptMsg.onkeypress = function ( e ) {
+            if ( e.keyCode === 13 ) {
+                btnExec.click();
+                return false;
+            }
+        }
+        btnClear.onclick = function () {
+            iptMsg.value = "";
+        };
+
+        /* -{ See comment in <fixLongWordProb> function to know what this do. */
+        fixLongWordProb();
+        window.onresize = fixLongWordProb;
+        /* -} See comment in <fixLongWordProb> function to know what this do. */
+    }
+    function asKansweR () {
+        var iptMsg = document.querySelector( "#iptMsg" ).value;
+        var msgLen = parseInt( document.querySelector( "#slctMsgLen" ).value );
+        var msgDigestDom = document.querySelector( "#msgDigest" );
+        var answeRDom = document.querySelector( "#answeR" );
+        var msgDigest;
+        var answer;
+
+        var sha512Hash = sjcl.hash.sha512.hash( iptMsg );
+        /* <sha512Hash> is already a hash (generate by sha512 cryptographic hash function). The format is not a human readable string
+         * , but an array ("bitArray"). */
+        var hashBase64 = sjcl.codec.base64.fromBits( sha512Hash )
+        /* <hashBase64> do nothing more than convert hash to base64 encoding format string.
+         * Not like sha512 cryptographic hash function, it doesn't "lose data". */
+
+        /* * Offer 2 [result] [information], <msgDigest> (raw Message digest)
+         * and <asnsweR> (remove special characters, and trim to given length limit).
+         * * About "special character" of base64, it include only + , / , =  those 3 characters. see
+         * https://www.garykessler.net/library/base64.html
+         * to see the alphabet table. */
+        msgDigest = hashBase64;
+        var re = new RegExp( /(\+|\/|=)/, "g" );
+        answer = hashBase64.replace( re, "" ).substring(0, msgLen );
+
+        /* -{ To escape html special characters.
+         *
+         * * Those steps will make sure some html special characters convert to html entity, so
+         * , for example, an input,, "<br>", will not be parse as "line break", but literal "<br>".
+         * See here:
+         * https://stackoverflow.com/questions/1787322/htmlspecialchars-equivalent-in-javascript#4835406
+         * , not like <htmlSpecialChars> in PHP, "There's no native javascript function to do that", so I use this method. */
+        var textNode = document.createTextNode( msgDigest );
+        msgDigestDom.innerHTML = "";
+        msgDigestDom.appendChild( textNode );
+
+        var textNode = document.createTextNode( answer );
+        answeRDom.innerHTML = "";
+        answeRDom.appendChild( textNode );
+        /* -} To escape html special characters. */
+    }
+    /* Because hash string is a very long string, if found it cause some trouble on the layout
+     * , this long string "penetrate" the right border of viewport. So I use javascript to dynamic change the <opt> width, to make sure
+     * it behaive normally. This is what this function do. */
+    function fixLongWordProb () {
+        var vpBrkPont = 1000;
+        // View port break point = 1000px. Should sync this with CSS,, media query.
+        var main = document.querySelector( ".main" );
+        var ipt = document.querySelector( "#ipt" );
+        var opt = document.querySelector( "#opt" );
+        var vpWdth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+        /* Viewport width. */
+        /*var vpHght = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);*/
+
+        if ( vpWdth > vpBrkPont ) {
+            opt.style.maxWidth = ipt.clientWidth + "px";
+        } else {
+            opt.style.maxWidth = main.clientWidth + "px";
+            /* If you don't know why I use <main.clientWidth> instead of <ipt.clientWidth> here, replace it with <ipt.clientWidth>
+             * then observe the result, and you will know why. */
+        }
+    }
+</script>
+</html>
