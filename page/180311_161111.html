@@ -156,7 +156,8 @@ is kind of cumbersome, they are not portable (or need extra effort to do this). 
     function init () {
         var btnExec = document.querySelector( "#btnExec" );
         var btnClear = document.querySelector( "#btnClear" );
-        var iptMsg = document.querySelector( "#iptMsg" );
+        var answeR = document.querySelector( "#answeR" );
+        var msgDigest = document.querySelector( "#msgDigest" );
         btnExec.onclick = asKansweR;
         iptMsg.onkeypress = function ( e ) {
             if ( e.keyCode === 13 ) {
@@ -166,6 +167,8 @@ is kind of cumbersome, they are not portable (or need extra effort to do this). 
         }
         btnClear.onclick = function () {
             iptMsg.value = "";
+            answeR.innerHTML = "";
+            msgDigest.innerHTML = "";
         };
 
         /* -{ See comment in <fixLongWordProb> function to know what this do. */
@@ -213,7 +216,7 @@ is kind of cumbersome, they are not portable (or need extra effort to do this). 
         answeRDom.appendChild( textNode );
         /* -} To escape html special characters. */
     }
-    /* Because hash string is a very long string, if found it cause some trouble on the layout
+    /* Because hash string is a very long string, if found it cause some trouble on the layout (it is treat as a single "word")
      * , this long string "penetrate" the right border of viewport. So I use javascript to dynamic change the <opt> width, to make sure
      * it behaive normally. This is what this function do. */
     function fixLongWordProb () {
