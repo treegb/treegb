@@ -1,0 +1,7 @@
+> Short: Since my static site structure always changing, I don't want the next change in the future, causing old link breaks,
+which might make my viewer can't find old article since they don't know the [real]-[new] link. <
+> What is "LTS": LTS stands for "long term support", which means, it don't try to apply any best practice
+("best practice" in now might be "bad practice" in the future), but try to apply STABLE practice,
+once applied, always stick with it, never changed.
+So using [date]-[time] as directory structure is good idea, since TIME has NO MEANING, when it has no meaning,
+it don't [outdate]-[out of fashion] in the future. <

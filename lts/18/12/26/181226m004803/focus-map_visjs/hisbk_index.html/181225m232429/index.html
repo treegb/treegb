@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="./visjs_dist/vis.js"></script>
+    <link href="./visjs_dist/vis.css" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        body {
+            margin: 0;
+                padding: 0;
+        }
+        #ctnNetwork, #ctnTimeline {
+            border: 1px grey dashed;
+            width: calc(100% - 1em);
+            margin: 0;
+            padding: 0;
+        }
+        #ctnNetwork {
+            height: calc(50vh - 1em);
+            margin-bottom: 0.5em;
+        }
+        #ctnTimeline {
+            height: 50vh;
+            margin-top: 0.5em;
+        }
+
+        /* *( --{Timeline}-- related. */
+        .vis-item {
+            color: #333;
+            background-color: #97C2FC;
+            border-color: #2B7CE9;
+        }
+        .vis-item.vis-selected {
+            color: black;
+            background-color: #D2E5FF;
+            border-color: #2B7CE9;
+        }
+        .focus {
+            background-color: #FC97C4;
+            border-color: #E92B80;
+        }
+        .focus.vis-selected {
+            background-color: #FFD2E6;
+            border-color: #E92B80;
+        }
+        /* *) --{Timeline}-- related. */
+    </style>
+</head>
+<body>
+<div id="ctnNetwork"></div>
+<div id="ctnTimeline"></div>
+<script type="text/javascript" src="./graphDataNodes.js"></script>
+<script type="text/javascript" src="./graphDataEdges.js"></script>
+<script type="text/javascript" src="./option.js"></script>
+<script type="text/javascript">
+
+        
+    // *( My custom arguments,, --{Network}--,, tweaking/playing for the best effect/result.
+    var propValueExaggerateFactor = 2;
+    /* > See funciton --{propScaleCvtrFormulaIsBaseAndExponent()}--,, description. <
+     * > Play around with the value to see the effects. < */
+    var propValueMinFactor = 1;
+    var propMassExaggerateFactor = 2.0;
+    var propMassMinFactor = 3;
+    var propWidthConstraintMaxExaggerateFactor = 1.3;
+    var propWidthConstraintMaxMinFactor = 290;
+    // *) My custom arguments,, --{Network}--,, tweaking/playing for the best effect/result.
+
+    // *( My custom arguments,, --{Timeline}--,, tweaking/playing for the best effect/result.
+    var optionsTimeline = {
+        start: "2018-10-01",
+        height: "50vh"
+    };
+    // *) My custom arguments,, --{Timeline}--,, tweaking/playing for the best effect/result.
+
+    function dataCvtForVisjsNetwork (graphDataNodes) {
+        var graphDataNodesVis = [];
+        graphDataNodes.forEach(function (elmSrc) {
+            // > Start loop/iterate through each depth 1 [elements][children] inside this array. <
+            var elmDest = {};
+            var elmSrcAndDest = {};
+            /* > The data structure of this object looks like this:
+             * elmSrcAndDest = {
+             *     "objSrc": { ... },
+             *     "objDest": { ... }
+             * };
+             * --{elmSrcAndDest}-- will be used by some function, that manipulate and return --{elmSrc}-- and --{elmDest}--
+             * at the same time. < */
+            elmSrcAndDest = flt_networkNodeElmInit(elmSrc);
+            elmSrc = elmSrcAndDest["objSrc"];
+            elmDest = elmSrcAndDest["objDest"];
+            elmDest = flt_graphNetAppendPropIdToLabel(elmSrc, elmDest);
+            elmDest = flt_cvtPropIsFocusToGroup(elmSrc, elmDest);
+            elmDest = flt_cvtPropScaleToValue(elmSrc, elmDest);
+            elmDest = flt_cvtPropScaleToMass(elmSrc, elmDest);
+            elmDest = flt_cvtPropScaleToWidthConstraintMax(elmSrc, elmDest);
+            // > Limit the node,, label max width, by the --{scale}-- property. <
+            graphDataNodesVis.push(elmDest);
+                            //console.log(JSON.stringify(elmDest));
+                            // > For Debug only. <
+        });
+        return graphDataNodesVis;
+    }
+    function dataCvtForVisjsTimeline (graphDataNodes) {
+        var graphDataItemsVis = [];
+        graphDataNodes.forEach(function (elmSrc) {
+            // > Start loop/iterate through each depth 1 [elements][children] inside this array. <
+            var elmDest = {};
+            elmDest = flt_timelineNodeElmInit(elmSrc);
+            elmDest = flt_graphTlAppendPropIdToLabel(elmSrc, elmDest);
+            elmDest = flt_cpPropEnd(elmSrc, elmDest);
+            elmDest = flt_cvtPropIsFocusToClassName(elmSrc, elmDest);
+            graphDataItemsVis.push(elmDest);
+        });
+        return graphDataItemsVis;
+    }
+    function flt_graphNetAppendPropIdToLabel (objSrc, objDest) {
+        /* > so a node with data --{ {"id": "181224m182754", "label": "This is node,, apple"} }--
+         * will automatically have label --{181224m182754\nThis is node,, apple}--. < */
+        objDest["label"] = objSrc["id"] + '\n' + objSrc["label"];
+        return objDest;
+    }
+    function flt_graphTlAppendPropIdToLabel (objSrc, objDest) {
+        /* > so a node with data --{ {"id": "181224m182754", "label": "This is node,, apple"} }--
+         * will automatically have label --{This is node,, apple (181224m182754)}--. < */
+        objDest["content"] = objSrc["label"] + " (" + objSrc["id"] + ")";
+        return objDest;
+    }
+    function flt_cpPropEnd (objSrc, objDest) {
+        // > Copy --{end}-- property. <
+        if (objSrc.hasOwnProperty("end")) {
+            objDest["end"] = objSrc["end"];
+        }
+        return objDest
+    }
+    function flt_cvtPropIsFocusToGroup (objSrc, objDest) {
+        if (objSrc.hasOwnProperty("isFocus") && objSrc["isFocus"] === true) {
+            objDest["group"] = "focus";
+        };
+        return objDest;
+    }
+    function flt_cvtPropIsFocusToClassName (objSrc, objDest) {
+        if (objSrc.hasOwnProperty("isFocus") && objSrc["isFocus"] === true) {
+            objDest["className"] = "focus";
+        }
+        return objDest;
+    }
+    function flt_cvtPropScaleToMass (objSrc, objDest) {
+        // > Required property: --{objSrc}--,, property --{scale}--. <
+        objDest["mass"] = propScaleCvtrFormulaIsBaseAndExponent(objSrc["scale"], propMassExaggerateFactor, propMassMinFactor);
+        return objDest;
+    }
+    function flt_cvtPropScaleToValue (objSrc, objDest) {
+        // > Required property: --{objSrc}--,, property --{scale}--. <
+        objDest["value"] = propScaleCvtrFormulaIsBaseAndExponent(objSrc["scale"], propValueExaggerateFactor, propValueMinFactor);
+        return objDest;
+    }
+    function flt_cvtPropScaleToWidthConstraintMax (objSrc, objDest) {
+        // > Required property: --{objSrc}--,, property --{scale}--. <
+        objDest["widthConstraint"] = {
+            "maximum": propScaleCvtrFormulaIsBaseAndExponent(
+                objSrc["scale"],
+                propWidthConstraintMaxExaggerateFactor,
+                propWidthConstraintMaxMinFactor
+            )
+        };
+        return objDest;
+    }
+    function flt_networkNodeElmInit (objSrc) {
+        /* > Notice: This function input --{objSrc}--, but output --{objSrc}-- and --{objDest}--
+         * (but wrap inside --{objSrcAndDest}-- in fact)
+         *, because this function not only copy data from --{objSrc}-- to --{objDest}--,
+         * but also modify --{objSrc}-- itself and pass it back! < */
+        var objSrcAndDest = {};
+        var objDest = {};
+        if (objSrc.hasOwnProperty("id")) {
+            objDest["id"] = objSrc["id"];
+        } else {
+            throw new Error("> Source data error. Not found property --{id}--. Error id 181224m195315. <");
+        }
+        if (objSrc.hasOwnProperty("label")) {
+            objDest["label"] = objSrc["label"];
+        } else {
+            throw new Error("> Source data error. Not found property --{label}--. Error id 181224m195439. <");
+        }
+
+        objSrc = flt_propScaleAddDefult(objSrc);
+        objSrcAndDest = {
+            "objSrc": objSrc,
+            "objDest": objDest
+        };
+        return objSrcAndDest;
+    }
+    function flt_propScaleAddDefult (objSrc) {
+        /* > If no found property --{scale}--, then apply --{value}-- to value 1. <
+         * > Notice, this function only change --{objSrc}--, not --{objDest}--! < */
+        if (! objSrc.hasOwnProperty("scale")) {
+            objSrc["scale"] = 1;
+        };
+        return objSrc;
+    }
+    function flt_timelineNodeElmInit (objSrc) {
+        var objDest = {};
+        if (objSrc.hasOwnProperty("id")) {
+            objDest["id"] = objSrc["id"];
+        } else {
+            throw new Error("> Source data error. Not found property --{id}--. Error id 181225m222715. <");
+        }
+        if (objSrc.hasOwnProperty("label")) {
+            objDest["content"] = objSrc["label"];
+        } else {
+            throw new Error("> Source data error. Not found property --{label}--. Error id 181225m222743. <");
+        }
+        if (objSrc.hasOwnProperty("start")) {
+            objDest["start"] = objSrc["start"];
+        } else {
+            throw new Error("> Source data error. Not found property --{start}--. Error id 181225m222947. <");
+        }
+        return objDest;
+    }
+    function propScaleCvtrFormulaIsBaseAndExponent (scale, exaggerateFactor, minFactor) {
+        /* > Example of math calculation (--{minFactor}-- = 1):
+         * If --{scale}-- = 1, --{exaggerateFactor}-- = 4.7, than result = 1
+         * If --{scale}-- = 2, --{exaggerateFactor}-- = 4.7, than result = (around) 4.7
+         * If --{scale}-- = 3, --{exaggerateFactor}-- = 4.7, than result = (around) 22.09
+         * If --{scale}-- = 4, --{exaggerateFactor}-- = 4.7, than result = (around) 103.8
+         * If --{scale}-- = 5, --{exaggerateFactor}-- = 4.7, than result = (around) 487
+         *
+         * As you can see, the exaggerated degree is "shooting up" pretty fast, after the scale only grow few/several degree. <
+         * > --{exaggerateFactor}--: You mostly only need to set it between 1 and 5, maybe no use cases need more than this. <
+         * > Also see function --{propScaleCvtrFormulaIsExponentOfExponent()}--: That function do similar things,
+         * but is more (extremely) exaggerated. < */
+        var exponent = scale - 1;
+        var base = exaggerateFactor;
+        return Math.pow(base, exponent) * minFactor;
+    }
+    function propScaleCvtrFormulaIsExponentOfExponent (scale, exaggerateFactor, minFactor) {
+        /* > Example of math calculation (--{minFactor}-- = 1):
+         * If --{scale}-- is 1, --{exaggerateFactor}-- is 1.5, than those math are basically doing:
+         * 2^((1-1)^1.5) = 2^(0^1.5) = 1
+         * If --{scale}-- is 2, --{exaggerateFactor}-- is 1.5, than those math are basically doing:
+         * 2^((2-1)^1.5) = 2^(1^1.5) = 2
+         * If --{scale}-- is 3, --{exaggerateFactor}-- is 1.5, than those math are basically doing:
+         * 2^((3-1)^1.5) = 2^(2^1.5) = (near) 7.102993...
+         * If --{scale}-- is 4, --{exaggerateFactor}-- is 1.5, than those math are basically doing:
+         * 2^((4-1)^1.5) = 2^(3^1.5) = (near) 36.66044...
+         * If --{scale}-- is 5, --{exaggerateFactor}-- is 1.5, than those math are basically doing:
+         * 2^((5-1)^1.5) = 2^(4^1.5) = 256 .
+         *
+         * As you can see, the exaggerated degree is very unbelievably "shooting up" pretty fast, after the scale only grow few/several degree. <
+         * > --{exaggerateFactor}--: You mostly only need to set it between 1 and 2, maybe no use cases need more than this. <
+         * > Also see function --{propScaleCvtrFormulaIsBaseAndExponent()}--: That function do similar things, but is less exaggerated. < */
+        var exponentOfExponent = exaggerateFactor;
+        var exponent = Math.pow(scale - 1, exponentOfExponent);
+        var base = 2
+        return Math.pow(base, exponent) * minFactor;
+    }
+
+    // *( Initialize the --{Network}--.
+    var nodes = new vis.DataSet(dataCvtForVisjsNetwork(graphDataNodes));
+    // > Feed my customed data to --{dataCvtForVisjsNetwork()}-- first, then feed to --{vis.DataSet()}-- later. <
+    var edges = new vis.DataSet(graphDataEdges);
+    var ctnNetwork = document.getElementById("ctnNetwork");
+
+    var data = {
+        // > Provide the data in the vis format. <
+        nodes: nodes,
+        edges: edges
+    };
+
+    var network = new vis.Network(ctnNetwork, data, optionsNetwork);
+    // > Initialize the network. <
+    // *) Initialize the --{Network}--.
+
+
+    // *( Initialize the --{Timeline}--.
+    var ctnTimeline = document.getElementById("ctnTimeline");
+
+    var items = new vis.DataSet(dataCvtForVisjsTimeline(graphDataNodes));
+    var timeline = new vis.Timeline(ctnTimeline, items, optionsTimeline);
+    // > Initialize the Timeline. <
+    // *) Initialize the --{Timeline}--.
+</script>
+</body>
+</html>
