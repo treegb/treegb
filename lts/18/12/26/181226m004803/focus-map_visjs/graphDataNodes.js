@@ -37,74 +37,61 @@
 var graphDataNodes = [
     {
         "id": "181224m163017",
-        "label": "Node 1, 67890 12345 67890 12345 67890",
-        "start": "2018-09-01"
+        "label": "Learning Concept Map",
+        "start": "2018-12-17",
+        "scale": 2.5,
+        "isFocus": true
     },
     {
         "id": "181224m163018",
-        "label": "Node 2, 67890 12345 67890 12345 67890",
-        "scale": 2,
-        "start": "2018-09-01"
+        "label": "Learning concept map from --{Cmap Tools}-- documentation and introduction",
+        "start": "2018-12-17"
     },
     {
         "id": "181224m163019",
-        "label": "Node 3, 67890 12345 67890 12345 67890",
-        "isFocus": true,
-        "scale": 3,
-        "start": "2018-09-02",
-        "end": "2018-09-15",
+        "label": "Learning draw.io",
+        "start": "2018-12-17"
     },
     {
         "id": "181224m163020",
-        "label": "Node 4, 67890 12345 67890 12345 67890",
-        "isFocus": true,
-        "scale": 4,
-        "//": "mass: 400",
-        "start": "2018-09-03",
-        "end": "2018-10-01",
+        "label": "Use concept map to share concepts with mom",
+        "start": "2018-12-17",
+        "isFocus": true
     },
     {
         "id": "181224m163021",
-        "label": "Node 5, 67890 12345 67890 12345 67890",
-        "scale": 5,
-        "start": "2018-09-04",
-        "end": "2018-11-01"
+        "label": "\"Focus Map\" was invented",
+        "scale": 2,
+        "start": "2018-12-17",
+        "isFocus": true
     },
     {
         "id": "181224m163022",
-        "label": "Node 6, 67890 12345 67890 12345 67890",
-        "scale": 6,
-        "start": "2018-09-05",
-        "end": "2019-01-01"
+        "label": "Data visualization",
+        "scale": 3,
+        "start": "2018-12-10"
     },
     {
         "id": "181225m002637",
-        "label": "Node 7, 67890 12345 67890 12345 67890",
-        "start": "2018-09-01"
+        "label": "Vis.js",
+        "scale": 2.5,
+        "start": "2018-12-22"
     },
     {
         "id": "181225m002638",
-        "label": "Node 8, 67890 12345 67890 12345 67890",
-        "start": "2018-09-01"
+        "label": "Hisbk and r88hisbk",
+        "start": "2018-12-10"
     },
     {
         "id": "181225m002639",
-        "label": "Node 9, 67890",
-        "start": "2018-09-01"
+        "label": "Sphinx (doc tool)",
+        "start": "2018-12-10",
+        "isFocus": true
     },
     {
         "id": "181225m002910",
-        "label": "Node 10, 67890",
-        "start": "2018-09-01"
+        "label": "Git and version control system",
+        "start": "2018-12-10",
+        "isFocus": true
     },
-    {
-        "id": "181225m002911",
-        "label": "Node 11, 67890",
-        "start": "2018-09-01"
-    },
-    {
-        "id": "181225m002912",
-        "label": "Node 12, 67890",
-        "start": "2018-09-01"
-    }
 ];
